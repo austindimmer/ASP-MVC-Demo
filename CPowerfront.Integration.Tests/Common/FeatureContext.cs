@@ -13,6 +13,9 @@ namespace Powerfront.Acceptance.Tests.Common
 
         public static RemoteWebDriver WebDriver { get; private set; }
 
+        public static string TestUserName { get; private set; }
+        public static string TestUserPassword { get; private set; }
+
 
         public static string ApiBaseUrl
         {
@@ -33,6 +36,9 @@ namespace Powerfront.Acceptance.Tests.Common
             FirefoxProfileManager profileManager = new FirefoxProfileManager();
             FirefoxProfile profile = profileManager.GetProfile("profileToolsQA");
             WebDriver = new FirefoxDriver(profile);
+            TestUserName = "powerfront@effective-computing.com";
+            TestUserPassword = "ReallyToughPass29!~8763";
+
         }
 
         [AssemblyCleanup]
