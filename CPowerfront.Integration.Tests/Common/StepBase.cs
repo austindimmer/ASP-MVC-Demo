@@ -4,7 +4,7 @@ using System.Configuration;
 using System.Data.SqlClient;
 using System.Threading;
 
-namespace Sixeyed.SpecFlowItAll.AcceptanceTests
+namespace Powerfront.Acceptance.Tests.Common
 {
     public class StepBase
     {

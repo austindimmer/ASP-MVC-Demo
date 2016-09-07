@@ -4,7 +4,7 @@
 	I want to be able to see a list of customers and their ages
 
 @resetDatabase
-Scenario: UserWantsToSeeListOfCustomersAges
+Scenario: UserWantsToSeeListOfCustomersWithAges
 	Given I have navigated to the maintenance page
 	And I have selected to see a list of customers and ages
 	When I click list customers

@@ -69,12 +69,12 @@ namespace Powerfront.Acceptance.Tests.Features
         }
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("UserWantsToSeeListOfCustomersAges")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("UserWantsToSeeListOfCustomersWithAges")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "TestSpecFlowFeature")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("resetDatabase")]
-        public virtual void UserWantsToSeeListOfCustomersAges()
+        public virtual void UserWantsToSeeListOfCustomersWithAges()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("UserWantsToSeeListOfCustomersAges", new string[] {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("UserWantsToSeeListOfCustomersWithAges", new string[] {
                         "resetDatabase"});
 #line 7
 this.ScenarioSetup(scenarioInfo);

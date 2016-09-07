@@ -5,7 +5,7 @@ using System.Configuration;
 using System.Threading;
 using TechTalk.SpecFlow;
 
-namespace Powerfront.Integration.Tests.Common
+namespace Powerfront.Acceptance.Tests.Common
 {
     [TestClass]
     public sealed class FeatureContext
@@ -30,7 +30,9 @@ namespace Powerfront.Integration.Tests.Common
         [AssemblyInitialize]
         public static void Start(TestContext context)
         {
-            WebDriver = new FirefoxDriver();
+            FirefoxProfileManager profileManager = new FirefoxProfileManager();
+            FirefoxProfile profile = profileManager.GetProfile("profileToolsQA");
+            WebDriver = new FirefoxDriver(profile);
         }
 
         [AssemblyCleanup]
