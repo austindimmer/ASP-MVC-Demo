@@ -1,27 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Design version="1" datasource="Powerfront" kind="MS SQL Server" root="Powerfront">
-	<Table left="830" top="130" right="1036" bottom="277" id="1" expanded="1">
-		<ColumnWidths col0="22.000000" col1="45.000000" col2="74.000000" col3="45.000000" col4="20.000000"/>
+	<Table left="710" top="340" right="1049" bottom="505" id="1" expanded="1" resized="1">
+		<ColumnWidths col0="22.000000" col1="83.000000" col2="74.000000" col3="45.000000" col4="20.000000"/>
 		<CollapsedCompartments CheckConstraints="3"/>
 		<ObjectPath>
 			<PathElement Name="dbo" Kind="Schema"/>
 			<PathElement Name="ObjectTypeTable" Kind="Table"/>
 		</ObjectPath>
 	</Table>
-	<Line left="593" top="254" right="824" bottom="543" fromObj="2" toObj="1" XPos="708" labelX="-28">
-		<ObjectPathFrom>
-			<PathElement Name="dbo" Kind="Schema"/>
-			<PathElement Name="ObjectPropertyTable" Kind="Table"/>
-			<PathElement Name="FK_TypeId" Kind="ForeignKey"/>
-		</ObjectPathFrom>
-		<ObjectPathFrom_VirtualParent/>
-		<ObjectPathTo>
-			<PathElement Name="dbo" Kind="Schema"/>
-			<PathElement Name="ObjectTypeTable" Kind="Table"/>
-			<PathElement Name="PK_Id" Kind="PrimaryKey"/>
-		</ObjectPathTo>
-	</Line>
-	<Table left="290" top="370" right="587" bottom="582" id="2" expanded="1">
+	<Table left="720" right="1017" bottom="181" id="2" expanded="1">
 		<ColumnWidths col0="22.000000" col1="123.000000" col2="74.000000" col3="58.000000" col4="20.000000"/>
 		<CollapsedCompartments CheckConstraints="3"/>
 		<ObjectPath>
@@ -29,25 +16,38 @@
 			<PathElement Name="ObjectPropertyTable" Kind="Table"/>
 		</ObjectPath>
 	</Table>
-	<Table right="327" bottom="163" id="3" expanded="1">
-		<ColumnWidths col0="22.000000" col1="84.000000" col2="74.000000" col3="127.000000" col4="20.000000"/>
+	<Table left="130" top="40" right="484" bottom="269" id="3" expanded="1">
+		<ColumnWidths col0="22.000000" col1="94.000000" col2="91.000000" col3="127.000000" col4="20.000000"/>
 		<CollapsedCompartments Indexes="1" CheckConstraints="3"/>
 		<ObjectPath>
 			<PathElement Name="dbo" Kind="Schema"/>
 			<PathElement Name="ObjectDataTable" Kind="Table"/>
 		</ObjectPath>
 	</Table>
-	<Line left="284" top="124" right="333" bottom="526" fromObj="3" toObj="2" XPos="309" labelX="-41">
+	<Line left="490" top="230" right="704" bottom="465" fromObj="3" toObj="1" XPos="630" labelX="-23">
 		<ObjectPathFrom>
 			<PathElement Name="dbo" Kind="Schema"/>
 			<PathElement Name="ObjectDataTable" Kind="Table"/>
-			<PathElement Name="FK_PropertiesId" Kind="ForeignKey"/>
+			<PathElement Name="FK_Type" Kind="ForeignKey"/>
+		</ObjectPathFrom>
+		<ObjectPathFrom_VirtualParent/>
+		<ObjectPathTo>
+			<PathElement Name="dbo" Kind="Schema"/>
+			<PathElement Name="ObjectTypeTable" Kind="Table"/>
+			<PathElement Name="PK_Type" Kind="PrimaryKey"/>
+		</ObjectPathTo>
+	</Line>
+	<Line left="490" top="141" right="714" bottom="197" fromObj="3" toObj="2" XPos="620" labelX="-46">
+		<ObjectPathFrom>
+			<PathElement Name="dbo" Kind="Schema"/>
+			<PathElement Name="ObjectDataTable" Kind="Table"/>
+			<PathElement Name="FK_PropertyName" Kind="ForeignKey"/>
 		</ObjectPathFrom>
 		<ObjectPathFrom_VirtualParent/>
 		<ObjectPathTo>
 			<PathElement Name="dbo" Kind="Schema"/>
 			<PathElement Name="ObjectPropertyTable" Kind="Table"/>
-			<PathElement Name="PK_" Kind="PrimaryKey"/>
+			<PathElement Name="PK_PropertyName" Kind="PrimaryKey"/>
 		</ObjectPathTo>
 	</Line>
 </Design>
