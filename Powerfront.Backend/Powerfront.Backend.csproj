@@ -116,17 +116,59 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class1.cs" />
-    <Compile Include="EntityFramework\ObjectDataTable.cs" />
-    <Compile Include="EntityFramework\ObjectPropertyTable.cs" />
-    <Compile Include="EntityFramework\ObjectTypeTable.cs" />
-    <Compile Include="EntityFramework\Powerfront.cs" />
+    <Compile Include="EntityFramework\Customer.cs">
+      <DependentUpon>PowerfrontEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\PowerfrontEntities.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PowerfrontEntities.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\PowerfrontEntities.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PowerfrontEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\PowerfrontEntities.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PowerfrontEntities.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\Property.cs">
+      <DependentUpon>PowerfrontEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\Type.cs">
+      <DependentUpon>PowerfrontEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Model\Customer.cs" />
     <Compile Include="Model\ICustomer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <EntityDeploy Include="EntityFramework\PowerfrontEntities.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>PowerfrontEntities.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="EntityFramework\PowerfrontEntities.edmx.diagram">
+      <DependentUpon>PowerfrontEntities.edmx</DependentUpon>
+    </None>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="EntityFramework\PowerfrontEntities.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>PowerfrontEntities.edmx</DependentUpon>
+      <LastGenOutput>PowerfrontEntities.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="EntityFramework\PowerfrontEntities.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>PowerfrontEntities.edmx</DependentUpon>
+      <LastGenOutput>PowerfrontEntities.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
