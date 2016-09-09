@@ -1,4 +1,4 @@
-﻿/****** Object:  Table [dbo].[Property]    Script Date: 09/09/2016 14:04:37 ******/
+﻿
 
 CREATE TABLE [dbo].[Property](
 	[PropertyId] [varchar](255) NOT NULL,
@@ -10,3 +10,5 @@ CREATE TABLE [dbo].[Property](
 ) ON [PRIMARY]
 
 GO
+
+
