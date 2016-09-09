@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Powerfront.Backend.EntityFramework;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -12,6 +13,10 @@ namespace Powerfront.Frontend
     {
         protected void Application_Start()
         {
+            PowerfrontEntities pfe = new PowerfrontEntities();
+
+            var customers = pfe.Customers.GroupBy(x => x.CustomerId).ToList();
+
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);

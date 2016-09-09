@@ -129,9 +129,11 @@
     <Folder Include="Stubs\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="PowerfrontCreateDb.sql" />
     <Content Include="PowerfrontCreateDbAndInsertData.sql">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="PowerfrontCreateDbTables.sql" />
     <Content Include="PowerfrontInsertData.sql" />
   </ItemGroup>
   <ItemGroup>

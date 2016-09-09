@@ -26,7 +26,7 @@ namespace Powerfront.Acceptance.Tests.Steps
             //var button = driver.FindElementByClassName("cred_sign_in_button");
             //var button = driver.FindElementById("cred_sign_in_button");
             var button = driver.FindElement(By.Id("cred_sign_in_button"));
-                //driver.FindElement(By.Xpath('//p[contains(text(),"Sign in with a username and password instead")]')).Click();
+            //driver.FindElement(By.Xpath('//p[contains(text(),"Sign in with a username and password instead")]')).Click();
             Assert.IsNotNull(button);
             //driver.ExecuteScript("$(arguments[0]).click()", button);
             //button.Click();
@@ -61,7 +61,7 @@ namespace Powerfront.Acceptance.Tests.Steps
         //[AfterScenario("resetDatabase")]
         public void ResetDatabase()
         {
-            var p = Process.Start("sqlcmd", @"-S AustinM14X\MSSQLSERVER -d Powerfront.SpecFlow.Database -i PowerfrontCreateDbAndInsertData.sql");
+            var p = Process.Start("sqlcmd", @"-S AustinM14X\MSSQLSERVER -d Powerfront -i PowerfrontCreateDbAndInsertData.sql");
             p.WaitForExit();
         }
     }

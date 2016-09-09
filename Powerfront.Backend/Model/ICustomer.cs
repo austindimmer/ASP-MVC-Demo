@@ -8,8 +8,9 @@ namespace Powerfront.Backend.Model
 {
     public interface ICustomer
     {
-        string Name {get; set; }
-        string Age { get; set; }
+        string CustomerId { get; set; }
+
+        ICollection<Property> Properties { get; set; }
 
     }
 }

@@ -4,12 +4,12 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="29c08c64bb1841a0b261a575bd4ada65" Name="Diagram1">
-        <EntityTypeShape EntityType="Powerfront.Specflow.DatabaseModel.Customer" Width="1.5" PointX="3" PointY="0.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="Powerfront.Specflow.DatabaseModel.Property" Width="1.5" PointX="0.75" PointY="1.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="Powerfront.Specflow.DatabaseModel.Type" Width="1.5" PointX="0.75" PointY="4.25" IsExpanded="true" />
-        <AssociationConnector Association="Powerfront.Specflow.DatabaseModel.FK_Name" ManuallyRouted="false" />
-        <AssociationConnector Association="Powerfront.Specflow.DatabaseModel.FK_Type" ManuallyRouted="false" />
+      <Diagram DiagramId="198e4649ce574da0bedcfaf4caf6c74a" Name="Diagram1">
+        <EntityTypeShape EntityType="PowerfrontModel.Property" Width="1.5" PointX="0.75" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="PowerfrontModel.Type" Width="1.5" PointX="0.75" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="PowerfrontModel.Customer" Width="1.5" PointX="3" PointY="0.875" IsExpanded="true" />
+        <AssociationConnector Association="PowerfrontModel.FK_PropertyId" ManuallyRouted="false" />
+        <AssociationConnector Association="PowerfrontModel.FK_TypeId" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

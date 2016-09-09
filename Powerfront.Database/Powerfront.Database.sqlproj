@@ -61,11 +61,11 @@
     <Folder Include="Scripts" />
   </ItemGroup>
   <ItemGroup>
-    <Build Include="Tables\ObjectDataTable.sql" />
-    <Build Include="Tables\ObjectPropertyTable.sql" />
-    <Build Include="Tables\ObjectTypeTable.sql" />
+    <None Include="local.publish.xml" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="local.publish.xml" />
+    <Build Include="Tables\Customers.sql" />
+    <Build Include="Tables\Property.sql" />
+    <Build Include="Tables\Type.sql" />
   </ItemGroup>
 </Project>

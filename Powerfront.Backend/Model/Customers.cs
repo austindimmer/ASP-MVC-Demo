@@ -6,10 +6,8 @@ using System.Threading.Tasks;
 
 namespace Powerfront.Backend.Model
 {
-    public class Customer : ICustomer
+    public class Customers : ICustomers
     {
-        public string CustomerId { get; set; }
-
-        public ICollection<Property> Properties { get; set; }
+        ICollection<Customer> ICustomers.Customers { get; set; }
     }
 }

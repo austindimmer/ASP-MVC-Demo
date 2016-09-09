@@ -20,7 +20,8 @@ namespace Powerfront.Backend.EntityFramework
             this.Customers = new HashSet<Customer>();
         }
     
-        public string Type1 { get; set; }
+        public string TypeId { get; set; }
+        public string Name { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Customer> Customers { get; set; }

@@ -141,7 +141,11 @@
       <DependentUpon>PowerfrontEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\Customer.cs" />
+    <Compile Include="Model\Customers.cs" />
     <Compile Include="Model\ICustomer.cs" />
+    <Compile Include="Model\ICustomers.cs" />
+    <Compile Include="Model\IProperty.cs" />
+    <Compile Include="Model\Property.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -156,6 +160,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="EntityFramework\PowerfrontEntities.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>PowerfrontEntities.edmx</DependentUpon>
@@ -166,9 +173,6 @@
       <DependentUpon>PowerfrontEntities.edmx</DependentUpon>
       <LastGenOutput>PowerfrontEntities.cs</LastGenOutput>
     </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

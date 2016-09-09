@@ -2,7 +2,7 @@
 <!--  DatabaseSpy Project File  -->
 <Project Version="4" Expanded="Yes" Type="Root" Title="Powerfront">
 	<Folder FolderName="Data Sources" Expanded="Yes" Type="DataSourceFolder">
-		<datasource database_kind="MS SQL Server" import_kind="ADO" version="11.00.5343" ConnectionString="Provider=SQLOLEDB.1;Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=Powerfront;Data Source=AUSTINM14X" name="Powerfront" active="Yes" Type="DataSourceItem">
+		<datasource database_kind="MS SQL Server" import_kind="ADO" version="11.00.5343" ConnectionString="Provider=SQLOLEDB.1;Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=Powerfront;Data Source=AUSTINM14X" name="Powerfront" Type="DataSourceItem">
 			<properties>
 				<property name="Database Kind" value="MS SQL Server"/>
 				<property name="Import Kind" value="ADO"/>
@@ -18,6 +18,39 @@
 				<property name="Extended Properties"/>
 				<property name="General Timeout"/>
 				<property name="Initial Catalog" value="Powerfront"/>
+				<property name="Initial File Name"/>
+				<property name="Integrated Security" value="SSPI"/>
+				<property name="Locale Identifier"/>
+				<property name="Network Address"/>
+				<property name="Network Library"/>
+				<property name="Packet Size"/>
+				<property name="Replication server name"/>
+				<property name="Tag with column collation"/>
+				<property name="Use Encryption for Data"/>
+				<property name="User Procedure for Prepare"/>
+				<property name="Workstation ID"/>
+				<property name="DataTypeCompatibility"/>
+				<property name="Mars_Connection"/>
+			</properties>
+			<LocalViewStorage/>
+			<LocalRelationsStorage/>
+		</datasource>
+		<datasource database_kind="MS SQL Server" import_kind="ADO" version="11.00.5343" ConnectionString="Provider=SQLOLEDB.1;Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=PowerfrontGenerated;Data Source=localhost" name="PowerfrontGenerated" active="Yes" Type="DataSourceItem">
+			<properties>
+				<property name="Database Kind" value="MS SQL Server"/>
+				<property name="Import Kind" value="ADO"/>
+				<property name="Root Object" value="PowerfrontGenerated"/>
+				<property name="Data Source" value="localhost"/>
+				<property name="Provider" value="SQLOLEDB.1"/>
+				<property name="User ID"/>
+				<property name="Password"/>
+				<property name="Persist Security Info"/>
+				<property name="Auto Translate"/>
+				<property name="Connect Timeout"/>
+				<property name="Current Language"/>
+				<property name="Extended Properties"/>
+				<property name="General Timeout"/>
+				<property name="Initial Catalog" value="PowerfrontGenerated"/>
 				<property name="Initial File Name"/>
 				<property name="Integrated Security" value="SSPI"/>
 				<property name="Locale Identifier"/>

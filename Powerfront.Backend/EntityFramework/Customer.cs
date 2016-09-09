@@ -14,11 +14,12 @@ namespace Powerfront.Backend.EntityFramework
     
     public partial class Customer
     {
-        public string Name { get; set; }
+        public string TypeId { get; set; }
+        public string PropertyId { get; set; }
         public string Value { get; set; }
-        public string Type { get; set; }
+        public string CustomerId { get; set; }
     
         public virtual Property Property { get; set; }
-        public virtual Type Type1 { get; set; }
+        public virtual Type Type { get; set; }
     }
 }
