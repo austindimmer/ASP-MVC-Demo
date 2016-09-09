@@ -18,6 +18,7 @@ namespace Powerfront.Backend.EntityFramework
         public string PropertyId { get; set; }
         public string Value { get; set; }
         public string CustomerId { get; set; }
+        public System.Guid RecordId { get; set; }
     
         public virtual Property Property { get; set; }
         public virtual Type Type { get; set; }

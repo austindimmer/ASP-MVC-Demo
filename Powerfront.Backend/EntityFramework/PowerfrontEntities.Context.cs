@@ -25,8 +25,8 @@ namespace Powerfront.Backend.EntityFramework
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<Customer> Customers { get; set; }
         public virtual DbSet<Property> Properties { get; set; }
         public virtual DbSet<Type> Types { get; set; }
-        public virtual DbSet<Customer> Customers { get; set; }
     }
 }

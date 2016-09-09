@@ -5,19 +5,15 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
       <Schema Namespace="PowerfrontModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'Powerfront.dbo.Customers' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Customers">
           <Key>
-            <PropertyRef Name="TypeId" />
-            <PropertyRef Name="PropertyId" />
-            <PropertyRef Name="Value" />
-            <PropertyRef Name="CustomerId" />
+            <PropertyRef Name="RecordId" />
           </Key>
           <Property Name="TypeId" Type="varchar" MaxLength="255" Nullable="false" />
           <Property Name="PropertyId" Type="varchar" MaxLength="255" Nullable="false" />
           <Property Name="Value" Type="varchar" MaxLength="255" Nullable="false" />
           <Property Name="CustomerId" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="RecordId" Type="uniqueidentifier" Nullable="false" />
         </EntityType>
         <EntityType Name="Property">
           <Key>
@@ -58,16 +54,9 @@ warning 6002: The table/view 'Powerfront.dbo.Customers' does not have a primary 
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="PowerfrontModelStoreContainer">
+          <EntitySet Name="Customers" EntityType="Self.Customers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Property" EntityType="Self.Property" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Type" EntityType="Self.Type" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Customers" EntityType="Self.Customers" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [Customers].[TypeId] AS [TypeId], 
-    [Customers].[PropertyId] AS [PropertyId], 
-    [Customers].[Value] AS [Value], 
-    [Customers].[CustomerId] AS [CustomerId]
-    FROM [dbo].[Customers] AS [Customers]</DefiningQuery>
-          </EntitySet>
           <AssociationSet Name="FK_PropertyId" Association="Self.FK_PropertyId">
             <End Role="Property" EntitySet="Property" />
             <End Role="Customers" EntitySet="Customers" />
@@ -82,6 +71,18 @@ warning 6002: The table/view 'Powerfront.dbo.Customers' does not have a primary 
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="PowerfrontModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="RecordId" />
+          </Key>
+          <Property Name="TypeId" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PropertyId" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Value" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CustomerId" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="RecordId" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="Property" Relationship="Self.FK_PropertyId" FromRole="Customers" ToRole="Property" />
+          <NavigationProperty Name="Type" Relationship="Self.FK_TypeId" FromRole="Customers" ToRole="Type" />
+        </EntityType>
         <EntityType Name="Property">
           <Key>
             <PropertyRef Name="PropertyId" />
@@ -97,20 +98,6 @@ warning 6002: The table/view 'Powerfront.dbo.Customers' does not have a primary 
           <Property Name="TypeId" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Customers" Relationship="Self.FK_TypeId" FromRole="Type" ToRole="Customers" />
-        </EntityType>
-        <EntityType Name="Customer">
-          <Key>
-            <PropertyRef Name="TypeId" />
-            <PropertyRef Name="PropertyId" />
-            <PropertyRef Name="Value" />
-            <PropertyRef Name="CustomerId" />
-          </Key>
-          <Property Name="TypeId" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="PropertyId" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Value" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="CustomerId" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Property" Relationship="Self.FK_PropertyId" FromRole="Customers" ToRole="Property" />
-          <NavigationProperty Name="Type" Relationship="Self.FK_TypeId" FromRole="Customers" ToRole="Type" />
         </EntityType>
         <Association Name="FK_PropertyId">
           <End Role="Property" Type="Self.Property" Multiplicity="1" />
@@ -137,9 +124,9 @@ warning 6002: The table/view 'Powerfront.dbo.Customers' does not have a primary 
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="PowerfrontEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Customers" EntityType="Self.Customer" />
           <EntitySet Name="Properties" EntityType="Self.Property" />
           <EntitySet Name="Types" EntityType="Self.Type" />
-          <EntitySet Name="Customers" EntityType="Self.Customer" />
           <AssociationSet Name="FK_PropertyId" Association="Self.FK_PropertyId">
             <End Role="Property" EntitySet="Properties" />
             <End Role="Customers" EntitySet="Customers" />
@@ -155,6 +142,17 @@ warning 6002: The table/view 'Powerfront.dbo.Customers' does not have a primary 
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="PowerfrontModelStoreContainer" CdmEntityContainer="PowerfrontEntities">
+          <EntitySetMapping Name="Customers">
+            <EntityTypeMapping TypeName="PowerfrontModel.Customer">
+              <MappingFragment StoreEntitySet="Customers">
+                <ScalarProperty Name="TypeId" ColumnName="TypeId" />
+                <ScalarProperty Name="PropertyId" ColumnName="PropertyId" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+                <ScalarProperty Name="RecordId" ColumnName="RecordId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Properties">
             <EntityTypeMapping TypeName="PowerfrontModel.Property">
               <MappingFragment StoreEntitySet="Property">
@@ -168,16 +166,6 @@ warning 6002: The table/view 'Powerfront.dbo.Customers' does not have a primary 
               <MappingFragment StoreEntitySet="Type">
                 <ScalarProperty Name="TypeId" ColumnName="TypeId" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Customers">
-            <EntityTypeMapping TypeName="PowerfrontModel.Customer">
-              <MappingFragment StoreEntitySet="Customers">
-                <ScalarProperty Name="TypeId" ColumnName="TypeId" />
-                <ScalarProperty Name="PropertyId" ColumnName="PropertyId" />
-                <ScalarProperty Name="Value" ColumnName="Value" />
-                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

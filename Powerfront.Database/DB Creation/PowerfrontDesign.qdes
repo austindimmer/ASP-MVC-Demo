@@ -16,7 +16,7 @@
 			<PathElement Name="Type" Kind="Table"/>
 		</ObjectPath>
 	</Table>
-	<Table left="510" top="90" right="780" bottom="318" id="3" expanded="1">
+	<Table left="510" top="90" right="780" bottom="301" id="3" expanded="1">
 		<ColumnWidths col0="22.000000" col1="81.000000" col2="78.000000" col3="69.000000" col4="20.000000"/>
 		<CollapsedCompartments Indexes="1" CheckConstraints="3"/>
 		<ObjectPath>
@@ -24,7 +24,7 @@
 			<PathElement Name="Customers" Kind="Table"/>
 		</ObjectPath>
 	</Table>
-	<Line left="334" top="246" right="504" bottom="361" fromObj="3" toObj="1" XPos="419" labelX="-38">
+	<Line left="334" top="229" right="504" bottom="361" fromObj="3" toObj="1" XPos="419" labelX="-38">
 		<ObjectPathFrom>
 			<PathElement Name="dbo" Kind="Schema"/>
 			<PathElement Name="Customers" Kind="Table"/>
@@ -37,7 +37,7 @@
 			<PathElement Name="PK_AttributeId" Kind="PrimaryKey"/>
 		</ObjectPathTo>
 	</Line>
-	<Line left="314" top="51" right="504" bottom="279" fromObj="3" toObj="2" XPos="409" labelX="-30">
+	<Line left="314" top="51" right="504" bottom="262" fromObj="3" toObj="2" XPos="409" labelX="-30">
 		<ObjectPathFrom>
 			<PathElement Name="dbo" Kind="Schema"/>
 			<PathElement Name="Customers" Kind="Table"/>

@@ -10,5 +10,3 @@ CREATE TABLE [dbo].[Property](
 ) ON [PRIMARY]
 
 GO
-SET ANSI_PADDING OFF
-GO

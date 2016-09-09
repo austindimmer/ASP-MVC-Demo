@@ -133,8 +133,7 @@
     <Content Include="PowerfrontCreateDbAndInsertData.sql">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="PowerfrontCreateDbTables.sql" />
-    <Content Include="PowerfrontInsertData.sql" />
+    <Content Include="PowerfrontCreateDbTablesAndInsertTestData.sql" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />

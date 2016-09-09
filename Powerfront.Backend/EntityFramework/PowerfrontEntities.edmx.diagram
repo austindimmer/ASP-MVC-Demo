@@ -4,10 +4,10 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="198e4649ce574da0bedcfaf4caf6c74a" Name="Diagram1">
-        <EntityTypeShape EntityType="PowerfrontModel.Property" Width="1.5" PointX="0.75" PointY="1.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="PowerfrontModel.Type" Width="1.5" PointX="0.75" PointY="5.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="PowerfrontModel.Customer" Width="1.5" PointX="3" PointY="0.875" IsExpanded="true" />
+      <Diagram DiagramId="b39ff3552fff47198ec7884ce9c42a6a" Name="Diagram1">
+        <EntityTypeShape EntityType="PowerfrontModel.Customer" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="PowerfrontModel.Property" Width="1.5" PointX="0.75" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="PowerfrontModel.Type" Width="1.5" PointX="0.75" PointY="5.375" IsExpanded="true" />
         <AssociationConnector Association="PowerfrontModel.FK_PropertyId" ManuallyRouted="false" />
         <AssociationConnector Association="PowerfrontModel.FK_TypeId" ManuallyRouted="false" />
       </Diagram>
