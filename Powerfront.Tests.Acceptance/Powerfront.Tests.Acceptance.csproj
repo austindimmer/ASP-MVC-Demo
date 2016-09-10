@@ -112,6 +112,11 @@
   <ItemGroup>
     <Compile Include="Common\FeatureContext.cs" />
     <Compile Include="Common\StepBase.cs" />
+    <Compile Include="Features\UserAuthentication.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>UserAuthentication.feature</DependentUpon>
+    </Compile>
     <Compile Include="Selenium\WebDriverExtensions.cs" />
     <Compile Include="Features\TestSpecFlowFeature.feature.cs">
       <AutoGen>True</AutoGen>
@@ -120,6 +125,7 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Steps\TestSpecFlowFeatureSteps.cs" />
+    <Compile Include="Steps\UserAuthenticationSteps.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -127,6 +133,10 @@
     <None Include="Features\TestSpecFlowFeature.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>TestSpecFlowFeature.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Features\UserAuthentication.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>UserAuthentication.feature.cs</LastGenOutput>
     </None>
     <None Include="packages.config" />
   </ItemGroup>
