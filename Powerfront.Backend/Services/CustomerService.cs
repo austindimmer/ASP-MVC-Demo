@@ -38,14 +38,56 @@ namespace Powerfront.Backend.Services
             //return _CustomerRecords.GetAll();
         }
 
-        public IQueryable<CustomerRecord> GetCustomerByID(string id)
+        public AggregateCustomer GetCustomerByID(string id)
         {
             try
             {
-                return _CustomerRecords.GetAll().Where(c => c.CustomerId == id);
+                var customerRecordsMatchingId = _CustomerRecords.GetAll().Where(c => c.CustomerId == id);
+                AggregateCustomer ac = new AggregateCustomer();
+                ac.CustomerDataRecords = new List<CustomerRecord>();
+                ac.CustomerDataRecords.AddRange(customerRecordsMatchingId);
+                return ac;
             }
             catch (Exception ex)
             {
+                throw new Exception("Failure getting Customer", ex);
+            }
+        }
+
+        public bool CreateCustomer(AggregateCustomer aggregateCustomer)
+        {
+            try
+            {
+                foreach (var dataRecord in aggregateCustomer.CustomerDataRecords)
+                {
+                    _CustomerRecords.Add(dataRecord);
+                    _uow.Save();
+                }
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+                throw new Exception("Failure creating Customer", ex);
+            }
+        }
+
+        public bool UpdateCustomerRecords(AggregateCustomer aggregateCustomer)
+        {
+            try
+            {
+                foreach (var dataRecord in aggregateCustomer.CustomerDataRecords)
+                {
+                    _CustomerRecords.Update(dataRecord);
+                    _uow.Save();
+                }
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
                 throw new Exception("Failure getting Customer", ex);
             }
         }
