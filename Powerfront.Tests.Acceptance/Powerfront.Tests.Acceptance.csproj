@@ -112,7 +112,7 @@
   <ItemGroup>
     <Compile Include="Common\FeatureContext.cs" />
     <Compile Include="Common\StepBase.cs" />
-    <Compile Include="Extensions\WebDriverExtensions.cs" />
+    <Compile Include="Selenium\WebDriverExtensions.cs" />
     <Compile Include="Features\TestSpecFlowFeature.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

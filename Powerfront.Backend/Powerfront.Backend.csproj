@@ -116,7 +116,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class1.cs" />
-    <Compile Include="EntityFramework\Customer.cs">
+    <Compile Include="EntityFramework\CustomerRecord.cs">
       <DependentUpon>PowerfrontEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="EntityFramework\PowerfrontEntities.Context.cs">
@@ -140,6 +140,12 @@
     <Compile Include="EntityFramework\Type.cs">
       <DependentUpon>PowerfrontEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\AggregateCustomer.cs" />
+    <Compile Include="Model\AggregateCustomers.cs" />
+    <Compile Include="Model\IAggregateCustomer.cs" />
+    <Compile Include="Model\IAggregateCustomers.cs" />
+    <Compile Include="Model\IProperty.cs" />
+    <Compile Include="Model\Property.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\IDBContext.cs" />
     <Compile Include="Repository\IRepository.cs" />

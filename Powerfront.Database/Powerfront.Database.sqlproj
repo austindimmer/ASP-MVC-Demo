@@ -64,7 +64,7 @@
     <None Include="local.publish.xml" />
   </ItemGroup>
   <ItemGroup>
-    <Build Include="Tables\Customers.sql" />
+    <Build Include="Tables\CustomerRecords.sql" />
     <Build Include="Tables\Property.sql" />
     <Build Include="Tables\Type.sql" />
   </ItemGroup>

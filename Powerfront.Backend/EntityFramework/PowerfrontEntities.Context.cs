@@ -22,10 +22,9 @@ namespace Powerfront.Backend.EntityFramework
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Customer> Customers { get; set; }
+        public virtual DbSet<CustomerRecord> CustomerRecords { get; set; }
         public virtual DbSet<Property> Properties { get; set; }
         public virtual DbSet<Type> Types { get; set; }
     }

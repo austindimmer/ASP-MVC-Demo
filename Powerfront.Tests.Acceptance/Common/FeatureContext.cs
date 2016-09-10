@@ -2,6 +2,8 @@
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Remote;
 using System.Configuration;
+using System.Drawing.Imaging;
+using System.IO;
 using System.Threading;
 using TechTalk.SpecFlow;
 
@@ -15,6 +17,10 @@ namespace Powerfront.Acceptance.Tests.Common
 
         public static string TestUserName { get; private set; }
         public static string TestUserPassword { get; private set; }
+        public static string TestApplicationBaseUrl { get; private set; }
+        public static string TestScreenshotsBasePath { get; private set; }
+
+        public static ImageFormat TestImageFromat {get ; private set;}
 
 
         public static string ApiBaseUrl
@@ -38,6 +44,13 @@ namespace Powerfront.Acceptance.Tests.Common
             WebDriver = new FirefoxDriver(profile);
             TestUserName = "powerfront@effective-computing.com";
             TestUserPassword = "ReallyToughPass29!~8763";
+            TestApplicationBaseUrl = @"https://localhost:44337/";
+            TestImageFromat = ImageFormat.Png;
+            TestScreenshotsBasePath = @"C:\Temp\Powerfront\";
+
+            if (!Directory.Exists(TestScreenshotsBasePath)) {
+                Directory.CreateDirectory(TestScreenshotsBasePath);
+            }
 
         }
 

@@ -1,6 +1,4 @@
-﻿
-
-CREATE TABLE [dbo].[Property](
+﻿CREATE TABLE [dbo].[Property](
 	[PropertyId] [varchar](255) NOT NULL,
 	[Name] [varchar](255) NOT NULL,
  CONSTRAINT [PK_AttributeId] PRIMARY KEY CLUSTERED 
@@ -10,5 +8,3 @@ CREATE TABLE [dbo].[Property](
 ) ON [PRIMARY]
 
 GO
-
-

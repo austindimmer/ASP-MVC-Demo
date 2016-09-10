@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace Powerfront.Backend.Model
 {
-    public interface ICustomer
+    public interface IAggregateCustomer
     {
         string CustomerId { get; set; }
 
-        ICollection<Property> Properties { get; set; }
+        List<EntityFramework.CustomerRecord> CustomerDataRecords { get; set; }
 
     }
 }

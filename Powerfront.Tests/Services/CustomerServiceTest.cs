@@ -30,6 +30,14 @@ namespace Powerfront.Frontend.Tests.Services
         }
 
         [TestMethod]
+        public void CanGetAggregatedCustomerRecords ()
+        {
+            var customers = _CustomerService.GetAllCustomers();
+            var numberOfCustoemrs = customers.Count();
+            Assert.AreEqual(3, numberOfCustoemrs);
+        }
+
+        [TestMethod]
         public void TestGetCustomerHadar()
         {
             var customer = _CustomerService.GetCustomerByID("1");

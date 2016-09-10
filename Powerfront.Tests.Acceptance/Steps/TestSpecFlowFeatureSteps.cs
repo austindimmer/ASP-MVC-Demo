@@ -1,11 +1,11 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium;
 using Powerfront.Acceptance.Tests.Common;
+using Powerfront.Acceptance.Tests.Selenium;
 using System;
 using System.Diagnostics;
 using System.Threading;
 using TechTalk.SpecFlow;
-using Powerfront.Acceptance.Tests.Extensions;
 
 namespace Powerfront.Acceptance.Tests.Steps
 {
@@ -18,9 +18,7 @@ namespace Powerfront.Acceptance.Tests.Steps
             //ScenarioContext.Current.Pending();
             var driver = Common.FeatureContext.WebDriver;
 
-            //http://stackoverflow.com/questions/6992993/selenium-c-sharp-webdriver-wait-until-element-is-present
-            //driver.Manage().Timeouts().ImplicitlyWait(TimeSpan.FromSeconds(10));
-            driver.Navigate().GoToUrl("https://localhost:44337/");
+            driver.Navigate().GoToUrl(Common.FeatureContext.TestApplicationBaseUrl);
             var credentialsInput = driver.FindElementById("cred_userid_inputtext");
             credentialsInput.SendKeys(Common.FeatureContext.TestUserName);
             var credentialsPasswordInput = driver.FindElementById("cred_password_inputtext");
@@ -31,26 +29,8 @@ namespace Powerfront.Acceptance.Tests.Steps
             //var button = driver.FindElementById("cred_sign_in_button");
 
             IWebElement button = driver.FindElement(By.Id("cred_sign_in_button"), 10);
+            driver.TakeScreenshot(Common.FeatureContext.TestScreenshotsBasePath + "LoginScreen.png", Common.FeatureContext.TestImageFromat);
 
-
-
-
-                //WebDriverWait[is] from the OpenQA.Selenium.Support.UI namespace and comes in a separate package called Selenium WebDriver Support Classes on NuGet
-
-
-                //In Visual Studio this means, that you need to install TWO packages:
-
-                //NuGet package "Selenium.WebDriver" AND ALSO
-                //NuGet package "Selenium.Support"
-
-            //WebDriverWait wait = new WebDriverWait(browser, new TimeSpan(0, 5, 0));
-
-            //bool clicked = wait.Until<bool>((elem) =>
-            //{
-            //    elem.Click(); //Doesn't Work
-            //    return true;
-            //});
-            //driver.FindElement(By.Xpath('//p[contains(text(),"Sign in with a username and password instead")]')).Click();
             Assert.IsNotNull(button);
             //driver.ExecuteScript("$(arguments[0]).click()", button);
             //button.Click();
@@ -60,7 +40,9 @@ namespace Powerfront.Acceptance.Tests.Steps
 
             Thread.Sleep(4000);
             String url = driver.Url;
-            Assert.AreEqual(url, "https://localhost:44337/");
+            driver.TakeScreenshot(Common.FeatureContext.TestScreenshotsBasePath + "WelcomeScreen.png", Common.FeatureContext.TestImageFromat);
+            Assert.AreEqual(url, Common.FeatureContext.TestApplicationBaseUrl);
+            driver.Quit();
         }
         
         [Given(@"I have selected to see a list of customers and ages")]

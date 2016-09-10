@@ -8,13 +8,13 @@ namespace Powerfront.Frontend.Tests.Mock
 {
     public class MockDataContext
     {
-        public List<Customer> Customer
+        public List<CustomerRecord> CustomerRecord
         {
             get
             {
-                return new List<Customer>
+                return new List<CustomerRecord>
             {
-                new Customer
+                new CustomerRecord
                 {
                     CustomerId= "1",
                     TypeId = "1",
@@ -24,7 +24,7 @@ namespace Powerfront.Frontend.Tests.Mock
                     Property = new Backend.EntityFramework.Property {  PropertyId= "1", Name="Name" },
                     RecordId = Guid.NewGuid()
                 },
-                new Customer
+                new CustomerRecord
                 {
                     CustomerId= "1",
                     TypeId = "1",
@@ -34,7 +34,7 @@ namespace Powerfront.Frontend.Tests.Mock
                     Property = new Backend.EntityFramework.Property {  PropertyId= "2", Name="Age" },
                     RecordId = Guid.NewGuid()
                 },
-                new Customer
+                new CustomerRecord
                 {
                     CustomerId= "2",
                     TypeId = "1",
@@ -44,7 +44,7 @@ namespace Powerfront.Frontend.Tests.Mock
                     Property = new Backend.EntityFramework.Property {  PropertyId= "1", Name="Name" },
                     RecordId = Guid.NewGuid()
                 },
-                new Customer
+                new CustomerRecord
                 {
                     CustomerId= "2",
                     TypeId = "1",
@@ -54,7 +54,7 @@ namespace Powerfront.Frontend.Tests.Mock
                     Property = new Backend.EntityFramework.Property {  PropertyId= "2", Name="Age" },
                     RecordId = Guid.NewGuid()
                 },
-                new Customer
+                new CustomerRecord
                 {
                     CustomerId= "3",
                     TypeId = "1",
@@ -64,7 +64,7 @@ namespace Powerfront.Frontend.Tests.Mock
                     Property = new Backend.EntityFramework.Property {  PropertyId= "1", Name="Name" },
                     RecordId = Guid.NewGuid()
                 },
-                new Customer
+                new CustomerRecord
                 {
                     CustomerId= "3",
                     TypeId = "1",

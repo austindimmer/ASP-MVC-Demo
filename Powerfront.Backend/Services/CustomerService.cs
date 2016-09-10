@@ -1,4 +1,5 @@
 ﻿using Powerfront.Backend.EntityFramework;
+using Powerfront.Backend.Model;
 using Powerfront.Backend.Repository;
 using System;
 using System.Collections.Generic;
@@ -11,25 +12,37 @@ namespace Powerfront.Backend.Services
     {
         private IUnitOfWork _uow;
 
-        private IRepository<Customer> _Customer;
+        private IRepository<CustomerRecord> _CustomerRecords;
 
         public CustomerService(IUnitOfWork uow)
         {
             _uow = uow;
 
-            _Customer = _uow.GetRepository<Customer>();
+            _CustomerRecords = _uow.GetRepository<CustomerRecord>();
         }
 
-        public IEnumerable<Customer> GetAllCustomers()
+        public IEnumerable<AggregateCustomer> GetAllCustomers()
         {
-            return _Customer.GetAll();
+            var customerRecords = _CustomerRecords.GetAll();
+            var aggregatedCustomers = customerRecords.GroupBy(c => c.CustomerId);
+            List<AggregateCustomer> customersToReturn = new List<AggregateCustomer>();
+            foreach (var groupedCustomerRecords in aggregatedCustomers)
+            {
+                AggregateCustomer ac = new AggregateCustomer();
+                ac.CustomerDataRecords = new List<CustomerRecord>();
+                ac.CustomerDataRecords.AddRange(groupedCustomerRecords);
+                customersToReturn.Add(ac);
+            }
+            return customersToReturn;
+
+            //return _CustomerRecords.GetAll();
         }
 
-        public IQueryable<Customer> GetCustomerByID(string id)
+        public IQueryable<CustomerRecord> GetCustomerByID(string id)
         {
             try
             {
-                return _Customer.GetAll().Where(c => c.CustomerId == id);
+                return _CustomerRecords.GetAll().Where(c => c.CustomerId == id);
             }
             catch (Exception ex)
             {
@@ -41,10 +54,10 @@ namespace Powerfront.Backend.Services
         {
             try
             {
-                IQueryable<Customer> customerRecords = _Customer.GetAll().Where(c => c.CustomerId == id);
+                IQueryable<CustomerRecord> customerRecords = _CustomerRecords.GetAll().Where(c => c.CustomerId == id);
                 for (int i = 0; i < customerRecords.Count(); i++)
                 {
-                    _Customer.Delete(customerRecords.ElementAt(i));
+                    _CustomerRecords.Delete(customerRecords.ElementAt(i));
                     _uow.Save();
                 }
                 //foreach (var customer in customerRecords)

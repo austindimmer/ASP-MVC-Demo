@@ -12,7 +12,7 @@ namespace Powerfront.Backend.EntityFramework
     using System;
     using System.Collections.Generic;
     
-    public partial class Customer
+    public partial class CustomerRecord
     {
         public string TypeId { get; set; }
         public string PropertyId { get; set; }
