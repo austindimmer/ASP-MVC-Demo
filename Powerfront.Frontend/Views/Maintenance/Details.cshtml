@@ -1,4 +1,4 @@
-﻿@model Powerfront.Backend.EntityFramework.CustomerRecord
+﻿@model Powerfront.Backend.Model.AggregateCustomer
 
 @{
     ViewBag.Title = "Details";
@@ -8,44 +8,18 @@
 <h2>Details</h2>
 
 <div>
-    <h4>CustomerRecord</h4>
+    <h4>Customer Record</h4>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Value)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Value)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.CustomerId)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.CustomerId)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Property.Name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Property.Name)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Type.Name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Type.Name)
-        </dd>
-
-    </dl>
+        @{
+            foreach (var item in Model.CustomerDataRecords)
+            {
+                @Html.Raw("<div>");
+                @Html.Raw("<p>" + item.Property.Name + ": " + "<em class=\"text-info\">" + item.Value + "</em></p>");
+                @Html.Raw("</div>");
+            }
+        }
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.RecordId }) |
+    @Html.ActionLink("Edit", "Edit", new { id = Model.CustomerDataRecords[0].CustomerId }) |
     @Html.ActionLink("Back to List", "Index")
 </p>

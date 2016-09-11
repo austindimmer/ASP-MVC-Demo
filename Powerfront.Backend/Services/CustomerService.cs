@@ -96,10 +96,11 @@ namespace Powerfront.Backend.Services
         {
             try
             {
-                IQueryable<CustomerRecord> customerRecords = _CustomerRecords.GetAll().Where(c => c.CustomerId == id);
+                List<CustomerRecord> customerRecords = _CustomerRecords.GetAll().Where(c => c.CustomerId == id).Select(r => r).ToList();
                 for (int i = 0; i < customerRecords.Count(); i++)
                 {
-                    _CustomerRecords.Delete(customerRecords.ElementAt(i));
+                    var recordToDelete = customerRecords[i];
+                    _CustomerRecords.Delete(recordToDelete);
                     _uow.Save();
                 }
                 //foreach (var customer in customerRecords)

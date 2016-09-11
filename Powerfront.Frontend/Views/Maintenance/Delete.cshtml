@@ -1,50 +1,27 @@
-﻿@model Powerfront.Backend.EntityFramework.CustomerRecord
+﻿@model Powerfront.Backend.Model.AggregateCustomer
 
 @{
     ViewBag.Title = "Delete";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Delete</h2>
+@*<h2>Delete</h2>*@
 
-<h3>Are you sure you want to delete this?</h3>
+<h4>Are you sure you want to delete this?</h4>
 <div>
-    <h4>CustomerRecord</h4>
+    @*<h4>Customer Record</h4>*@
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Value)
-        </dt>
+    @{
+        foreach (var item in Model.CustomerDataRecords)
+        {
+            @Html.Raw("<div>");
+            @Html.Raw("<p>" + item.Property.Name + ": " + "<em class=\"text-info\">" + item.Value + "</em></p>");
+            @Html.Raw("</div>");
+            }
+    }
+</div>
 
-        <dd>
-            @Html.DisplayFor(model => model.Value)
-        </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.CustomerId)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.CustomerId)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Property.Name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Property.Name)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Type.Name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Type.Name)
-        </dd>
-
-    </dl>
 
     @using (Html.BeginForm()) {
         @Html.AntiForgeryToken()

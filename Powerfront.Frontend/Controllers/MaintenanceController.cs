@@ -110,29 +110,35 @@ namespace Powerfront.Frontend.Controllers
         }
 
         // GET: Maintenance/Delete/5
-        public async Task<ActionResult> Delete(Guid? id)
+        public async Task<ActionResult> Delete(string id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            CustomerRecord customerRecord = new CustomerRecord();
-            //CustomerRecord customerRecord = await db.CustomerRecords.FindAsync(id);
-            //if (customerRecord == null)
-            //{
-            //    return HttpNotFound();
-            //}
+            AggregateCustomer customerRecord = _customerService.GetCustomerByID(id);
+            if (customerRecord == null)
+            {
+                return HttpNotFound();
+            }
             return View(customerRecord);
         }
 
         // POST: Maintenance/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> DeleteConfirmed(Guid id)
+        public async Task<ActionResult> DeleteConfirmed(string id)
         {
-            //CustomerRecord customerRecord = await db.CustomerRecords.FindAsync(id);
-            //db.CustomerRecords.Remove(customerRecord);
-            //await db.SaveChangesAsync();
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            AggregateCustomer customerRecord = _customerService.GetCustomerByID(id);
+            if (customerRecord == null)
+            {
+                return HttpNotFound();
+            }
+            _customerService.DeleteCustomerByID(id);
             return RedirectToAction("Index");
         }
 
