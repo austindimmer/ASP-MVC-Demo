@@ -17,11 +17,24 @@ namespace Powerfront.Acceptance.Tests.Common
 
         public static string TestUserName { get; private set; }
         public static string TestUserPassword { get; private set; }
-        public static string TestApplicationBaseUrl { get; private set; }
         public static string TestScreenshotsBasePath { get; private set; }
 
         public static ImageFormat TestImageFromat {get ; private set;}
 
+
+
+        public static string TestApplicationBaseUrl
+        {
+            get
+            {
+                if (!ScenarioContext.Current.ContainsKey("_appBaseUrl"))
+                {
+                    ScenarioContext.Current["_appBaseUrl"] = ConfigurationManager.AppSettings["appBaseUrl"];
+                }
+                return ScenarioContext.Current.Get<string>("_appBaseUrl");
+            }
+            set { ScenarioContext.Current["_appBaseUrl"] = value; }
+        }
 
         public static string ApiBaseUrl
         {
@@ -36,6 +49,7 @@ namespace Powerfront.Acceptance.Tests.Common
             set { ScenarioContext.Current["_apiBaseUrl"] = value; }
         }
 
+
         [AssemblyInitialize]
         public static void Start(TestContext context)
         {
@@ -44,13 +58,9 @@ namespace Powerfront.Acceptance.Tests.Common
             WebDriver = new FirefoxDriver(profile);
             TestUserName = "powerfront@effective-computing.com";
             TestUserPassword = "ReallyToughPass29!~8763";
-            TestApplicationBaseUrl = @"https://localhost:44337/";
+            //TestApplicationBaseUrl = @"https://localhost:44337/";
             TestImageFromat = ImageFormat.Png;
             TestScreenshotsBasePath = @"C:\Temp\Powerfront\";
-
-            if (!Directory.Exists(TestScreenshotsBasePath)) {
-                Directory.CreateDirectory(TestScreenshotsBasePath);
-            }
 
         }
 

@@ -1,0 +1,65 @@
+﻿@model IEnumerable<Powerfront.Backend.Model.AggregateCustomer>
+
+@{
+    ViewBag.Title = "Customer Maintenance";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<table class="table">
+
+    @{
+
+        List<string> uniqueProperties = new List<string>();
+
+        foreach (var item in Model)
+        {
+            foreach (var customerRecord in item.CustomerDataRecords)
+            {
+                if (uniqueProperties.Contains(customerRecord.Property.Name) == false)
+                {
+                    uniqueProperties.Add(customerRecord.Property.Name);
+                }
+
+            }
+        }
+        @Html.Raw("<tr>");
+        foreach (var property in uniqueProperties)
+        {
+            @Html.Raw("<th>");
+            @Html.Label(property)
+            @Html.Raw("<th>");
+        }
+        @Html.Raw("<th>Edit</th>");
+        @Html.Raw("</tr>");
+        var numberofModelItems = Model.Select(aggregate => aggregate).Count();
+            for (int j = 0; j < numberofModelItems; j++)
+        {
+            @Html.Raw("<tr>");
+            for (int i = 0; i < uniqueProperties.Count; i++)
+            {
+                var modelItemAtCurrentIndex = Model.ElementAt(j);
+                var currentPropertyCustomrRecord = Model.ElementAt(j).CustomerDataRecords[i];
+                var currentPropertyValue = Model.ElementAt(j).CustomerDataRecords[i].Value;
+                @Html.Raw("<td>");
+                @Html.Raw("<p>" + currentPropertyValue + "</p>");
+                @Html.Raw("<td>");
+                if (i == uniqueProperties.Count - 1)
+                {
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = currentPropertyCustomrRecord.CustomerId }) |
+                        @Html.ActionLink("Details", "Details", new { id = currentPropertyCustomrRecord.CustomerId }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = currentPropertyCustomrRecord.CustomerId })
+                    </td>
+                }
+            }
+
+            @Html.Raw("</tr>");
+        }
+    }
+
+
+</table>
+<p>@Html.ActionLink("Create New", "Create", "Maintenance", null, new { @class = "btn btn-primary btn-md", @id = "MaintenanceButton" })</p>
+

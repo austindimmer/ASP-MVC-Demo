@@ -16,9 +16,9 @@ namespace Powerfront.Frontend
         protected void Application_Start()
         {
             AntiForgeryConfig.UniqueClaimTypeIdentifier = ClaimTypes.NameIdentifier;
-            PowerfrontEntities pfe = new PowerfrontEntities();
 
-            var customers = pfe.CustomerRecords.GroupBy(x => x.CustomerId).ToList();
+            //PowerfrontEntities pfe = new PowerfrontEntities();
+            //var customers = pfe.CustomerRecords.GroupBy(x => x.CustomerId).ToList();
 
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);

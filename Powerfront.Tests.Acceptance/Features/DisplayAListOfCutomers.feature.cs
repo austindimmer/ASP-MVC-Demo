@@ -18,19 +18,19 @@ namespace Powerfront.Acceptance.Tests.Features
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "2.1.0.0")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [Microsoft.VisualStudio.TestTools.UnitTesting.TestClassAttribute()]
-    public partial class TestSpecFlowFeatureFeature
+    public partial class DisplayAListOfCutomersFeature
     {
         
         private static TechTalk.SpecFlow.ITestRunner testRunner;
         
-#line 1 "TestSpecFlowFeature.feature"
+#line 1 "DisplayAListOfCutomers.feature"
 #line hidden
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.ClassInitializeAttribute()]
         public static void FeatureSetup(Microsoft.VisualStudio.TestTools.UnitTesting.TestContext testContext)
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner(null, 0);
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "TestSpecFlowFeature", "\tIn order to see how old my customers are\r\n\tAs an administrator\r\n\tI want to be ab" +
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "DisplayAListOfCutomers", "\tIn order to see how old my customers are\r\n\tAs an administrator\r\n\tI want to be ab" +
                     "le to see a list of customers and their ages", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
@@ -46,9 +46,9 @@ namespace Powerfront.Acceptance.Tests.Features
         public virtual void TestInitialize()
         {
             if (((testRunner.FeatureContext != null) 
-                        && (testRunner.FeatureContext.FeatureInfo.Title != "TestSpecFlowFeature")))
+                        && (testRunner.FeatureContext.FeatureInfo.Title != "DisplayAListOfCutomers")))
             {
-                Powerfront.Acceptance.Tests.Features.TestSpecFlowFeatureFeature.FeatureSetup(null);
+                Powerfront.Acceptance.Tests.Features.DisplayAListOfCutomersFeature.FeatureSetup(null);
             }
         }
         
@@ -70,20 +70,20 @@ namespace Powerfront.Acceptance.Tests.Features
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
         [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("UserWantsToSeeListOfCustomersWithAges")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "TestSpecFlowFeature")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "DisplayAListOfCutomers")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("resetDatabase")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("createScenarioSnapshotsFolder")]
         public virtual void UserWantsToSeeListOfCustomersWithAges()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("UserWantsToSeeListOfCustomersWithAges", new string[] {
-                        "resetDatabase"});
-#line 7
-this.ScenarioSetup(scenarioInfo);
+                        "resetDatabase",
+                        "createScenarioSnapshotsFolder"});
 #line 8
- testRunner.Given("I have navigated to the maintenance page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+this.ScenarioSetup(scenarioInfo);
 #line 9
- testRunner.And("I have selected to see a list of customers and ages", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.Given("I have navigated to the application root", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 10
- testRunner.When("I click list customers", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("I click the maintenance button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 11
  testRunner.Then("the resulting page should display a list of cutomers and their ages", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
