@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Powerfront.Backend", "Powerfront.Backend\Powerfront.Backend.csproj", "{CED11205-819E-4F3A-BADF-656AB29DABC8}"
 EndProject
@@ -12,6 +12,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Powerfront.Tests.Acceptance", "Powerfront.Tests.Acceptance\Powerfront.Tests.Acceptance.csproj", "{6395CDF7-BB40-45CE-B28B-238D9E70EC6A}"
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "Powerfront.Database", "Powerfront.Database\Powerfront.Database.sqlproj", "{0AE97C01-B4A3-4A3F-AF74-76E99390D196}"
+EndProject
+Project("{151D2E53-A2C4-4D7D-83FE-D05416EBD58E}") = "Powerfront.Azure", "Powerfront.Azure\Powerfront.Azure.deployproj", "{5020ED5F-983C-4C60-9454-133FAA567C66}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -53,6 +55,12 @@ Global
 		{0AE97C01-B4A3-4A3F-AF74-76E99390D196}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0AE97C01-B4A3-4A3F-AF74-76E99390D196}.Release|Any CPU.Build.0 = Release|Any CPU
 		{0AE97C01-B4A3-4A3F-AF74-76E99390D196}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{5020ED5F-983C-4C60-9454-133FAA567C66}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5020ED5F-983C-4C60-9454-133FAA567C66}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5020ED5F-983C-4C60-9454-133FAA567C66}.DebugLoadTest|Any CPU.ActiveCfg = Debug|Any CPU
+		{5020ED5F-983C-4C60-9454-133FAA567C66}.DebugLoadTest|Any CPU.Build.0 = Debug|Any CPU
+		{5020ED5F-983C-4C60-9454-133FAA567C66}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5020ED5F-983C-4C60-9454-133FAA567C66}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

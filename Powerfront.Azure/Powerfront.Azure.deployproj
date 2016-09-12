@@ -1,0 +1,146 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|AnyCPU">
+      <Configuration>Debug</Configuration>
+      <Platform>AnyCPU</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|AnyCPU">
+      <Configuration>Release</Configuration>
+      <Platform>AnyCPU</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>5020ed5f-983c-4c60-9454-133faa567c66</ProjectGuid>
+  </PropertyGroup>
+  <PropertyGroup>
+    <TargetFrameworkIdentifier>Deployment</TargetFrameworkIdentifier>
+    <TargetFrameworkVersion>1.0</TargetFrameworkVersion>
+    <PrepareForBuildDependsOn>
+    </PrepareForBuildDependsOn>
+  </PropertyGroup>
+  <Import Condition=" Exists('Deployment.targets') " Project="Deployment.targets" />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" />
+  <!-- vertag<:>start tokens<:>maj.min -->
+  <Import Condition=" Exists('$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Deployment\1.1\DeploymentProject.targets') " Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Deployment\1.1\DeploymentProject.targets" />
+  <!-- vertag<:>end -->
+  <ItemGroup>
+    <Folder Include="Scripts\" />
+    <Folder Include="Tools\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Deployment.targets">
+      <Visible>False</Visible>
+    </None>
+    <Content Include="Scripts\Deploy-AzureResourceGroup.ps1" />
+    <Content Include="Templates\WebSiteSQLDatabase.json" />
+    <None Include="Templates\101-key-vault-create\azuredeploy.json" />
+    <None Include="Templates\101-key-vault-create\azuredeploy.parameters.json" />
+    <None Include="Templates\101-key-vault-create\metadata.json" />
+    <None Include="Templates\101-key-vault-create\README.md" />
+    <None Include="Templates\101-redis-cache\azuredeploy.json" />
+    <None Include="Templates\101-redis-cache\azuredeploy.parameters.json" />
+    <None Include="Templates\101-redis-cache\metadata.json" />
+    <None Include="Templates\101-redis-cache\README.md" />
+    <None Include="Templates\101-traffic-manager-external-endpoint\azuredeploy.json" />
+    <None Include="Templates\101-traffic-manager-external-endpoint\azuredeploy.parameters.json" />
+    <None Include="Templates\101-traffic-manager-external-endpoint\metadata.json" />
+    <None Include="Templates\101-traffic-manager-external-endpoint\README.md" />
+    <None Include="Templates\101-traffic-manager-external-endpoint\TrafficManagerExternalEndpoint.ps1" />
+    <None Include="Templates\201-key-vault-secret-create\.ci_skip" />
+    <None Include="Templates\201-key-vault-secret-create\azuredeploy.json" />
+    <None Include="Templates\201-key-vault-secret-create\azuredeploy.parameters.json" />
+    <None Include="Templates\201-key-vault-secret-create\metadata.json" />
+    <None Include="Templates\201-key-vault-secret-create\README.md" />
+    <None Include="Templates\201-traffic-manager-webapp\azuredeploy.json" />
+    <None Include="Templates\201-traffic-manager-webapp\azuredeploy.parameters.json" />
+    <None Include="Templates\201-traffic-manager-webapp\metadata.json" />
+    <None Include="Templates\201-traffic-manager-webapp\README.md" />
+    <None Include="Templates\201-traffic-manager-webapp\TrafficManagerWebApp.ps1" />
+    <None Include="Templates\201-vm-sql-full-autobackup\azuredeploy.json" />
+    <None Include="Templates\201-vm-sql-full-autobackup\azuredeploy.parameters.json" />
+    <None Include="Templates\201-vm-sql-full-autobackup\metadata.json" />
+    <None Include="Templates\201-vm-sql-full-autobackup\nested\preparingSqlServerSa.json" />
+    <None Include="Templates\201-vm-sql-full-autobackup\README.md" />
+    <None Include="Templates\201-vm-sql-full-autobackup\scripts\PrepareSqlServer.ps1.zip" />
+    <None Include="Templates\201-vm-sql-full-keyvault\azuredeploy.json" />
+    <None Include="Templates\201-vm-sql-full-keyvault\azuredeploy.parameters.json" />
+    <None Include="Templates\201-vm-sql-full-keyvault\metadata.json" />
+    <None Include="Templates\201-vm-sql-full-keyvault\nested\preparingSqlServerSa.json" />
+    <None Include="Templates\201-vm-sql-full-keyvault\README.md" />
+    <None Include="Templates\201-vm-sql-full-keyvault\scripts\PrepareSqlServer.ps1.zip" />
+    <None Include="Templates\201-web-app-certificate-from-key-vault\azuredeploy.json" />
+    <None Include="Templates\201-web-app-certificate-from-key-vault\azuredeploy.parameters.json" />
+    <None Include="Templates\201-web-app-certificate-from-key-vault\metadata.json" />
+    <None Include="Templates\201-web-app-certificate-from-key-vault\README.md" />
+    <None Include="Templates\201-web-app-github-deploy\azuredeploy.json" />
+    <None Include="Templates\201-web-app-github-deploy\azuredeploy.parameters.json" />
+    <None Include="Templates\201-web-app-github-deploy\metadata.json" />
+    <None Include="Templates\201-web-app-github-deploy\README.md" />
+    <None Include="Templates\201-web-app-sql-database\azuredeploy.json" />
+    <None Include="Templates\201-web-app-sql-database\azuredeploy.parameters.json" />
+    <None Include="Templates\201-web-app-sql-database\metadata.json" />
+    <None Include="Templates\201-web-app-sql-database\README.md" />
+    <None Include="Templates\201-web-app-with-redis-cache\azuredeploy.json" />
+    <None Include="Templates\201-web-app-with-redis-cache\azuredeploy.parameters.json" />
+    <None Include="Templates\201-web-app-with-redis-cache\metadata.json" />
+    <None Include="Templates\201-web-app-with-redis-cache\README.md" />
+    <None Include="Templates\Deconstructed\azureDeploy.json" />
+    <None Include="Templates\Deconstructed\azureDeploy.parameters.json" />
+    <None Include="Templates\Deconstructed\Deploy-KeyVault.ps1" />
+    <None Include="Templates\Deconstructed\Deploy-NestedSolution.ps1" />
+    <None Include="Templates\Deconstructed\shared\networkInterface.json" />
+    <None Include="Templates\Deconstructed\shared\publicIP.json" />
+    <None Include="Templates\Deconstructed\shared\storageAccount.json" />
+    <None Include="Templates\Deconstructed\shared\virtualMachine.json" />
+    <None Include="Templates\Deconstructed\shared\virtualNetwork.json" />
+    <None Include="Templates\Deploy-AzureResourceGroup.ps1" />
+    <None Include="Templates\service-fabric-oms\azuredeploy.json" />
+    <None Include="Templates\service-fabric-oms\azuredeploy.parameters.json" />
+    <None Include="Templates\service-fabric-oms\images\oms.png" />
+    <None Include="Templates\service-fabric-oms\images\omsportal.png" />
+    <None Include="Templates\service-fabric-oms\images\sf.png" />
+    <None Include="Templates\service-fabric-oms\images\sflogs.png" />
+    <None Include="Templates\service-fabric-oms\metadata.json" />
+    <None Include="Templates\service-fabric-oms\README.md" />
+    <None Include="Templates\service-fabric-secure-cluster-5-node-1-nodetype-wad\azuredeploy.json" />
+    <None Include="Templates\service-fabric-secure-cluster-5-node-1-nodetype-wad\azuredeploy.parameters.json" />
+    <None Include="Templates\service-fabric-secure-cluster-5-node-1-nodetype-wad\DownloadTemplate.png" />
+    <None Include="Templates\service-fabric-secure-cluster-5-node-1-nodetype-wad\metadata.json" />
+    <None Include="Templates\service-fabric-secure-cluster-5-node-1-nodetype-wad\README.md" />
+    <None Include="Templates\service-fabric-unsecure-cluster-5-node-1-nodetype\azuredeploy.json" />
+    <None Include="Templates\service-fabric-unsecure-cluster-5-node-1-nodetype\azuredeploy.parameters.json" />
+    <None Include="Templates\service-fabric-unsecure-cluster-5-node-1-nodetype\DownloadTemplate.png" />
+    <None Include="Templates\service-fabric-unsecure-cluster-5-node-1-nodetype\metadata.json" />
+    <None Include="Templates\service-fabric-unsecure-cluster-5-node-1-nodetype\README.md" />
+    <None Include="Templates\service-fabric-vmss-oms\azuredeploy.json" />
+    <None Include="Templates\service-fabric-vmss-oms\azuredeploy.parameters.json" />
+    <None Include="Templates\service-fabric-vmss-oms\images\oms.png" />
+    <None Include="Templates\service-fabric-vmss-oms\images\omsportal.png" />
+    <None Include="Templates\service-fabric-vmss-oms\images\sf.png" />
+    <None Include="Templates\service-fabric-vmss-oms\images\sfvmsslogs.png" />
+    <None Include="Templates\service-fabric-vmss-oms\images\vmss.png" />
+    <None Include="Templates\service-fabric-vmss-oms\metadata.json" />
+    <None Include="Templates\service-fabric-vmss-oms\README.md" />
+    <None Include="Templates\WebSiteSQLDatabase.param.dev.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Tools\AzCopy.exe" />
+    <None Include="Tools\Microsoft.Data.Edm.dll">
+      <Visible>False</Visible>
+    </None>
+    <None Include="Tools\Microsoft.Data.OData.dll">
+      <Visible>False</Visible>
+    </None>
+    <None Include="Tools\Microsoft.Data.Services.Client.dll">
+      <Visible>False</Visible>
+    </None>
+    <None Include="Tools\Microsoft.WindowsAzure.Storage.dll">
+      <Visible>False</Visible>
+    </None>
+    <None Include="Tools\Microsoft.WindowsAzure.Storage.DataMovement.dll">
+      <Visible>False</Visible>
+    </None>
+  </ItemGroup>
+  <Target Name="GetReferenceAssemblyPaths" />
+</Project>
