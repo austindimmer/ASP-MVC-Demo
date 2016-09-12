@@ -4,7 +4,7 @@
 #
 
 # parameters 
-$rgName = "TrafficManagerWebAppExample"
+$rgName = "Powerfront"
 
 # import the AzureRM modules
 Import-Module AzureRM.TrafficManager
