@@ -11,14 +11,6 @@ var customerId;
 
 
 
-//$.ajax({
-//    dataType: "json",
-//    contentType: "application/json",
-//    type: 'POST',
-//    url: '/Maintenance/Edit',
-//    data: { 'items': JSON.stringify(lineItems), 'id': documentId }
-//});
-
 
 
 $(document).ready(function () {
@@ -29,45 +21,83 @@ $(document).ready(function () {
     $.ajax({
         url: '/Maintenance/GetJsonByCustomerId/' + customerId,
         success: function (data) {
-            aggregateCustomer = data;
+            var aggregateCustomerString = Cereal.stringify(data);
+            aggregateCustomer = Cereal.parse(aggregateCustomerString);
+            ko.applyBindings(
+     aggregateCustomer
+ );
         }
-       
+
     });
 
 
-    $("#saveButton").bind("click", function () {
-        var onEventLaunchSquirrel = new postSquirrel();
-        onEventLaunchSquirrel.launchSquirrel();
+
+
+    $("#saveJsonButton").bind("click", function () {
+        var onEventPostJsonData = new postJsonData();
+        onEventPostJsonData.launchPostJsonData();
     });
 });
-function postSquirrel() {
-    this.launchSquirrel = function () {
 
-        // fetch values from input
-        var name = $("Name").val();
-        var age = $("Age").val();
-        var acorns = $("Acorns").val();
-        var gender = $("Gender").val();
-        var hobby = $("Hobby").val();
+//options.OnBegin = "onBeginSave";
+//options.OnComplete = "onCompleteSave";
+//options.OnFailure = "onFailureSave";
+//options.OnSuccess = "onSuccessSave";
 
-        // build json object
-        var squirrel = {
-            Name: name,
-            Age: age,
-            Acorns: acorns,
-            Gender: gender,
-            Hobby: hobby
-        };
+function onBeginSave() {
+    console.log("onBeginSave");
+    postJsonData();
+}
+function onCompleteSave() {
+    console.log("onCompleteSave");
+}
+function onFailureSave() {
+    console.log("onFailureSave");
+}
+function onSuccessSave() {
+    console.log("onSuccessSave");
+}
+
+
+function postJsonData() {
+    this.launchPostJsonData = function () {
+
+        var updatedData = JSON.stringify(aggregateCustomer);
 
         $.ajax({
-            type: "POST",
-            url: "home/PostSquirrel",
-            traditional: true,
-            contentType: 'application/json; charset=utf-8',
-            data: JSON.stringify(squirrel),
-            success: function (data) { console.log(data) },
-            error: function (data) { console.log(data) }
+            dataType: 'json', // expected format for response
+            contentType: 'application/json; charset=utf-8', // send as JSON
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader('content-type', 'application/json');
+            },
+            type: 'POST',
+            url: '/Maintenance/EditPostedJson/',
+            data: updatedData
+        })
+            .done(function (data) {
+                console.log("Response " + JSON.stringify(data));
+            })
+        .success(function (result) {
+            console.log("Response " + JSON.stringify(result));
+            new PNotify({
+                title: 'Customer Details Saved',
+                text: 'The customer record was updated!',
+                type: 'success',
+                animate_speed: 'fast'
+            });
+        })
+        .error(function (request, textStatus, errorThrown) {
+            console.log('textStatus ' + textStatus);
+            console.log('errorThrown ' + errorThrown);
+            new PNotify({
+                title: 'Customer Details Not Saved',
+                text: 'There appears to have been an error. Please try again later.',
+                type: 'error',
+                animate_speed: 'fast'
+            });
         });
+
+
 
     }
 }

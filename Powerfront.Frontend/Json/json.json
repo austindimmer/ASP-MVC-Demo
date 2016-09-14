@@ -1,0 +1,36 @@
+﻿{
+  "CustomerId": "1",
+  "CustomerDataRecords": [
+    {
+      "TypeId": "1",
+      "PropertyId": "1",
+      "Value": "Austin",
+      "CustomerId": "1",
+      "RecordId": "bad541e7-8fec-4e65-8969-ddeb4ba53432",
+      "Property": {
+        "PropertyId": "1",
+        "Name": "Name"
+      },
+      "Type": {
+        "TypeId": "1",
+        "Name": "Customer"
+      }
+    },
+    {
+      "TypeId": "1",
+      "PropertyId": "2",
+      "Value": "47",
+      "CustomerId": "1",
+      "RecordId": "bad541e7-8fec-4e65-8969-ddeb4ba53433",
+      "Property": {
+        "PropertyId": "2",
+        "Name": "Age"
+      },
+      "Type": {
+        "TypeId": "1",
+        "Name": "Customer"
+      }
+    }
+  ]
+}
+

@@ -1,8 +1,28 @@
 ﻿@model Powerfront.Backend.Model.AggregateCustomerViewModel
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Edit Customer Data";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    //this.Response.ContentType = "application/json";
+
+    var attributes = new Dictionary<string, object>();
+    attributes.Add("Id", "AggregateCustomrEditForm");
+    attributes.Add("enctype", "application/json");
+
+    var options = new AjaxOptions();
+    options.AllowCache = true;
+    options.Confirm = "Confirm Update?";
+    options.HttpMethod = "Post";
+    //options.InsertionMode = InsertionMode.Replace;
+    options.OnBegin = "onBeginSave";
+    options.OnComplete = "onCompleteSave";
+    options.OnFailure = "onFailureSave";
+    options.OnSuccess = "onSuccessSave";
+    options.UpdateTargetId = "UpdateStatus";
+    options.Url = "/Maintenance/Edit/";
+
+    var routeValues = new RouteValueDictionary();
+    //routeValues.Add("CustomerId", Model.CustomerId);
 }
 
 <h2>Edit</h2>
@@ -10,21 +30,54 @@
 
 
 
-@using (Html.BeginForm())
-{
+@*@using (Html.BeginForm("EditPostedJson", "Maintenance", attributes))*@
+    @using (Ajax.BeginForm("Edit", "Maintenance", options, attributes))
+    {
     @Html.AntiForgeryToken()
 
+    @*<table>
+        <thead>
+            <tr><th>First name</th><th>Last name</th></tr>
+        </thead>
+        <tbody data-bind="foreach: people">
+            <tr>
+                <td data-bind="text: firstName"></td>
+                <td data-bind="text: lastName"></td>
+            </tr>
+        </tbody>
+    </table>*@
 
+    <div class="form-horizontal">
+        <h4>Customer Record</h4>
+        <hr />
 
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" id="saveButton" value="Save" class="btn btn-default" />
+            <div class="form-group" data-bind="foreach: aggregateCustomer.CustomerDataRecords">
+                <label data-bind="text: Property.Name"></label>
+                @*@Html.LabelFor(model => customerRecord.Property.Name, htmlAttributes: new { @class = "control-label col-md-2" })*@
+                <div class="col-md-10">
+                    <input type="text" data-bind="value: Value">
+                    @*@Html.EditorFor(model => customerRecord.Value, new { htmlAttributes = new { @class = "form-control" } })*@
+                    @*@Html.ValidationMessageFor(model => customerRecord.Value, "", new { @class = "text-danger" })*@
+                </div>
             </div>
+    </div>
+
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" id="saveButton" value="Save Form Data" class="btn btn-default" />
         </div>
+    </div>
 
-}
 
+
+    }
+
+<div class="form-group">
+    <div class="col-md-offset-2 col-md-10">
+        <input type="submit" id="saveJsonButton" value="Save Json" class="btn btn-default" />
+    </div>
+</div>
 
 <div>
     @Html.ActionLink("Back to List", "Index")
@@ -36,7 +89,10 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/bundles/knockout")
+    @Scripts.Render("~/bundles/pnotify")
+    @Scripts.Render("~/bundles/cereal")
     @Scripts.Render("~/bundles/editaggregatecustomer")
+    @Styles.Render("~/Scripts/PNotify")
 
     
 }

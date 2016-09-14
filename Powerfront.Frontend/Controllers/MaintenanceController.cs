@@ -129,10 +129,52 @@ namespace Powerfront.Frontend.Controllers
             return jsonToReturn;
         }
 
+        [HttpPost]
+        //[ValidateAntiForgeryToken]
+        [ActionName("EditPostedJson")]
+        public JsonResult EditPostedJson([JsonBinder]AggregateCustomerViewModel updatedCustomer)
+        //public async Task<ActionResult> Edit(AggregateCustomer customerRecord)
+        {
+            var editedCustomerId = ViewBag.CustomerId;
+            bool editedCustomer=false;
+            if (ModelState.IsValid)
+            {
+                AggregateCustomer newRecord = new AggregateCustomer();
+                newRecord.CustomerDataRecords = new List<CustomerRecord>();
+                var retrievedCustomer = _customerService.GetCustomerByID(updatedCustomer.CustomerId);
+                for (int i = 0; i < updatedCustomer.CustomerDataRecords.Count; i++)
+                {
+                    var currentUpdatedProperty = updatedCustomer.CustomerDataRecords[i].Property.Name;
+                    for (int j = 0; j < retrievedCustomer.CustomerDataRecords.Count; j++)
+                    {
+                        var currentRetreivedProperty = retrievedCustomer.CustomerDataRecords[j].Property.Name;
+                        if (currentRetreivedProperty == currentUpdatedProperty)
+                        {
+                            retrievedCustomer.CustomerDataRecords[j].Value = updatedCustomer.CustomerDataRecords[i].Value;
+                        }
+                    }
+
+                    var valueToUpdateOnRetrievedCustomer = retrievedCustomer.CustomerDataRecords.Where(x => x.Property.Name == currentUpdatedProperty).Select(p => p.Value).FirstOrDefault();
+                    valueToUpdateOnRetrievedCustomer = updatedCustomer.CustomerDataRecords[i].Value;
+                }
+
+                editedCustomer = _customerService.UpdateCustomerRecords(retrievedCustomer);
+
+            }
+            if (editedCustomer)
+            {
+                return Json(new { success = true }, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json(new { success = false }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
         // POST: Maintenance/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
+        [HttpPost ]
         [ValidateAntiForgeryToken]
         [ActionName("Edit")]
         public ActionResult EditPosted([JsonBinder]AggregateCustomerViewModel modelString)

@@ -39,7 +39,7 @@ namespace Powerfront.Frontend
             });
 
             //ModelBinders.Binders.DefaultBinder = new DefaultDictionaryBinder();
-            ModelBinders.Binders.DefaultBinder = new JsonModelBinder();
+            //ModelBinders.Binders.DefaultBinder = new JsonModelBinder();
 
             ValueProviderFactories.Factories.Add(new JsonValueProviderFactory());
 
