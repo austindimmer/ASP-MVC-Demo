@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Powerfront.Backend.Model
 {
-    public interface IProperty
+    public class EditablePropertiesViewModel
     {
-        string PropertyId { get; set; }
-        string Name { get; set; }
+        public string CustomerId { get; set; }
+        public Dictionary<string, string> EditableProperties { get; set; }
     }
 }

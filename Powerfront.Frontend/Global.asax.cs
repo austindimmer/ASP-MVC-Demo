@@ -1,4 +1,6 @@
-﻿using Powerfront.Backend.EntityFramework;
+﻿using AutoMapper;
+using Powerfront.Backend.EntityFramework;
+using Powerfront.Backend.Model;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Claims;
@@ -24,6 +26,24 @@ namespace Powerfront.Frontend
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+            Mapper.Initialize(cfg => {
+                cfg.CreateMap<AggregateCustomer, AggregateCustomerViewModel>();
+                cfg.CreateMap<AggregateCustomerViewModel, AggregateCustomer>();
+                cfg.CreateMap<CustomerRecord, CustomerRecordViewModel>();
+                cfg.CreateMap<CustomerRecordViewModel, CustomerRecord>();
+                cfg.CreateMap<Backend.EntityFramework.Type, TypeViewModel>();
+                cfg.CreateMap<TypeViewModel, Backend.EntityFramework.Type>();
+                cfg.CreateMap<Property, PropertyViewModel>();
+                cfg.CreateMap<PropertyViewModel, Property>();
+            });
+
+            //ModelBinders.Binders.DefaultBinder = new DefaultDictionaryBinder();
+            ModelBinders.Binders.DefaultBinder = new JsonModelBinder();
+
+            ValueProviderFactories.Factories.Add(new JsonValueProviderFactory());
+
+
         }
     }
 }

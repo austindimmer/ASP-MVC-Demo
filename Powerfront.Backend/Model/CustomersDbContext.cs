@@ -12,7 +12,12 @@ namespace Powerfront.Backend.Model
     {
         public CustomersDbContext():base()
         {
+            //Disabling proxy creation
 
+            //Sometimes it is useful to prevent the Entity Framework from creating proxy instances.For example, serializing non - proxy instances is considerably easier than serializing proxy instances.Proxy creation can be turned off by clearing the ProxyCreationEnabled flag.One place you could do this is in the constructor of your context.For example:
+
+            // https://msdn.microsoft.com/en-us/data/jj592886.aspx?f=255&MSPPError=-2147217396
+            //this.Configuration.ProxyCreationEnabled = false;
         }
     }
 }

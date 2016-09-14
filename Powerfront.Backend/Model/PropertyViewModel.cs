@@ -6,9 +6,11 @@ using System.Threading.Tasks;
 
 namespace Powerfront.Backend.Model
 {
-    public interface IProperty
+    public class PropertyViewModel: IProperty
     {
-        string PropertyId { get; set; }
-        string Name { get; set; }
+        public string PropertyId { get; set; }
+
+        public string Name { get; set; }
+
     }
 }

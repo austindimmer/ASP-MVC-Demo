@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace Powerfront.Backend.Model
 {
-    public class Property : IProperty
+    public interface IType
     {
-        public string Name { get; set; }
+        string TypeId { get; set; }
+        string Name { get; set; }
 
-        public string Value { get; set; }
     }
 }
