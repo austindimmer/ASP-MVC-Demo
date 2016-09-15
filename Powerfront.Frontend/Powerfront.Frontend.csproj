@@ -221,7 +221,7 @@
     <Compile Include="Controllers\MaintenanceController.cs" />
     <Compile Include="Controllers\CustomerRecordsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\PropertiesController.cs" />
+    <Compile Include="Controllers\PropertyController.cs" />
     <Compile Include="ErrorHandler\AiHandleErrorAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -306,11 +306,11 @@
     <Content Include="Views\Maintenance\Edit.cshtml" />
     <Content Include="Views\Experimental\AggregateCustomerEditView.cshtml" />
     <Content Include="Views\Experimental\CustomerRecordEditView.cshtml" />
-    <Content Include="Views\Properties\Create.cshtml" />
-    <Content Include="Views\Properties\Delete.cshtml" />
-    <Content Include="Views\Properties\Details.cshtml" />
-    <Content Include="Views\Properties\Edit.cshtml" />
-    <Content Include="Views\Properties\Index.cshtml" />
+    <Content Include="Views\Property\Create.cshtml" />
+    <Content Include="Views\Property\Delete.cshtml" />
+    <Content Include="Views\Property\Details.cshtml" />
+    <Content Include="Views\Property\Edit.cshtml" />
+    <Content Include="Views\Property\Index.cshtml" />
     <None Include="Web.DebugLoadTest.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

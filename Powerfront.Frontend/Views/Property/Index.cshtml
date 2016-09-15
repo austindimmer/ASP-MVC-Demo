@@ -5,11 +5,9 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<h2>Property Maintenance</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+
 <table class="table">
     <tr>
         <th>
@@ -32,3 +30,5 @@
 }
 
 </table>
+
+<p>@Html.ActionLink("Create New", "Create", "Property", null, new { @class = "btn btn-primary btn-md", @id = "PropertyMaintenanceButton" })</p>

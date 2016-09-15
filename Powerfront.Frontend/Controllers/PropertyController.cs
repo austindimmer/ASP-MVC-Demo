@@ -12,17 +12,17 @@ using Powerfront.Backend.Model;
 
 namespace Powerfront.Frontend.Controllers
 {
-    public class PropertiesController : Controller
+    public class PropertyController : Controller
     {
         private PowerfrontDbContext db = new PowerfrontDbContext();
 
-        // GET: Properties
+        // GET: Property
         public async Task<ActionResult> Index()
         {
             return View(await db.Properties.ToListAsync());
         }
 
-        // GET: Properties/Details/5
+        // GET: Property/Details/5
         public async Task<ActionResult> Details(string id)
         {
             if (id == null)
@@ -37,13 +37,13 @@ namespace Powerfront.Frontend.Controllers
             return View(property);
         }
 
-        // GET: Properties/Create
+        // GET: Property/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Properties/Create
+        // POST: Property/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -52,6 +52,7 @@ namespace Powerfront.Frontend.Controllers
         {
             if (ModelState.IsValid)
             {
+                property.PropertyId = Guid.NewGuid().ToString();
                 db.Properties.Add(property);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
@@ -60,7 +61,7 @@ namespace Powerfront.Frontend.Controllers
             return View(property);
         }
 
-        // GET: Properties/Edit/5
+        // GET: Property/Edit/5
         public async Task<ActionResult> Edit(string id)
         {
             if (id == null)
@@ -75,7 +76,7 @@ namespace Powerfront.Frontend.Controllers
             return View(property);
         }
 
-        // POST: Properties/Edit/5
+        // POST: Property/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -91,7 +92,7 @@ namespace Powerfront.Frontend.Controllers
             return View(property);
         }
 
-        // GET: Properties/Delete/5
+        // GET: Property/Delete/5
         public async Task<ActionResult> Delete(string id)
         {
             if (id == null)
@@ -106,14 +107,21 @@ namespace Powerfront.Frontend.Controllers
             return View(property);
         }
 
-        // POST: Properties/Delete/5
+        // POST: Property/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(string id)
         {
-            Property property = await db.Properties.FindAsync(id);
-            db.Properties.Remove(property);
-            await db.SaveChangesAsync();
+            try
+            {
+                Property property = await db.Properties.FindAsync(id);
+                db.Properties.Remove(property);
+                await db.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                // Unable to delete since db must maintain refrenetial integrity.
+            }
             return RedirectToAction("Index");
         }
 

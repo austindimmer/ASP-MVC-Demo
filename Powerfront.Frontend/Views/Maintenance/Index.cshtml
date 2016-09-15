@@ -11,55 +11,91 @@
 
     @{
 
-        List<string> uniqueProperties = new List<string>();
+        List<Powerfront.Backend.EntityFramework.Property> uniqueProperties = ViewBag.Properties;
 
-        foreach (var item in Model)
-        {
-            foreach (var customerRecord in item.CustomerDataRecords)
-            {
-                if (uniqueProperties.Contains(customerRecord.Property.Name) == false)
-                {
-                    uniqueProperties.Add(customerRecord.Property.Name);
-                }
+        //foreach (var item in Model)
+        //{
+        //    foreach (var customerRecord in item.CustomerDataRecords)
+        //    {
+        //        if (uniqueProperties.Contains(customerRecord.Property.Name) == false)
+        //        {
+        //            uniqueProperties.Add(customerRecord.Property.Name);
+        //        }
 
-            }
-        }
-        @Html.Raw("<tr>");
+        //    }
+        //}
+        uniqueProperties.Sort((x, y) => x.Name.CompareTo(y.Name));
+
         foreach (var property in uniqueProperties)
         {
             @Html.Raw("<th>");
-            @Html.Label(property, new { @class = "text-muted"})
-            @Html.Raw("<th>");
+            @Html.Label(property.Name, new { @class = "text-muted" })
+            @Html.Raw("</th>");
         }
         @Html.Raw("<th></th>");
-        @Html.Raw("</tr>");
-        var numberofModelItems = Model.Select(aggregate => aggregate).Count();
-            for (int j = 0; j < numberofModelItems; j++)
+        //@Html.Raw("</tr>");
+        foreach (var customer in Model)
         {
             @Html.Raw("<tr>");
-            for (int i = 0; i < uniqueProperties.Count; i++)
+            int count = 0;
+            int uniquePropertiesCount = uniqueProperties.Count;
+            int customerRecordCount = customer.CustomerDataRecords.Count;
+            foreach (var property in uniqueProperties)
             {
-                var modelItemAtCurrentIndex = Model.ElementAt(j);
-                var currentPropertyCustomrRecord = Model.ElementAt(j).CustomerDataRecords[i];
-                var currentPropertyValue = Model.ElementAt(j).CustomerDataRecords[i].Value;
-                @Html.Raw("<td>");
-                @Html.Raw("<p class=\"text-info\">" + currentPropertyValue + "</p>");
-                @Html.Raw("<td>");
-                if (i == uniqueProperties.Count - 1)
+                var record = customer.CustomerDataRecords.Where(x => x.Property.Name == property.Name).FirstOrDefault();
+
+                if (record != null)
                 {
-                    <td>
-                        @Html.ActionLink("Edit", "Edit", new { id = currentPropertyCustomrRecord.CustomerId }) |
-                        @Html.ActionLink("Details", "Details", new { id = currentPropertyCustomrRecord.CustomerId }) |
-                        @Html.ActionLink("Delete", "Delete", new { id = currentPropertyCustomrRecord.CustomerId })
-                    </td>
+
+                    if (record.Property.Name == property.Name)
+                    {
+                        string currentPropertyValue;
+                        if (record.Value != null || record.Value != String.Empty)
+                        {
+                            currentPropertyValue = record.Value;
+                        }
+                        else
+                        {
+                            currentPropertyValue = String.Empty;
+                        }
+                        @Html.Raw("<td>");
+                        @Html.Raw("<p class=\"text-info\">" + @currentPropertyValue + "</p>");
+                        @Html.Raw("</td>");
+                        bool shouldRenderEditLinks = count == customerRecordCount - 1;
+                        if (shouldRenderEditLinks)
+                        {
+                            @*bool shouldRenderEmptyCell = customerRecordCount < uniquePropertiesCount;
+
+                            if (shouldRenderEmptyCell)
+                            {
+                                <td></td>
+                            }*@
+                            <td>
+                                @Html.ActionLink("Edit", "Edit", new { id = @record.CustomerId }) |
+                                @Html.ActionLink("Details", "Details", new { id = @record.CustomerId }) |
+                                @Html.ActionLink("Delete", "Delete", new { id = @record.CustomerId })
+                            </td>
+
+                        }
+                        count++;
+
+                    }
+
+                }
+                else
+                {
+                    <td></td>
                 }
             }
-
             @Html.Raw("</tr>");
         }
+
     }
 
 
 </table>
+
+
+
 <p>@Html.ActionLink("Create New", "Create", "Maintenance", null, new { @class = "btn btn-primary btn-md", @id = "MaintenanceButton" })</p>
 

@@ -38,6 +38,8 @@ namespace Powerfront.Frontend.Controllers
         {
             IEnumerable<AggregateCustomer> customerRecords = _customerService.GetAllCustomers();
             List<AggregateCustomerViewModel> viewModel = new List<AggregateCustomerViewModel>();
+            var Properties = _propertyService.GetAllProperties().ToList();
+            ViewBag.Properties = Properties;
             foreach (var customerRecord in customerRecords)
             {
                 var vm = new AggregateCustomerViewModel();
