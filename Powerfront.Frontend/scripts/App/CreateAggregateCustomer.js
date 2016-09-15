@@ -16,10 +16,9 @@ var customerId;
 $(document).ready(function () {
     // when the DOM has fully loaded...
 
-    customerId = document.getElementById('inputModelData').value;
     // get data from server
     $.ajax({
-        url: '/Maintenance/GetJsonByCustomerId/' + customerId,
+        url: '/Maintenance/GetNewlyCreatedCustomerJson/',
         success: function (data) {
             aggregateCustomer = data;
             ko.applyBindings(
@@ -32,7 +31,7 @@ $(document).ready(function () {
 
 
 
-    $("#saveJsonButton").bind("click", function () {
+    $("#createJsonButton").bind("click", function () {
         var onEventPostJsonData = new postJsonData();
         onEventPostJsonData.launchPostJsonData();
     });
@@ -70,7 +69,7 @@ function postJsonData() {
                 xhr.setRequestHeader('content-type', 'application/json');
             },
             type: 'POST',
-            url: '/Maintenance/EditPostedJson/',
+            url: '/Maintenance/CreateNewCustomerWithPostedJson/',
             data: updatedData
         })
             .done(function (data) {

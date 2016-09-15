@@ -221,6 +221,7 @@
     <Compile Include="Controllers\MaintenanceController.cs" />
     <Compile Include="Controllers\CustomerRecordsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\PropertiesController.cs" />
     <Compile Include="ErrorHandler\AiHandleErrorAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -248,6 +249,7 @@
     </Content>
     <Content Include="Scripts\ai.0.22.19-build00125.js" />
     <Content Include="Scripts\ai.0.22.19-build00125.min.js" />
+    <Content Include="Scripts\App\CreateAggregateCustomer.js" />
     <Content Include="Scripts\App\EditAggregateCustomer.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -304,6 +306,11 @@
     <Content Include="Views\Maintenance\Edit.cshtml" />
     <Content Include="Views\Experimental\AggregateCustomerEditView.cshtml" />
     <Content Include="Views\Experimental\CustomerRecordEditView.cshtml" />
+    <Content Include="Views\Properties\Create.cshtml" />
+    <Content Include="Views\Properties\Delete.cshtml" />
+    <Content Include="Views\Properties\Details.cshtml" />
+    <Content Include="Views\Properties\Edit.cshtml" />
+    <Content Include="Views\Properties\Index.cshtml" />
     <None Include="Web.DebugLoadTest.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

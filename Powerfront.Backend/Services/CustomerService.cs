@@ -54,21 +54,29 @@ namespace Powerfront.Backend.Services
             }
         }
 
-        public bool CreateCustomer(AggregateCustomer aggregateCustomer)
+        public AggregateCustomer CreateCustomer(AggregateCustomer aggregateCustomer)
         {
             try
             {
+                //var simulatedCust = new AggregateCustomer();
+                //simulatedCust.CustomerId = aggregateCustomer.CustomerId;
+                //simulatedCust.CustomerDataRecords = new List<CustomerRecord>();
+                //simulatedCust.CustomerDataRecords.Add(new CustomerRecord() { RecordId = Guid.NewGuid(), CustomerId= simulatedCust.CustomerId, Value= "NewlyCreatedCustomerValue", TypeId="1", PropertyId="1" });
+                //_CustomerRecords.Add(simulatedCust.CustomerDataRecords[0]);
+                //_uow.Save();
+                
                 foreach (var dataRecord in aggregateCustomer.CustomerDataRecords)
                 {
                     _CustomerRecords.Add(dataRecord);
                     _uow.Save();
                 }
+                AggregateCustomer retrievedCust = GetCustomerByID(aggregateCustomer.CustomerId);
 
-                return true;
+                return retrievedCust;
             }
             catch (Exception ex)
             {
-                return false;
+                return null;
                 throw new Exception("Failure creating Customer", ex);
             }
         }

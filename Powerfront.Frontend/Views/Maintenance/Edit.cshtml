@@ -35,17 +35,7 @@
     {
     @Html.AntiForgeryToken()
 
-    @*<table>
-        <thead>
-            <tr><th>First name</th><th>Last name</th></tr>
-        </thead>
-        <tbody data-bind="foreach: people">
-            <tr>
-                <td data-bind="text: firstName"></td>
-                <td data-bind="text: lastName"></td>
-            </tr>
-        </tbody>
-    </table>*@
+
 
     <div class="form-horizontal">
         <h4>Customer Record</h4>
@@ -53,21 +43,18 @@
 
             <div class="form-group" data-bind="foreach: aggregateCustomer.CustomerDataRecords">
                 <label data-bind="text: Property.Name"></label>
-                @*@Html.LabelFor(model => customerRecord.Property.Name, htmlAttributes: new { @class = "control-label col-md-2" })*@
                 <div class="col-md-10">
                     <input type="text" data-bind="value: Value">
-                    @*@Html.EditorFor(model => customerRecord.Value, new { htmlAttributes = new { @class = "form-control" } })*@
-                    @*@Html.ValidationMessageFor(model => customerRecord.Value, "", new { @class = "text-danger" })*@
                 </div>
             </div>
     </div>
 
 
-    <div class="form-group">
+    @*<div class="form-group">
         <div class="col-md-offset-2 col-md-10">
             <input type="submit" id="saveButton" value="Save Form Data" class="btn btn-default" />
         </div>
-    </div>
+    </div>*@
 
 
 
@@ -75,7 +62,7 @@
 
 <div class="form-group">
     <div class="col-md-offset-2 col-md-10">
-        <input type="submit" id="saveJsonButton" value="Save Json" class="btn btn-default" />
+        <input type="submit" id="saveJsonButton" value="Save" class="btn btn-default" />
     </div>
 </div>
 
@@ -90,7 +77,7 @@
     @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/bundles/knockout")
     @Scripts.Render("~/bundles/pnotify")
-    @Scripts.Render("~/bundles/cereal")
+    @Scripts.Render("~/bundles/json")
     @Scripts.Render("~/bundles/editaggregatecustomer")
     @Styles.Render("~/Scripts/PNotify")
 

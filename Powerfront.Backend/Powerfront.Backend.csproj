@@ -195,6 +195,7 @@
     <Compile Include="Repository\Repository.cs" />
     <Compile Include="Repository\UnitOfWork.cs" />
     <Compile Include="Services\CustomerService.cs" />
+    <Compile Include="Services\PropertyService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">

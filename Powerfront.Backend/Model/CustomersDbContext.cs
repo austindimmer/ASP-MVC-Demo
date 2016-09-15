@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace Powerfront.Backend.Model
 {
-    public class CustomersDbContext:PowerfrontEntities, IDbContext
+    public class PowerfrontDbContext:PowerfrontEntities, IDbContext
     {
-        public CustomersDbContext():base()
+        public PowerfrontDbContext():base()
         {
             //Disabling proxy creation
 

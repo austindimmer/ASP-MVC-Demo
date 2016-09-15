@@ -29,11 +29,14 @@ namespace Powerfront.Frontend
             bundles.Add(new ScriptBundle("~/bundles/pnotify").Include(
             "~/Scripts/pnotify.custom.min.js"));
 
-            bundles.Add(new ScriptBundle("~/bundles/cereal").Include(
-            "~/Scripts/cereal*"));
+            bundles.Add(new ScriptBundle("~/bundles/json").Include(
+            "~/Scripts/json*"));
 
             bundles.Add(new ScriptBundle("~/bundles/editaggregatecustomer").Include(
             "~/Scripts/App/EditAggregateCustomer.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/createaggregatecustomer").Include(
+"~/Scripts/App/CreateAggregateCustomer.js"));
 
 
             bundles.Add(new StyleBundle("~/Content/css").Include(

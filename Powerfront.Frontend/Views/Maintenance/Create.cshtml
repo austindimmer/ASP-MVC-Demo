@@ -1,65 +1,84 @@
-﻿@model Powerfront.Backend.EntityFramework.CustomerRecord
+﻿@model Powerfront.Backend.Model.AggregateCustomerViewModel
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Create Customer Data";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    //this.Response.ContentType = "application/json";
+
+    var attributes = new Dictionary<string, object>();
+    attributes.Add("Id", "AggregateCustomrCreateForm");
+    attributes.Add("enctype", "application/json");
+
+    var options = new AjaxOptions();
+    options.AllowCache = true;
+    options.Confirm = "Confirm Update?";
+    options.HttpMethod = "Post";
+    //options.InsertionMode = InsertionMode.Replace;
+    options.OnBegin = "onBeginSave";
+    options.OnComplete = "onCompleteSave";
+    options.OnFailure = "onFailureSave";
+    options.OnSuccess = "onSuccessSave";
+    options.UpdateTargetId = "UpdateStatus";
+    options.Url = "/Maintenance/Create/";
+
+    var routeValues = new RouteValueDictionary();
+    //routeValues.Add("CustomerId", Model.CustomerId);
 }
 
 <h2>Create</h2>
 
 
-@using (Html.BeginForm()) 
+
+
+@using (Ajax.BeginForm("Create", "Maintenance", options, attributes))
 {
     @Html.AntiForgeryToken()
-    
+
+
+
     <div class="form-horizontal">
-        <h4>CustomerRecord</h4>
+        <h4>Customer Record</h4>
         <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.TypeId, "TypeId", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("TypeId", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.TypeId, "", new { @class = "text-danger" })
-            </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.PropertyId, "PropertyId", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="form-group" data-bind="foreach: aggregateCustomer.CustomerDataRecords">
+            <label data-bind="text: Property.Name"></label>
             <div class="col-md-10">
-                @Html.DropDownList("PropertyId", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.PropertyId, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Value, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Value, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Value, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.CustomerId, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.CustomerId, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.CustomerId, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="text" data-bind="value: Value">
             </div>
         </div>
     </div>
+
+
+    @*<div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" id="saveButton" value="Save Form Data" class="btn btn-default" />
+            </div>
+        </div>*@
+
+
+
 }
+
+<div class="form-group">
+    <div class="col-md-offset-2 col-md-10">
+        <input type="submit" id="createJsonButton" value="Save" class="btn btn-default" />
+    </div>
+</div>
 
 <div>
     @Html.ActionLink("Back to List", "Index")
+    @*@Html.HiddenFor(model => model.CustomerId, htmlAttributes: new { @id = "inputModelData", value = "encodeURIComponent(JSON.stringify(" + Model.CustomerId + "))" })*@
 </div>
 
 @section Scripts {
+
+    @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/knockout")
+    @Scripts.Render("~/bundles/pnotify")
+    @Scripts.Render("~/bundles/json")
+    @Scripts.Render("~/bundles/createaggregatecustomer")
+    @Styles.Render("~/Scripts/PNotify")
+
+
 }
