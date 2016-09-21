@@ -1,0 +1,67 @@
+﻿@model Powerfront.Backend.Impact.EntityFramework.Impact
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Impact</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Other)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Other)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Notes)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Notes)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StartDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StartDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FinishDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FinishDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ImpactName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ImpactName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BeneficiaryGroup.BeneficiaryGroupDescription)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BeneficiaryGroup.BeneficiaryGroupDescription)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ImpactId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

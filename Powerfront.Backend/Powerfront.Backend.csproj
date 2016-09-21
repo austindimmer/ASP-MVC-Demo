@@ -176,7 +176,7 @@
     <Compile Include="Model\AggregateCustomers.cs" />
     <Compile Include="Model\AggregateCustomerViewModel.cs" />
     <Compile Include="Model\CustomerRecordViewModel.cs" />
-    <Compile Include="Model\CustomersDbContext.cs" />
+    <Compile Include="Model\PowerfrontDbContext.cs" />
     <Compile Include="Model\DefaultDictionaryBinder.cs" />
     <Compile Include="Model\EditablePropertiesViewModel.cs" />
     <Compile Include="Model\IAggregateCustomer.cs" />

@@ -138,10 +138,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Mock\MockImpactDataContext.cs" />
     <Compile Include="Mock\MockDataContext.cs" />
     <Compile Include="Mock\MockRepository.cs" />
     <Compile Include="Mock\MockUnitOfWork.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\ImpactServiceTest.cs" />
     <Compile Include="Services\CustomerServiceTest.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -149,6 +151,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Powerfront.Backend.Impact\Powerfront.Backend.Impact.csproj">
+      <Project>{D78BF209-B0C3-4CC3-A941-26A3FD61296A}</Project>
+      <Name>Powerfront.Backend.Impact</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Powerfront.Backend\Powerfront.Backend.csproj">
       <Project>{ced11205-819e-4f3a-badf-656ab29dabc8}</Project>
       <Name>Powerfront.Backend</Name>

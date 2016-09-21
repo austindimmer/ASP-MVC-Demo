@@ -1,0 +1,180 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="ImpactModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="BeneficiaryGroup">
+          <Key>
+            <PropertyRef Name="BeneficiaryGroupId" />
+          </Key>
+          <Property Name="BeneficiaryGroupId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="BeneficiaryGroupDescription" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="ImpactId" Type="uniqueidentifier" />
+        </EntityType>
+        <EntityType Name="Impact">
+          <Key>
+            <PropertyRef Name="ImpactId" />
+          </Key>
+          <Property Name="ImpactId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Other" Type="varchar" MaxLength="255" />
+          <Property Name="Notes" Type="varchar" MaxLength="255" />
+          <Property Name="StartDate" Type="date" Nullable="false" />
+          <Property Name="FinishDate" Type="date" Nullable="false" />
+          <Property Name="ImpactName" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="BeneficiaryGroupId" Type="uniqueidentifier" />
+        </EntityType>
+        <Association Name="FK_BeneficiaryGroupId">
+          <End Role="BeneficiaryGroup" Type="Self.BeneficiaryGroup" Multiplicity="0..1" />
+          <End Role="Impact" Type="Self.Impact" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BeneficiaryGroup">
+              <PropertyRef Name="BeneficiaryGroupId" />
+            </Principal>
+            <Dependent Role="Impact">
+              <PropertyRef Name="BeneficiaryGroupId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ImpactId">
+          <End Role="Impact" Type="Self.Impact" Multiplicity="0..1" />
+          <End Role="BeneficiaryGroup" Type="Self.BeneficiaryGroup" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Impact">
+              <PropertyRef Name="ImpactId" />
+            </Principal>
+            <Dependent Role="BeneficiaryGroup">
+              <PropertyRef Name="ImpactId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ImpactModelStoreContainer">
+          <EntitySet Name="BeneficiaryGroup" EntityType="Self.BeneficiaryGroup" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Impact" EntityType="Self.Impact" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_BeneficiaryGroupId" Association="Self.FK_BeneficiaryGroupId">
+            <End Role="BeneficiaryGroup" EntitySet="BeneficiaryGroup" />
+            <End Role="Impact" EntitySet="Impact" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ImpactId" Association="Self.FK_ImpactId">
+            <End Role="Impact" EntitySet="Impact" />
+            <End Role="BeneficiaryGroup" EntitySet="BeneficiaryGroup" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ImpactModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="BeneficiaryGroup">
+          <Key>
+            <PropertyRef Name="BeneficiaryGroupId" />
+          </Key>
+          <Property Name="BeneficiaryGroupId" Type="Guid" Nullable="false" />
+          <Property Name="BeneficiaryGroupDescription" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ImpactId" Type="Guid" />
+          <NavigationProperty Name="Impacts" Relationship="Self.FK_BeneficiaryGroupId" FromRole="BeneficiaryGroup" ToRole="Impact" />
+          <NavigationProperty Name="Impact" Relationship="Self.FK_ImpactId" FromRole="BeneficiaryGroup" ToRole="Impact" />
+        </EntityType>
+        <EntityType Name="Impact">
+          <Key>
+            <PropertyRef Name="ImpactId" />
+          </Key>
+          <Property Name="ImpactId" Type="Guid" Nullable="false" />
+          <Property Name="Other" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Notes" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="FinishDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="ImpactName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="BeneficiaryGroupId" Type="Guid" />
+          <NavigationProperty Name="BeneficiaryGroup" Relationship="Self.FK_BeneficiaryGroupId" FromRole="Impact" ToRole="BeneficiaryGroup" />
+          <NavigationProperty Name="BeneficiaryGroups" Relationship="Self.FK_ImpactId" FromRole="Impact" ToRole="BeneficiaryGroup" />
+        </EntityType>
+        <Association Name="FK_BeneficiaryGroupId">
+          <End Role="BeneficiaryGroup" Type="Self.BeneficiaryGroup" Multiplicity="0..1" />
+          <End Role="Impact" Type="Self.Impact" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BeneficiaryGroup">
+              <PropertyRef Name="BeneficiaryGroupId" />
+            </Principal>
+            <Dependent Role="Impact">
+              <PropertyRef Name="BeneficiaryGroupId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ImpactId">
+          <End Role="Impact" Type="Self.Impact" Multiplicity="0..1" />
+          <End Role="BeneficiaryGroup" Type="Self.BeneficiaryGroup" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Impact">
+              <PropertyRef Name="ImpactId" />
+            </Principal>
+            <Dependent Role="BeneficiaryGroup">
+              <PropertyRef Name="ImpactId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ImpactEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="BeneficiaryGroups" EntityType="Self.BeneficiaryGroup" />
+          <EntitySet Name="Impacts" EntityType="Self.Impact" />
+          <AssociationSet Name="FK_BeneficiaryGroupId" Association="Self.FK_BeneficiaryGroupId">
+            <End Role="BeneficiaryGroup" EntitySet="BeneficiaryGroups" />
+            <End Role="Impact" EntitySet="Impacts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ImpactId" Association="Self.FK_ImpactId">
+            <End Role="Impact" EntitySet="Impacts" />
+            <End Role="BeneficiaryGroup" EntitySet="BeneficiaryGroups" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ImpactModelStoreContainer" CdmEntityContainer="ImpactEntities">
+          <EntitySetMapping Name="BeneficiaryGroups">
+            <EntityTypeMapping TypeName="ImpactModel.BeneficiaryGroup">
+              <MappingFragment StoreEntitySet="BeneficiaryGroup">
+                <ScalarProperty Name="BeneficiaryGroupId" ColumnName="BeneficiaryGroupId" />
+                <ScalarProperty Name="BeneficiaryGroupDescription" ColumnName="BeneficiaryGroupDescription" />
+                <ScalarProperty Name="ImpactId" ColumnName="ImpactId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Impacts">
+            <EntityTypeMapping TypeName="ImpactModel.Impact">
+              <MappingFragment StoreEntitySet="Impact">
+                <ScalarProperty Name="ImpactId" ColumnName="ImpactId" />
+                <ScalarProperty Name="Other" ColumnName="Other" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="FinishDate" ColumnName="FinishDate" />
+                <ScalarProperty Name="ImpactName" ColumnName="ImpactName" />
+                <ScalarProperty Name="BeneficiaryGroupId" ColumnName="BeneficiaryGroupId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

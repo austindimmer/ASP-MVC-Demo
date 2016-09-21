@@ -26,6 +26,10 @@ namespace Powerfront.Frontend
             bundles.Add(new ScriptBundle("~/bundles/knockout").Include(
                         "~/Scripts/knockout-*"));
 
+            bundles.Add(new ScriptBundle("~/bundles/kendoangular").Include(
+          "~/Scripts/angular.js",
+          "~/Scripts/kendo.all.min.js"));
+
             bundles.Add(new ScriptBundle("~/bundles/pnotify").Include(
             "~/Scripts/pnotify.custom.min.js"));
 
@@ -35,8 +39,13 @@ namespace Powerfront.Frontend
             bundles.Add(new ScriptBundle("~/bundles/editaggregatecustomer").Include(
             "~/Scripts/App/EditAggregateCustomer.js"));
 
-            bundles.Add(new ScriptBundle("~/bundles/createaggregatecustomer").Include(
-"~/Scripts/App/CreateAggregateCustomer.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/impact")
+    .IncludeDirectory("~/app/controllers", "*.js")
+    .Include("~/app/Impact.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/createimpact").Include(
+"~/Scripts/App/CreateImpactController.js"));
 
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
@@ -45,6 +54,12 @@ namespace Powerfront.Frontend
 
             bundles.Add(new StyleBundle("~/Scripts/PNotify").Include(
           "~/Scripts/pnotify.custom.min.css"));
+
+            bundles.Add(new StyleBundle("~/Content/kendo").Include(
+                      "~/Content/Kendo/kendo.common.css",
+                      "~/Content/Kendo/kendo.common.bootstrap.min.css",
+                      "~/Content/Kendo/kendo.black.min.css"
+));
         }
     }
 }

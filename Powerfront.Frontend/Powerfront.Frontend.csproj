@@ -218,6 +218,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ImpactsController.cs" />
     <Compile Include="Controllers\MaintenanceController.cs" />
     <Compile Include="Controllers\CustomerRecordsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -230,12 +231,90 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="app\impact.js" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.cyborg.css" />
     <Content Include="Content\bootstrap.cyborg.min.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\bootstrap.slate.css" />
     <Content Include="Content\bootstrap.slate.min.css" />
+    <Content Include="Content\Kendo\kendo.black.min.css" />
+    <Content Include="Content\Kendo\kendo.black.mobile.min.css" />
+    <Content Include="Content\Kendo\kendo.blueopal.min.css" />
+    <Content Include="Content\Kendo\kendo.blueopal.mobile.min.css" />
+    <Content Include="Content\Kendo\kendo.bootstrap.min.css" />
+    <Content Include="Content\Kendo\kendo.bootstrap.mobile.min.css" />
+    <Content Include="Content\Kendo\kendo.common-bootstrap.core.min.css" />
+    <Content Include="Content\Kendo\kendo.common-bootstrap.min.css" />
+    <Content Include="Content\Kendo\kendo.common-fiori.core.min.css" />
+    <Content Include="Content\Kendo\kendo.common-fiori.min.css" />
+    <Content Include="Content\Kendo\kendo.common-material.core.min.css" />
+    <Content Include="Content\Kendo\kendo.common-material.min.css" />
+    <Content Include="Content\Kendo\kendo.common-nova.core.min.css" />
+    <Content Include="Content\Kendo\kendo.common-nova.min.css" />
+    <Content Include="Content\Kendo\kendo.common-office365.min.css" />
+    <Content Include="Content\Kendo\kendo.common.core.min.css" />
+    <Content Include="Content\Kendo\kendo.common.css" />
+    <Content Include="Content\Kendo\kendo.common.min.css" />
+    <Content Include="Content\Kendo\kendo.dataviz.black.min.css" />
+    <Content Include="Content\Kendo\kendo.dataviz.blueopal.min.css" />
+    <Content Include="Content\Kendo\kendo.dataviz.bootstrap.min.css" />
+    <Content Include="Content\Kendo\kendo.dataviz.default.min.css" />
+    <Content Include="Content\Kendo\kendo.dataviz.fiori.min.css" />
+    <Content Include="Content\Kendo\kendo.dataviz.flat.min.css" />
+    <Content Include="Content\Kendo\kendo.dataviz.highcontrast.min.css" />
+    <Content Include="Content\Kendo\kendo.dataviz.material.min.css" />
+    <Content Include="Content\Kendo\kendo.dataviz.materialblack.min.css" />
+    <Content Include="Content\Kendo\kendo.dataviz.metro.min.css" />
+    <Content Include="Content\Kendo\kendo.dataviz.metroblack.min.css" />
+    <Content Include="Content\Kendo\kendo.dataviz.min.css" />
+    <Content Include="Content\Kendo\kendo.dataviz.mobile.min.css" />
+    <Content Include="Content\Kendo\kendo.dataviz.moonlight.min.css" />
+    <Content Include="Content\Kendo\kendo.dataviz.nova.min.css" />
+    <Content Include="Content\Kendo\kendo.dataviz.office365.min.css" />
+    <Content Include="Content\Kendo\kendo.dataviz.silver.min.css" />
+    <Content Include="Content\Kendo\kendo.dataviz.uniform.min.css" />
+    <Content Include="Content\Kendo\kendo.default.min.css" />
+    <Content Include="Content\Kendo\kendo.default.mobile.min.css" />
+    <Content Include="Content\Kendo\kendo.fiori.min.css" />
+    <Content Include="Content\Kendo\kendo.fiori.mobile.min.css" />
+    <Content Include="Content\Kendo\kendo.flat.min.css" />
+    <Content Include="Content\Kendo\kendo.flat.mobile.min.css" />
+    <Content Include="Content\Kendo\kendo.highcontrast.min.css" />
+    <Content Include="Content\Kendo\kendo.highcontrast.mobile.min.css" />
+    <Content Include="Content\Kendo\kendo.material.min.css" />
+    <Content Include="Content\Kendo\kendo.material.mobile.min.css" />
+    <Content Include="Content\Kendo\kendo.materialblack.min.css" />
+    <Content Include="Content\Kendo\kendo.materialblack.mobile.min.css" />
+    <Content Include="Content\Kendo\kendo.metro.min.css" />
+    <Content Include="Content\Kendo\kendo.metro.mobile.min.css" />
+    <Content Include="Content\Kendo\kendo.metroblack.min.css" />
+    <Content Include="Content\Kendo\kendo.metroblack.mobile.min.css" />
+    <Content Include="Content\Kendo\kendo.mobile.all.min.css" />
+    <Content Include="Content\Kendo\kendo.mobile.android.dark.min.css" />
+    <Content Include="Content\Kendo\kendo.mobile.android.light.min.css" />
+    <Content Include="Content\Kendo\kendo.mobile.blackberry.min.css" />
+    <Content Include="Content\Kendo\kendo.mobile.common.min.css" />
+    <Content Include="Content\Kendo\kendo.mobile.fiori.min.css" />
+    <Content Include="Content\Kendo\kendo.mobile.flat.min.css" />
+    <Content Include="Content\Kendo\kendo.mobile.ios.min.css" />
+    <Content Include="Content\Kendo\kendo.mobile.material.min.css" />
+    <Content Include="Content\Kendo\kendo.mobile.meego.min.css" />
+    <Content Include="Content\Kendo\kendo.mobile.nova.min.css" />
+    <Content Include="Content\Kendo\kendo.mobile.office365.min.css" />
+    <Content Include="Content\Kendo\kendo.mobile.wp8.min.css" />
+    <Content Include="Content\Kendo\kendo.moonlight.min.css" />
+    <Content Include="Content\Kendo\kendo.moonlight.mobile.min.css" />
+    <Content Include="Content\Kendo\kendo.nova.min.css" />
+    <Content Include="Content\Kendo\kendo.nova.mobile.min.css" />
+    <Content Include="Content\Kendo\kendo.office365.min.css" />
+    <Content Include="Content\Kendo\kendo.office365.mobile.min.css" />
+    <Content Include="Content\Kendo\kendo.rtl.css" />
+    <Content Include="Content\Kendo\kendo.rtl.min.css" />
+    <Content Include="Content\Kendo\kendo.silver.min.css" />
+    <Content Include="Content\Kendo\kendo.silver.mobile.min.css" />
+    <Content Include="Content\Kendo\kendo.uniform.min.css" />
+    <Content Include="Content\Kendo\kendo.uniform.mobile.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -253,6 +332,7 @@
     <Content Include="Scripts\angular.js" />
     <Content Include="Scripts\angular.min.js" />
     <Content Include="Scripts\App\CreateAggregateCustomer.js" />
+    <Content Include="app\controllers\CreateImpactController.js" />
     <Content Include="Scripts\App\EditAggregateCustomer.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -261,12 +341,13 @@
     </Content>
     <None Include="Properties\PublishProfiles\PowerfrontFrontend.pubxml" />
     <Content Include="Scripts\angular.min.js.map" />
-    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\cereal.js" />
     <Content Include="Scripts\cycle.js" />
-    <Content Include="Scripts\jquery-1.10.2.js" />
-    <Content Include="Scripts\jquery-1.10.2.min.js" />
+    <None Include="Scripts\jquery-1.9.1.intellisense.js" />
+    <Content Include="Scripts\jquery-1.9.1.js" />
+    <Content Include="Scripts\jquery-1.9.1.min.js" />
     <Content Include="Scripts\jquery.min.map" />
+    <Content Include="Scripts\jquery-1.9.1.min.map" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
@@ -325,12 +406,39 @@
     <Content Include="Scripts\kendo.all.min.js.map" />
     <Content Include="Scripts\kendo.angular.min.js.map" />
     <Content Include="Scripts\kendo.core.min.js.map" />
+    <Content Include="Views\Impacts\Create.cshtml" />
+    <Content Include="Views\Impacts\Delete.cshtml" />
+    <Content Include="Views\Impacts\Details.cshtml" />
+    <Content Include="Views\Impacts\Edit.cshtml" />
+    <Content Include="Views\Impacts\Index.cshtml" />
     <None Include="Web.DebugLoadTest.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="app\directives\" />
+    <Folder Include="app\filters\" />
+    <Folder Include="app\services\" />
     <Folder Include="App_Data\" />
+    <Folder Include="Content\Kendo\Black\" />
+    <Folder Include="Content\Kendo\BlueOpal\" />
+    <Folder Include="Content\Kendo\Bootstrap\" />
+    <Folder Include="Content\Kendo\Default\" />
+    <Folder Include="Content\Kendo\Fiori\" />
+    <Folder Include="Content\Kendo\Flat\" />
+    <Folder Include="Content\Kendo\fonts\" />
+    <Folder Include="Content\Kendo\HighContrast\" />
+    <Folder Include="Content\Kendo\images\" />
+    <Folder Include="Content\Kendo\MaterialBlack\" />
+    <Folder Include="Content\Kendo\Material\" />
+    <Folder Include="Content\Kendo\MetroBlack\" />
+    <Folder Include="Content\Kendo\Metro\" />
+    <Folder Include="Content\Kendo\Moonlight\" />
+    <Folder Include="Content\Kendo\Nova\" />
+    <Folder Include="Content\Kendo\Office365\" />
+    <Folder Include="Content\Kendo\Silver\" />
+    <Folder Include="Content\Kendo\textures\" />
+    <Folder Include="Content\Kendo\Uniform\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -338,12 +446,15 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
-    <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Powerfront.Backend.Impact\Powerfront.Backend.Impact.csproj">
+      <Project>{d78bf209-b0c3-4cc3-a941-26a3fd61296a}</Project>
+      <Name>Powerfront.Backend.Impact</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Powerfront.Backend\Powerfront.Backend.csproj">
       <Project>{ced11205-819e-4f3a-badf-656ab29dabc8}</Project>
       <Name>Powerfront.Backend</Name>

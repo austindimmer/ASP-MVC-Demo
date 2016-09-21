@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Design version="1" datasource="Powerfront" kind="MS SQL Server" root="Powerfront">
+	<Line left="283" top="193" right="584" bottom="224" fromObj="1" toObj="2" XPos="434" labelX="-57">
+		<ObjectPathFrom>
+			<PathElement Name="dbo" Kind="Schema"/>
+			<PathElement Name="Impact" Kind="Table"/>
+			<PathElement Name="FK_BeneficiaryGroupId" Kind="ForeignKey"/>
+		</ObjectPathFrom>
+		<ObjectPathFrom_VirtualParent/>
+		<ObjectPathTo>
+			<PathElement Name="dbo" Kind="Schema"/>
+			<PathElement Name="BeneficiaryGroup" Kind="Table"/>
+			<PathElement Name="PK_BeneficiaryGroupId" Kind="PrimaryKey"/>
+		</ObjectPathTo>
+	</Line>
+	<Line left="284" top="197" right="584" bottom="210" fromObj="2" toObj="1" XPos="434" labelX="-33">
+		<ObjectPathFrom>
+			<PathElement Name="dbo" Kind="Schema"/>
+			<PathElement Name="BeneficiaryGroup" Kind="Table"/>
+			<PathElement Name="FK_ImpactId" Kind="ForeignKey"/>
+		</ObjectPathFrom>
+		<ObjectPathFrom_VirtualParent/>
+		<ObjectPathTo>
+			<PathElement Name="dbo" Kind="Schema"/>
+			<PathElement Name="Impact" Kind="Table"/>
+			<PathElement Name="PK_Id" Kind="PrimaryKey"/>
+		</ObjectPathTo>
+	</Line>
+	<Table left="590" top="10" right="972" bottom="253" id="1" expanded="1">
+		<ColumnWidths col0="22.000000" col1="117.000000" col2="114.000000" col3="109.000000" col4="20.000000"/>
+		<CollapsedCompartments Indexes="1" CheckConstraints="3"/>
+		<ObjectPath>
+			<PathElement Name="dbo" Kind="Schema"/>
+			<PathElement Name="Impact" Kind="Table"/>
+		</ObjectPath>
+	</Table>
+	<Table left="-80" top="70" right="278" bottom="249" id="2" expanded="1">
+		<ColumnWidths col0="22.000000" col1="142.000000" col2="114.000000" col3="60.000000" col4="20.000000"/>
+		<CollapsedCompartments Indexes="1" CheckConstraints="3"/>
+		<ObjectPath>
+			<PathElement Name="dbo" Kind="Schema"/>
+			<PathElement Name="BeneficiaryGroup" Kind="Table"/>
+		</ObjectPath>
+	</Table>
+</Design>
