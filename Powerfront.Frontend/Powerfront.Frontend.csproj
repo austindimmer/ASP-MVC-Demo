@@ -231,6 +231,7 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="app\directives\directives.js" />
     <Content Include="app\impact.js" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.cyborg.css" />
@@ -238,6 +239,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\bootstrap.slate.css" />
     <Content Include="Content\bootstrap.slate.min.css" />
+    <Content Include="Content\FlexboxLayout.css" />
     <Content Include="Content\Kendo\kendo.black.min.css" />
     <Content Include="Content\Kendo\kendo.black.mobile.min.css" />
     <Content Include="Content\Kendo\kendo.blueopal.min.css" />
@@ -340,9 +342,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="Properties\PublishProfiles\PowerfrontFrontend.pubxml" />
-    <Content Include="Scripts\angular.min.js.map" />
     <Content Include="Scripts\cereal.js" />
     <Content Include="Scripts\cycle.js" />
+    <Content Include="Scripts\angular.min.js.map" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Scripts\jquery-1.9.1.js" />
     <Content Include="Scripts\jquery-1.9.1.min.js" />
@@ -416,7 +418,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="app\directives\" />
     <Folder Include="app\filters\" />
     <Folder Include="app\services\" />
     <Folder Include="App_Data\" />

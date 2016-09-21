@@ -7,12 +7,9 @@
 
 
 
-var CreateImpactController = function ($scope, $document) {
+var CreateImpactController = function ($scope, $document, $http) {
     $scope.title = $document[0].title;
     $scope.windowTitle = angular.element(window.document)[0].title;
-    $scope.models = {
-        helloAngular: 'I work!'
-    };
 
     $scope.getType = function (x) {
         return typeof x;
@@ -25,6 +22,7 @@ var CreateImpactController = function ($scope, $document) {
 
         var startYearPicker = angular.element(document.querySelector('#startyearpicker'));
         var endYearPicker = angular.element(document.querySelector('#endyearpicker'));
+        var selectedBeneficiaryGroups = angular.element(document.querySelector('#selectedBeneficiaryGroups'));
 
         var myEl = $document.find('#startyearpicker');
 
@@ -39,7 +37,78 @@ var CreateImpactController = function ($scope, $document) {
             depth: "decade",
             format: "yyyy"
         });
-    })
+
+      
+
+        //$http.get('/GetBlankImpactViewModel').then(successCallback, errorCallback);
+
+        // get data from server
+        //$.ajax({
+        //    url: '/Impacts/GetBlankImpactViewModel/',
+        //    success: function (data) {
+        //        var parsedData = JSON.parse(data);
+        //        $scope.impactsViewModel = parsedData;
+        //        $scope.beneficiaryGroups = parsed.BeneficiaryGroups
+        //    }
+        //});
+
+        $scope.selectedBeneficiaryGroup = null;
+        $scope.beneficiaryGroups = [];
+        $scope.impact = [];
+        //        var parsedData = JSON.parse(data);
+        $scope.impactViewModel = [];
+
+        $http({
+            method: 'GET',
+            url: '/Impacts/GetBlankImpactViewModel/',
+        }).success(function (result) {
+            var parsedData = JSON.parse(result);
+            $scope.impactViewModel = parsedData;
+            $scope.impact = result;
+
+            selectedBeneficiaryGroups.kendoListView({
+                dataSource: $scope.impactViewModel.SelectedBeneficiaryGroups,
+                template: kendo.template($("#template").html()),
+                selectable: "multiple",
+                change: onChange,
+
+            });
+        });
+
+
+        $scope.addBeneficiaryGroup = function (selectedBeneficiaryGroup) {
+            //$scope.items.splice(index, 1);
+            $scope.impactViewModel.SelectedBeneficiaryGroups.push(selectedBeneficiaryGroup)
+            var indexOfMatchingObject = $.inArray(selectedBeneficiaryGroup, $scope.impactViewModel.BeneficiaryGroups)
+            if (indexOfMatchingObject != -1) {
+                $scope.impactViewModel.BeneficiaryGroups.splice(indexOfMatchingObject, 1);
+            }
+        };
+
+        function onChange() {
+            var data = dataSource.view(),
+                selected = $.map(this.select(), function (item) {
+                    return data[$(item).index()].ProductName;
+                });
+
+            kendoConsole.log("Selected: " + selected.length + " item(s), [" + selected.join(", ") + "]");
+        }
+
+    }
+    )
 }
 
-CreateImpactController.$inject = ['$scope', '$document'];
+
+    //var req = {
+    //    method: 'GET',
+    //    url: '/GetBlankImpactViewModel',
+    //    headers: {
+    //        'Content-Type': application/json
+    //    },
+    //}
+
+    //$http(req).then(function () { }, function () { });
+
+
+
+CreateImpactController.$inject = ['$scope', '$document', '$http'];

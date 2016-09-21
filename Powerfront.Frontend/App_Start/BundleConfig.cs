@@ -42,6 +42,7 @@ namespace Powerfront.Frontend
 
             bundles.Add(new ScriptBundle("~/bundles/impact")
     .IncludeDirectory("~/app/controllers", "*.js")
+    .IncludeDirectory("~/app/directives", "*.js")
     .Include("~/app/Impact.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/createimpact").Include(
@@ -49,6 +50,7 @@ namespace Powerfront.Frontend
 
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
+                      "~/Content/FlexboxLayout.css",
                       "~/Content/bootstrap.cyborg.css",
                       "~/Content/site.css"));
 

@@ -9,6 +9,9 @@ using System.Web;
 using System.Web.Mvc;
 using Powerfront.Backend.Impact.EntityFramework;
 using Powerfront.Backend.Model;
+using Powerfront.Backend.MVC;
+using Powerfront.Backend.Impact.Model;
+using System.Text;
 
 namespace Powerfront.Frontend.Controllers
 {
@@ -22,6 +25,25 @@ namespace Powerfront.Frontend.Controllers
             var impacts = db.Impacts.Include(i => i.BeneficiaryGroup);
             return View(await impacts.ToListAsync());
         }
+
+
+        [HandleUIException]
+        public async Task<JsonResult> GetBlankImpactViewModel()
+        {
+            ImpactViewModel impact = new ImpactViewModel();
+            var beneficiaryGroups = db.BeneficiaryGroups.ToList();
+            impact.BeneficiaryGroups = beneficiaryGroups;
+            impact.ImpactName = "TESTING";
+            impact.StartDate = DateTime.Now;
+            impact.FinishDate = DateTime.Now.AddYears(1);
+            impact.SelectedBeneficiaryGroups = new List<BeneficiaryGroup>();
+
+            var jsonImpactRecord = ImpactViewModel.Serialize(impact);
+
+            var jsonToReturn = Json(jsonImpactRecord, "application/json", Encoding.UTF8, JsonRequestBehavior.AllowGet);
+            return jsonToReturn;
+
+        }    
 
         // GET: Impacts/Details/5
         public async Task<ActionResult> Details(Guid? id)

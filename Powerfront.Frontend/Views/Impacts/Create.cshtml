@@ -8,106 +8,147 @@
 <h2>Create</h2>
 
 
+<div ng-app="impact" ng-controller='CreateImpactController'>
+    <form>
+        @Html.AntiForgeryToken()
 
-@using (Html.BeginForm()) 
-{
-    @Html.AntiForgeryToken()
 
+        <div class="form-horizontal">
+            @*<input type="text" ng-model="models.helloAngular" />
+                <h1>{{models.helloAngular}}</h1>*@
+            <h4>Impact</h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-    <div class="form-horizontal" ng-app="impact" ng-controller='CreateImpactController'>
-        <input type="text" ng-model="models.helloAngular" />
-        <h1>{{models.helloAngular}}</h1>
-        <h4>Impact</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                <label class="control-label col-md-2">Impact Name</label>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.ImpactName, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.ImpactName, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ImpactName, "", new { @class = "text-danger" })
+                @*@Html.LabelFor(model => model.ImpactName, htmlAttributes: new { @class = "control-label col-md-2" })*@
+                <div class="col-md-10">
+                    <input class="form-control" ng-model="impactViewModel.ImpactName" value="{{impactViewModel.ImpactName}}" />
+                    @*@Html.EditorFor(model => model.ImpactName, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.ImpactName, "", new { @class = "text-danger" })*@
+                </div>
             </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Other, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Other, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Other, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Notes, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Notes, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Notes, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @*@Html.LabelFor(model => model.StartDate, htmlAttributes: new { @class = "control-label col-md-2" })*@
+                <div class="col-md-10">
+                    <label>
+                        Start Date <input id="startyearpicker"
+                                          ng-model="str"
+                                          k-ng-model="obj"
+                                          style="width: 50%;"
+                                          value="{{impactViewModel.StartDate}}" />
+                    </label>
+
+                    <label>
+                        End Date <input id="endyearpicker"
+                                        ng-model="strEnd"
+                                        k-ng-model="objEnd"
+                                        style="width: 50%;"
+                                        value="{{impactViewModel.EndDate}}" />
+                    </label>
+
+                    @*@Html.EditorFor(model => model.StartDate, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.StartDate, "", new { @class = "text-danger" })*@
+                    @*<input kendo-date-time-picker
+                        ng-model="str"
+                        k-ng-model="obj"
+                        style="width: 100%;" />*@
+
+                    @*<pre>
+                          str: {{ str }}
+                          obj: {{ obj }}
+                          typeof obj: {{ getType(obj) }}
+                          obj instanceof Date: {{ isDate(obj) }}
+                        </pre>*@
+
+                </div>
+            </div>
+
+            <div class="form-group">
+                @*@Html.LabelFor(model => model.FinishDate, htmlAttributes: new { @class = "control-label col-md-2" })*@
+                <div class="col-md-10">
+                    @*<label>Finish Date <input kendo-date-picker id="endyearpicker" /></label>*@
+
+                    @*@Html.EditorFor(model => model.FinishDate, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.FinishDate, "", new { @class = "text-danger" })*@
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <div class="col-md-10 flex-container">
+                    <select class="form-control" ng-model="selectedBeneficiaryGroup"
+                            ng-options="item as item.BeneficiaryGroupDescription for item in impactViewModel.BeneficiaryGroups">
+                        <option value="">Select Beneficiary Group</option>
+                    </select>
+                    <button ng-click="addBeneficiaryGroup(selectedBeneficiaryGroup)" class="btn btn-default" type="button">Add Beneficiary Group</button>
+
+                </div>
+            </div>
+
+            <div kendo-list-view id="listView" k-data-source="{{impactViewModel.SelectedBeneficiaryGroups}}">
+                <div class="col-md-10 flex-container" k-template>
+                    <p>{{ dataItem.BeneficiaryGroupDescription}}</p>
+                    <button ng-click="removeBeneficiaryGroup(selectedBeneficiaryGroup)" class="btn btn-default" type="button">Add Beneficiary Group</button>
+                </div>
+            </div>
+
+
+            <script type="text/x-kendo-template" id="template">
+                <div class="col-md-10">
+                    <label></label>
+                </div>
+            </script>
+
+
+
+
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Create" class="btn btn-default" />
+                </div>
+            </div>
+
+
+
+
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Other, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Other, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Other, "", new { @class = "text-danger" })
-            </div>
-        </div>
+    </form>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Notes, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Notes, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Notes, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @*@Html.LabelFor(model => model.StartDate, htmlAttributes: new { @class = "control-label col-md-2" })*@
-            <div class="col-md-10">
-                <label>Start Date <input id="startyearpicker" /></label>
-                
-                @*@Html.EditorFor(model => model.StartDate, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.StartDate, "", new { @class = "text-danger" })*@
-                <input kendo-date-time-picker
-                       ng-model="str"
-                       k-ng-model="obj"
-                       style="width: 100%;" />
-
-                <pre>
-  str: {{ str }}
-  obj: {{ obj }}
-  typeof obj: {{ getType(obj) }}
-  obj instanceof Date: {{ isDate(obj) }}
-</pre>
-            </div>
-        </div>
-
-        <div class="form-group">
-            @*@Html.LabelFor(model => model.FinishDate, htmlAttributes: new { @class = "control-label col-md-2" })*@
-            <div class="col-md-10">
-                <label>Finish Date <input kendo-date-picker id="endyearpicker" /></label>
-
-                @*@Html.EditorFor(model => model.FinishDate, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.FinishDate, "", new { @class = "text-danger" })*@
-            </div>
-        </div>
+</div>
 
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.BeneficiaryGroupId, "BeneficiaryGroupId", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("BeneficiaryGroupId", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.BeneficiaryGroupId, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
-        </div>
-    </div>
-
-
-}
 
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
 
 
-<script>
- 
-</script>
-
 
 @section Scripts {
 
-    @Styles.Render("~/Content/kendo")
+@Styles.Render("~/Content/kendo")
 @Scripts.Render("~/bundles/jqueryval")
 @Scripts.Render("~/bundles/kendoangular")
 @Scripts.Render("~/bundles/impact")
