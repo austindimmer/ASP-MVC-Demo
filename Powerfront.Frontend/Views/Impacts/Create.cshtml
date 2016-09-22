@@ -52,10 +52,9 @@
                 <div class="col-md-10">
                     <label>
                         Start Date <input id="startyearpicker"
-                                          ng-model="str"
-                                          k-ng-model="obj"
+                                          data-role="datepicker"
                                           style="width: 50%;"
-                                          value="{{impactViewModel.StartDate}}" />
+                                           />
                     </label>
 
                     <label>
@@ -95,20 +94,16 @@
 
 
             <div class="form-group">
-                <div class="col-md-10 flex-container">
+                <div class="col-md-6 flex-container">
                     <select class="form-control" ng-model="selectedBeneficiaryGroup"
                             ng-options="item as item.BeneficiaryGroupDescription for item in impactViewModel.BeneficiaryGroups">
                         <option value="">Select Beneficiary Group</option>
                     </select>
-                    <button ng-click="addBeneficiaryGroup(selectedBeneficiaryGroup)" class="btn btn-default" type="button">Add Beneficiary Group</button>
+                    <button ng-click="addBeneficiaryGroup(selectedBeneficiaryGroup)" class="btn btn-primary right" type="button">Add Beneficiary Group</button>
 
                 </div>
             </div>
 
-            <div class="form-group">
-                <div id="selectedBeneficiaryGroupsList" class="col-md-10 flex-container">
-                </div>
-           </div>
 
                 @*<div kendo-list-view id="selectedBeneficiaryGroups" k-data-source="{{selectedBeneficiaryGroupSource}}">
                 <div class="col-md-10 flex-container" k-template>
@@ -126,9 +121,9 @@
             </script>*@
 
             <div kendo-list-view id="selectedBeneficiaryGroupsListView" k-data-source="selectedBeneficiaryGroupSource">
-                <div class="col-md-8 flex-container" k-template ng-data="{{dataItem.BeneficiaryGroupId}}">
+                <div class="col-md-6 flex-container" k-template ng-data="{{dataItem.BeneficiaryGroupId}}">
                     <p >{{dataItem.BeneficiaryGroupDescription}}</p>
-                    <button data-ng-click="removeBeneficiaryGroup($event)" ng-data="{{dataItem.BeneficiaryGroupId}}" id="{{dataItem.BeneficiaryGroupId}}" value="{{dataItem.BeneficiaryGroupId}}" class="btn btn-default" type="button">Remove Beneficiary Group</button>
+                    <button data-ng-click="removeBeneficiaryGroup($event)" ng-data="{{dataItem.BeneficiaryGroupId}}" id="{{dataItem.BeneficiaryGroupId}}" value="{{dataItem.BeneficiaryGroupId}}" class="btn btn-default right" type="button">Remove Beneficiary Group</button>
                 </div>
             </div>
 
@@ -148,7 +143,7 @@
 
                 <div class="form-group">
                     <div class="col-md-10 flex-containerend">
-                        <input type="submit" value="Create" class="btn btn-primary" />
+                        <input type="submit" value="Create" class="btn btn-primary right" />
                     </div>
                 </div>
 

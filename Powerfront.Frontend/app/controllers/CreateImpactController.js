@@ -7,7 +7,7 @@
 
 
 
-var CreateImpactController = function ($scope, $document, $http, $compile) {
+var CreateImpactController = function ($scope, $document, $http, $compile, $event) {
     $scope.title = $document[0].title;
     $scope.windowTitle = angular.element(window.document)[0].title;
 
@@ -26,17 +26,7 @@ var CreateImpactController = function ($scope, $document, $http, $compile) {
 
         var myEl = $document.find('#startyearpicker');
 
-        startYearPicker.kendoDatePicker({
-            start: "decade",
-            depth: "decade",
-            format: "yyyy"
-        });
 
-        endYearPicker.kendoDatePicker({
-            start: "decade",
-            depth: "decade",
-            format: "yyyy"
-        });
 
       
 
@@ -76,6 +66,35 @@ var CreateImpactController = function ($scope, $document, $http, $compile) {
                 pageSize: 21
             });
 
+            //var date = new Date(parseInt(object.MyDate.substr(6)));
+            var myDateObject = new Object({
+                MyDate: $scope.impactViewModel.StartDate
+            });
+            var parsedStartDate = new Date(parseInt(myDateObject.MyDate.substr(6)));
+            myDateObject.MyDate = $scope.impactViewModel.FinishDate;
+            var parsedFinishDate = new Date(parseInt(myDateObject.MyDate.substr(6)));
+            $scope.impactViewModel.StartDate = parsedStartDate;
+            $scope.impactViewModel.FinishDate = parsedFinishDate;
+            var isStartDateDate = $scope.isDate($scope.impactViewModel.StartDate);
+            kendo.bind($("startyearpicker"), $scope.impactViewModel);
+
+            startYearPicker.kendoDatePicker({
+                start: "decade",
+                depth: "decade",
+                format: "yyyy",
+                value: $scope.impactViewModel.StartDate,
+                min: $scope.impactViewModel.StartDate,
+            });
+
+            endYearPicker.kendoDatePicker({
+                start: "decade",
+                depth: "decade",
+                format: "yyyy",
+                value: $scope.impactViewModel.FinishDate,
+                min: $scope.impactViewModel.StartDate,
+            });
+
+
             //$("#selectedBeneficiaryGroupsList").kendoListView({
             //    dataSource: $scope.selectedBeneficiaryGroupSource,
             //    template: $("#selectedBeneficiaryGroupsTemplate").html(),
@@ -112,15 +131,7 @@ var CreateImpactController = function ($scope, $document, $http, $compile) {
                 selectable: "multiple",
                 //change: onChangeAngular
             });
-            //var elemendId;
-            //elementId = selectedBeneficiaryGroup.BeneficiaryGroupId
-            //var target = document.getElementById(elementId);
-            //var selectedBeneficiaryGroupButton = angular.element(document.querySelector("#" + elementId));
-            //var compiledButton = $compile(selectedBeneficiaryGroupButton)($scope);
 
-            //var compiledButton = $compile(angular.element($(elementId).html()))($scope);
-            //var html = compiledTemplate.innerHTML;
-            //$scope.$apply();
 
         };
 
@@ -129,10 +140,7 @@ var CreateImpactController = function ($scope, $document, $http, $compile) {
             var selectedBeneficiaryGroupId = $event.target.value;
             var selectedBeneficiaryGroup = null;
             var targetIdParent = $event.target.parentElement;
-            //$scope.beneficiaryGroupToRemove = targetId;
 
-            //$scope.items.splice(index, 1);
-            //var myEl = angular.element(document.querySelector(targetId));
             targetIdParent.remove();
 
             var indexOfMatchingObject = indexOfId($scope.impactViewModel.SelectedBeneficiaryGroups, selectedBeneficiaryGroupId);
@@ -145,14 +153,6 @@ var CreateImpactController = function ($scope, $document, $http, $compile) {
             }
         };
 
-        function onChange() {
-            var data = $scope.impactViewModel.SelectedBeneficiaryGroups,
-                selected = $.map(this.select(), function (item) {
-                    return data[$(item).index()].BeneficiaryGroupDescription;
-                });
-
-            console.log("Selected: " + selected.length + " item(s), [" + selected.join(", ") + "]");
-        }
 
         function indexOfId(array, id) {
             for (var i = 0; i < array.length; i++) {
@@ -162,12 +162,12 @@ var CreateImpactController = function ($scope, $document, $http, $compile) {
         }
 
         function onChangeAngular() {
-            //var data = $scope.impactViewModel.SelectedBeneficiaryGroups,
-            //    selected = $.map(this.select(), function (item) {
-            //        return data[$(item).index()].BeneficiaryGroupDescription;
-            //    });
+            var data = $scope.selectedBeneficiaryGroupSource.view(),
+                selected = $.map(this.select(), function (item) {
+                    return data[$(item).index()].BeneficiaryGroupDescription;
+                });
 
-            //console.log("Selected: " + selected.length + " item(s), [" + selected.join(", ") + "]");
+            console.log("Selected: " + selected.length + " item(s), [" + selected.join(", ") + "]");
         }
 
         function onClicked($scope) {
