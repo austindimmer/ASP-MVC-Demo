@@ -106,7 +106,7 @@ var CreateImpactController = function ($scope, $document, $http) {
                 dataSource: {
                     data: $scope.impactViewModel.SelectedBeneficiaryGroups
                 },
-                template: "<div>#:BeneficiaryGroupDescription#</div>",
+                template: $("#selectedBeneficiaryGroupsTemplate").html(),
                 selectable: "multiple",
                 change: onChange
             });
@@ -120,12 +120,12 @@ var CreateImpactController = function ($scope, $document, $http) {
         };
 
         function onChange() {
-            var data = dataSource.view(),
+            var data = $scope.impactViewModel.SelectedBeneficiaryGroups,
                 selected = $.map(this.select(), function (item) {
                     return data[$(item).index()].BeneficiaryGroupDescription;
                 });
 
-            kendoConsole.log("Selected: " + selected.length + " item(s), [" + selected.join(", ") + "]");
+            console.log("Selected: " + selected.lhength + " item(s), [" + selected.join(", ") + "]");
         }
 
     }

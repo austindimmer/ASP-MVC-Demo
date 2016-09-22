@@ -127,8 +127,8 @@
 
                 <script type="text/x-kendo-template" id="selectedBeneficiaryGroupsTemplate">
                     <div class="col-md-10 flex-container" k-template>
-                        <p>{{dataItem.BeneficiaryGroupDescription}}</p>
-                        @*<button ng-click="removeBeneficiaryGroup(selectedBeneficiaryGroup)" class="btn btn-default" type="button">Remove Beneficiary Group</button>*@
+                        <p>#:BeneficiaryGroupDescription#</p>
+                        <button ng-click="removeBeneficiaryGroup(#:BeneficiaryGroupDescription#)" class="btn btn-default" type="button">Remove Beneficiary Group</button>
                     </div>
                 </script>
 
