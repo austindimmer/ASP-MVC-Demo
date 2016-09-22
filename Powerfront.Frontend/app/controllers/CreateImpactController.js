@@ -7,7 +7,7 @@
 
 
 
-var CreateImpactController = function ($scope, $document, $http) {
+var CreateImpactController = function ($scope, $document, $http, $compile) {
     $scope.title = $document[0].title;
     $scope.windowTitle = angular.element(window.document)[0].title;
 
@@ -76,47 +76,73 @@ var CreateImpactController = function ($scope, $document, $http) {
                 pageSize: 21
             });
 
-            $("#selectedBeneficiaryGroupsList").kendoListView({
-                dataSource: $scope.selectedBeneficiaryGroupSource,
-                template: $("#selectedBeneficiaryGroupsTemplate").html(),
-                selectable: "multiple",
-                change: onChange,
+            //$("#selectedBeneficiaryGroupsList").kendoListView({
+            //    dataSource: $scope.selectedBeneficiaryGroupSource,
+            //    template: $("#selectedBeneficiaryGroupsTemplate").html(),
+            //    selectable: "multiple",
+            //    change: onChange,
 
-            });
+            //});
         });
 
 
         $scope.addBeneficiaryGroup = function (selectedBeneficiaryGroup) {
-            //$scope.items.splice(index, 1);
+            if (selectedBeneficiaryGroup != null) {
             $scope.impactViewModel.SelectedBeneficiaryGroups.push(selectedBeneficiaryGroup)
             var indexOfMatchingObject = $.inArray(selectedBeneficiaryGroup, $scope.impactViewModel.BeneficiaryGroups)
             if (indexOfMatchingObject != -1) {
                 $scope.impactViewModel.BeneficiaryGroups.splice(indexOfMatchingObject, 1);
             }
-            selectedBeneficiaryGroups = $scope.impactViewModel.SelectedBeneficiaryGroups;
-            //selectedBeneficiaryGroups = angular.element(document.querySelector('#selectedBeneficiaryGroups'));
-            //selectedBeneficiaryGroups.dataSource = $scope.impactViewModel.SelectedBeneficiaryGroups;
+            //selectedBeneficiaryGroups = $scope.impactViewModel.SelectedBeneficiaryGroups;
 
-            //var listView = $("#selectedBeneficiaryGroups").data("kendoListView");
-            //// refreshes the list view
-            //listView.refresh();
+            //$("#selectedBeneficiaryGroupsList").kendoListView({
+            //    dataSource: {
+            //        data: $scope.impactViewModel.SelectedBeneficiaryGroups
+            //    },
+            //    template: $("#selectedBeneficiaryGroupsTemplate").html(),
+            //    selectable: "multiple",
+            //    change: onChange
+            //});
 
+            }
 
-            $("#selectedBeneficiaryGroupsList").kendoListView({
-                dataSource: {
-                    data: $scope.impactViewModel.SelectedBeneficiaryGroups
-                },
-                template: $("#selectedBeneficiaryGroupsTemplate").html(),
+            $scope.selectedBeneficiaryGroupSource = new kendo.data.DataSource({
+                data: $scope.impactViewModel.SelectedBeneficiaryGroups,
+                pageSize: 21,
                 selectable: "multiple",
-                change: onChange
+                //change: onChangeAngular
             });
+            //var elemendId;
+            //elementId = selectedBeneficiaryGroup.BeneficiaryGroupId
+            //var target = document.getElementById(elementId);
+            //var selectedBeneficiaryGroupButton = angular.element(document.querySelector("#" + elementId));
+            //var compiledButton = $compile(selectedBeneficiaryGroupButton)($scope);
+
+            //var compiledButton = $compile(angular.element($(elementId).html()))($scope);
+            //var html = compiledTemplate.innerHTML;
+            //$scope.$apply();
 
         };
 
-        $scope.removeBeneficiaryGroup = function (beneficiaryGroupToRemove) {
-            $scope.beneficiaryGroupToRemove = beneficiaryGroupToRemove;
+        $scope.removeBeneficiaryGroup = function ($event) {
+            var targetId = $event.target.id;
+            var selectedBeneficiaryGroupId = $event.target.value;
+            var selectedBeneficiaryGroup = null;
+            var targetIdParent = $event.target.parentElement;
+            //$scope.beneficiaryGroupToRemove = targetId;
 
             //$scope.items.splice(index, 1);
+            //var myEl = angular.element(document.querySelector(targetId));
+            targetIdParent.remove();
+
+            var indexOfMatchingObject = indexOfId($scope.impactViewModel.SelectedBeneficiaryGroups, selectedBeneficiaryGroupId);
+            let index = $scope.impactViewModel.SelectedBeneficiaryGroups.map((el) => el.BeneficiaryGroupId).indexOf(selectedBeneficiaryGroupId)
+
+            if (indexOfMatchingObject != -1) {
+                selectedBeneficiaryGroup = $scope.impactViewModel.SelectedBeneficiaryGroups[indexOfMatchingObject];
+                $scope.impactViewModel.SelectedBeneficiaryGroups.splice(indexOfMatchingObject, 1);
+                $scope.impactViewModel.BeneficiaryGroups.push(selectedBeneficiaryGroup)
+            }
         };
 
         function onChange() {
@@ -125,7 +151,35 @@ var CreateImpactController = function ($scope, $document, $http) {
                     return data[$(item).index()].BeneficiaryGroupDescription;
                 });
 
-            console.log("Selected: " + selected.lhength + " item(s), [" + selected.join(", ") + "]");
+            console.log("Selected: " + selected.length + " item(s), [" + selected.join(", ") + "]");
+        }
+
+        function indexOfId(array, id) {
+            for (var i = 0; i < array.length; i++) {
+                if (array[i].BeneficiaryGroupId == id) return i;
+            }
+            return -1;
+        }
+
+        function onChangeAngular() {
+            //var data = $scope.impactViewModel.SelectedBeneficiaryGroups,
+            //    selected = $.map(this.select(), function (item) {
+            //        return data[$(item).index()].BeneficiaryGroupDescription;
+            //    });
+
+            //console.log("Selected: " + selected.length + " item(s), [" + selected.join(", ") + "]");
+        }
+
+        function onClicked($scope) {
+            // Set the initial X/Y values.
+            $scope.mouseX = "N/A";
+            $scope.mouseY = "N/A";
+            // When the document is clicked, it will invoke
+            // this method, passing-through the jQuery event.
+            $scope.handleClick = function( event ){
+                $scope.mouseX = event.pageX;
+                $scope.mouseY = event.pageY;
+            };
         }
 
     }
@@ -145,4 +199,4 @@ var CreateImpactController = function ($scope, $document, $http) {
 
 
 
-CreateImpactController.$inject = ['$scope', '$document', '$http'];
+CreateImpactController.$inject = ['$scope', '$document', '$http', '$compile'];

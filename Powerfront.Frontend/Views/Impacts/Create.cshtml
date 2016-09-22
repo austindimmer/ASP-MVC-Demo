@@ -8,7 +8,7 @@
 <h2>Create</h2>
 
 
-<div ng-app="impact" ng-controller='CreateImpactController'>
+<div ng-app="impact" ng-controller='CreateImpactController' bn-document-click="handleClick( $event )">
     <form>
         @Html.AntiForgeryToken()
 
@@ -25,7 +25,7 @@
 
                 @*@Html.LabelFor(model => model.ImpactName, htmlAttributes: new { @class = "control-label col-md-2" })*@
                 <div class="col-md-10">
-                    <input class="form-control" ng-model="impactViewModel.ImpactName" value="{{impactViewModel.ImpactName}}" />
+                    <input focus class="form-control" ng-model="impactViewModel.ImpactName" value="{{impactViewModel.ImpactName}}" />
                     @*@Html.EditorFor(model => model.ImpactName, new { htmlAttributes = new { @class = "form-control" } })
                         @Html.ValidationMessageFor(model => model.ImpactName, "", new { @class = "text-danger" })*@
                 </div>
@@ -125,12 +125,22 @@
                 </div>
             </script>*@
 
-                <script type="text/x-kendo-template" id="selectedBeneficiaryGroupsTemplate">
-                    <div class="col-md-10 flex-container" k-template>
-                        <p>#:BeneficiaryGroupDescription#</p>
-                        <button ng-click="removeBeneficiaryGroup(#:BeneficiaryGroupDescription#)" class="btn btn-default" type="button">Remove Beneficiary Group</button>
-                    </div>
-                </script>
+            <div kendo-list-view id="selectedBeneficiaryGroupsListView" k-data-source="selectedBeneficiaryGroupSource">
+                <div class="col-md-8 flex-container" k-template ng-data="{{dataItem.BeneficiaryGroupId}}">
+                    <p >{{dataItem.BeneficiaryGroupDescription}}</p>
+                    <button data-ng-click="removeBeneficiaryGroup($event)" ng-data="{{dataItem.BeneficiaryGroupId}}" id="{{dataItem.BeneficiaryGroupId}}" value="{{dataItem.BeneficiaryGroupId}}" class="btn btn-default" type="button">Remove Beneficiary Group</button>
+                </div>
+            </div>
+
+            <script type="text/x-kendo-angular-template" id="selectedBeneficiaryGroupsAngularTemplate">
+            </script>
+
+                @*<script type="text/x-kendo-template" id="selectedBeneficiaryGroupsTemplate">
+                        <div class="col-md-8 flex-container">
+                            <p>#:BeneficiaryGroupDescription#</p>
+                            <button ng-click="removeBeneficiaryGroup(#:BeneficiaryGroupId#)" id="#:BeneficiaryGroupId#" value="#:BeneficiaryGroupDescription#" class="btn btn-default" type="button">Remove Beneficiary Group</button>
+                        </div>
+                </script>*@
 
 
 

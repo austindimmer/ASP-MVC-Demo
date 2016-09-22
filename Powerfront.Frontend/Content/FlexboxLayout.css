@@ -1,4 +1,15 @@
-﻿.flex-container {
+﻿.parent {
+  display: flex;
+  height: 300px; /* Or whatever */
+}
+
+.child {
+  width: 100px;  /* Or whatever */
+  height: 100px; /* Or whatever */
+  margin: auto;  /* Magic! */
+}
+
+.flex-container {
     /* We first create a flex layout context */
     display: flex;
     /* Then we define the flow direction and if we allow the items to wrap 
@@ -11,6 +22,7 @@
     flex-flow: row wrap;
     /* Then we define how is distributed the remaining space */
     justify-content: flex-start;
+    align-items:center;
 
     margin: 3px;
     /*justify-content: space-around;*/
@@ -20,6 +32,11 @@
 
 .flex-containerend {
     justify-content: flex-end;
+}
+
+.flex-containercentre {
+    justify-content: center;
+    align-items:center;
 }
 
 .row {
