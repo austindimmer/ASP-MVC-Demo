@@ -14,41 +14,35 @@
 
 
         <div class="form-horizontal">
-            @*<input type="text" ng-model="models.helloAngular" />
-                <h1>{{models.helloAngular}}</h1>*@
+
             <h4>Impact</h4>
             <hr />
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
             <div class="form-group">
                 <label class="control-label col-md-2">Impact Name</label>
-
-                @*@Html.LabelFor(model => model.ImpactName, htmlAttributes: new { @class = "control-label col-md-2" })*@
                 <div class="col-md-10">
                     <input focus class="form-control" ng-model="impactViewModel.ImpactName" value="{{impactViewModel.ImpactName}}" />
-                    @*@Html.EditorFor(model => model.ImpactName, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.ImpactName, "", new { @class = "text-danger" })*@
                 </div>
             </div>
 
             <div class="form-group">
-                @Html.LabelFor(model => model.Other, htmlAttributes: new { @class = "control-label col-md-2" })
+                <label class="control-label col-md-2">Other Impact</label>
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.Other, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Other, "", new { @class = "text-danger" })
+                    <input class="form-control" ng-model="impactViewModel.Other" value="{{impactViewModel.Other}}" placeholder="Other if not in list" />
                 </div>
             </div>
 
             <div class="form-group">
-                @Html.LabelFor(model => model.Notes, htmlAttributes: new { @class = "control-label col-md-2" })
+                
+                <label class="control-label col-md-2">Notes</label>
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.Notes, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Notes, "", new { @class = "text-danger" })
+                    <textarea class="resizedTextbox" ng-model="impactViewModel.Notes" value="{{impactViewModel.Notes}}" 
+                           placeholder="Please use this section to describe the impact/intervention you have selected in more detail"></textarea>
                 </div>
             </div>
 
             <div class="form-group">
-                @*@Html.LabelFor(model => model.StartDate, htmlAttributes: new { @class = "control-label col-md-2" })*@
                 <div class="col-md-10">
                     <label>
                         Start Date <input id="startyearpicker"
@@ -65,33 +59,8 @@
                                         value="{{impactViewModel.EndDate}}" />
                     </label>
 
-                    @*@Html.EditorFor(model => model.StartDate, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.StartDate, "", new { @class = "text-danger" })*@
-                    @*<input kendo-date-time-picker
-                        ng-model="str"
-                        k-ng-model="obj"
-                        style="width: 100%;" />*@
-
-                    @*<pre>
-                          str: {{ str }}
-                          obj: {{ obj }}
-                          typeof obj: {{ getType(obj) }}
-                          obj instanceof Date: {{ isDate(obj) }}
-                        </pre>*@
-
                 </div>
             </div>
-
-            <div class="form-group">
-                @*@Html.LabelFor(model => model.FinishDate, htmlAttributes: new { @class = "control-label col-md-2" })*@
-                <div class="col-md-10">
-                    @*<label>Finish Date <input kendo-date-picker id="endyearpicker" /></label>*@
-
-                    @*@Html.EditorFor(model => model.FinishDate, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.FinishDate, "", new { @class = "text-danger" })*@
-                </div>
-            </div>
-
 
             <div class="form-group">
                 <div class="col-md-6 flex-container">
@@ -105,21 +74,6 @@
             </div>
 
 
-                @*<div kendo-list-view id="selectedBeneficiaryGroups" k-data-source="{{selectedBeneficiaryGroupSource}}">
-                <div class="col-md-10 flex-container" k-template>
-                    <p>BeneficiaryGroupDescription </p>
-                    <button ng-click="removeBeneficiaryGroup(selectedBeneficiaryGroup)" class="btn btn-default" type="button">Add Beneficiary Group</button>
-                </div>
-            </div>*@
-
-
-                @*<script type="text/x-kendo-template" id="selectedBeneficiaryGroupsTemplate">
-                <div class="col-md-10 flex-container">
-                    <p>#= BeneficiaryGroupDescription #</p>
-                    <button ng-click="removeBeneficiaryGroup(selectedBeneficiaryGroup)" class="btn btn-default" type="button">Remove Beneficiary Group</button>
-                </div>
-            </script>*@
-
             <div kendo-list-view id="selectedBeneficiaryGroupsListView" k-data-source="selectedBeneficiaryGroupSource">
                 <div class="col-md-6 flex-container" k-template ng-data="{{dataItem.BeneficiaryGroupId}}">
                     <p >{{dataItem.BeneficiaryGroupDescription}}</p>
@@ -129,16 +83,6 @@
 
             <script type="text/x-kendo-angular-template" id="selectedBeneficiaryGroupsAngularTemplate">
             </script>
-
-                @*<script type="text/x-kendo-template" id="selectedBeneficiaryGroupsTemplate">
-                        <div class="col-md-8 flex-container">
-                            <p>#:BeneficiaryGroupDescription#</p>
-                            <button ng-click="removeBeneficiaryGroup(#:BeneficiaryGroupId#)" id="#:BeneficiaryGroupId#" value="#:BeneficiaryGroupDescription#" class="btn btn-default" type="button">Remove Beneficiary Group</button>
-                        </div>
-                </script>*@
-
-
-
 
 
                 <div class="form-group">

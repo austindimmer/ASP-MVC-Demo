@@ -1,13 +1,4 @@
-﻿//$(document).ready(function () {
-//    // create DateTimePicker from input HTML element
-//    $("#datetimepicker").kendoDateTimePicker({
-//        value: new Date()
-//    });
-//});
-
-
-
-var CreateImpactController = function ($scope, $document, $http, $compile, $event) {
+﻿var CreateImpactController = function ($scope, $document, $http, $compile, $event) {
     $scope.title = $document[0].title;
     $scope.windowTitle = angular.element(window.document)[0].title;
 
@@ -24,31 +15,12 @@ var CreateImpactController = function ($scope, $document, $http, $compile, $even
         var endYearPicker = angular.element(document.querySelector('#endyearpicker'));
         var selectedBeneficiaryGroups = angular.element(document.querySelector('#selectedBeneficiaryGroups'));
 
-        var myEl = $document.find('#startyearpicker');
-
-
-
-      
-
-        //$http.get('/GetBlankImpactViewModel').then(successCallback, errorCallback);
-
-        // get data from server
-        //$.ajax({
-        //    url: '/Impacts/GetBlankImpactViewModel/',
-        //    success: function (data) {
-        //        var parsedData = JSON.parse(data);
-        //        $scope.impactsViewModel = parsedData;
-        //        $scope.beneficiaryGroups = parsed.BeneficiaryGroups
-        //    }
-        //});
 
         $scope.selectedBeneficiaryGroup = null;
         $scope.beneficiaryGroupToRemove = null;
         $scope.beneficiaryGroups = [];
         $scope.selectedBeneficiaryGroups = [];
-        //        var parsedData = JSON.parse(data);
         $scope.impactViewModel = [];
-
         $scope.selectedBeneficiaryGroupSource = new kendo.data.DataSource({});
         $scope.selectedBeneficiaryGroupsTemplate = $("#selectedBeneficiaryGroupsTemplate").html();
 
@@ -66,7 +38,6 @@ var CreateImpactController = function ($scope, $document, $http, $compile, $even
                 pageSize: 21
             });
 
-            //var date = new Date(parseInt(object.MyDate.substr(6)));
             var myDateObject = new Object({
                 MyDate: $scope.impactViewModel.StartDate
             });
@@ -94,44 +65,25 @@ var CreateImpactController = function ($scope, $document, $http, $compile, $even
                 min: $scope.impactViewModel.StartDate,
             });
 
-
-            //$("#selectedBeneficiaryGroupsList").kendoListView({
-            //    dataSource: $scope.selectedBeneficiaryGroupSource,
-            //    template: $("#selectedBeneficiaryGroupsTemplate").html(),
-            //    selectable: "multiple",
-            //    change: onChange,
-
-            //});
         });
 
 
         $scope.addBeneficiaryGroup = function (selectedBeneficiaryGroup) {
             if (selectedBeneficiaryGroup != null) {
-            $scope.impactViewModel.SelectedBeneficiaryGroups.push(selectedBeneficiaryGroup)
-            var indexOfMatchingObject = $.inArray(selectedBeneficiaryGroup, $scope.impactViewModel.BeneficiaryGroups)
-            if (indexOfMatchingObject != -1) {
-                $scope.impactViewModel.BeneficiaryGroups.splice(indexOfMatchingObject, 1);
-            }
-            //selectedBeneficiaryGroups = $scope.impactViewModel.SelectedBeneficiaryGroups;
+                $scope.impactViewModel.SelectedBeneficiaryGroups.push(selectedBeneficiaryGroup)
+                var indexOfMatchingObject = $.inArray(selectedBeneficiaryGroup, $scope.impactViewModel.BeneficiaryGroups)
+                if (indexOfMatchingObject != -1) {
+                    $scope.impactViewModel.BeneficiaryGroups.splice(indexOfMatchingObject, 1);
 
-            //$("#selectedBeneficiaryGroupsList").kendoListView({
-            //    dataSource: {
-            //        data: $scope.impactViewModel.SelectedBeneficiaryGroups
-            //    },
-            //    template: $("#selectedBeneficiaryGroupsTemplate").html(),
-            //    selectable: "multiple",
-            //    change: onChange
-            //});
+                }
 
-            }
+            };
 
             $scope.selectedBeneficiaryGroupSource = new kendo.data.DataSource({
                 data: $scope.impactViewModel.SelectedBeneficiaryGroups,
                 pageSize: 21,
                 selectable: "multiple",
-                //change: onChangeAngular
             });
-
 
         };
 
@@ -170,32 +122,9 @@ var CreateImpactController = function ($scope, $document, $http, $compile, $even
             console.log("Selected: " + selected.length + " item(s), [" + selected.join(", ") + "]");
         }
 
-        function onClicked($scope) {
-            // Set the initial X/Y values.
-            $scope.mouseX = "N/A";
-            $scope.mouseY = "N/A";
-            // When the document is clicked, it will invoke
-            // this method, passing-through the jQuery event.
-            $scope.handleClick = function( event ){
-                $scope.mouseX = event.pageX;
-                $scope.mouseY = event.pageY;
-            };
-        }
-
     }
     )
 }
-
-
-    //var req = {
-    //    method: 'GET',
-    //    url: '/GetBlankImpactViewModel',
-    //    headers: {
-    //        'Content-Type': application/json
-    //    },
-    //}
-
-    //$http(req).then(function () { }, function () { });
 
 
 
