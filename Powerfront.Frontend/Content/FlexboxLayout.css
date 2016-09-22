@@ -11,7 +11,20 @@
     flex-flow: row wrap;
     /* Then we define how is distributed the remaining space */
     justify-content: flex-start;
+
+    margin: 3px;
     /*justify-content: space-around;*/
 
-    
+
+}
+
+.flex-containerend {
+    justify-content: flex-end;
+}
+
+.row {
+  margin:0 -15px;
+}
+.col-xx-xx {
+  padding:0 15px;
 }

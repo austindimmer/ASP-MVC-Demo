@@ -53,10 +53,16 @@ var CreateImpactController = function ($scope, $document, $http) {
         //});
 
         $scope.selectedBeneficiaryGroup = null;
+        $scope.beneficiaryGroupToRemove = null;
         $scope.beneficiaryGroups = [];
-        $scope.impact = [];
+        $scope.selectedBeneficiaryGroups = [];
         //        var parsedData = JSON.parse(data);
         $scope.impactViewModel = [];
+
+        $scope.selectedBeneficiaryGroupSource = new kendo.data.DataSource({});
+        $scope.selectedBeneficiaryGroupsTemplate = $("#selectedBeneficiaryGroupsTemplate").html();
+
+
 
         $http({
             method: 'GET',
@@ -64,11 +70,15 @@ var CreateImpactController = function ($scope, $document, $http) {
         }).success(function (result) {
             var parsedData = JSON.parse(result);
             $scope.impactViewModel = parsedData;
-            $scope.impact = result;
 
-            selectedBeneficiaryGroups.kendoListView({
-                dataSource: $scope.impactViewModel.SelectedBeneficiaryGroups,
-                template: kendo.template($("#template").html()),
+            $scope.selectedBeneficiaryGroupSource = new kendo.data.DataSource({
+                data: $scope.impactViewModel.SelectedBeneficiaryGroups,
+                pageSize: 21
+            });
+
+            $("#selectedBeneficiaryGroupsList").kendoListView({
+                dataSource: $scope.selectedBeneficiaryGroupSource,
+                template: $("#selectedBeneficiaryGroupsTemplate").html(),
                 selectable: "multiple",
                 change: onChange,
 
@@ -83,12 +93,36 @@ var CreateImpactController = function ($scope, $document, $http) {
             if (indexOfMatchingObject != -1) {
                 $scope.impactViewModel.BeneficiaryGroups.splice(indexOfMatchingObject, 1);
             }
+            selectedBeneficiaryGroups = $scope.impactViewModel.SelectedBeneficiaryGroups;
+            //selectedBeneficiaryGroups = angular.element(document.querySelector('#selectedBeneficiaryGroups'));
+            //selectedBeneficiaryGroups.dataSource = $scope.impactViewModel.SelectedBeneficiaryGroups;
+
+            //var listView = $("#selectedBeneficiaryGroups").data("kendoListView");
+            //// refreshes the list view
+            //listView.refresh();
+
+
+            $("#selectedBeneficiaryGroupsList").kendoListView({
+                dataSource: {
+                    data: $scope.impactViewModel.SelectedBeneficiaryGroups
+                },
+                template: "<div>#:BeneficiaryGroupDescription#</div>",
+                selectable: "multiple",
+                change: onChange
+            });
+
+        };
+
+        $scope.removeBeneficiaryGroup = function (beneficiaryGroupToRemove) {
+            $scope.beneficiaryGroupToRemove = beneficiaryGroupToRemove;
+
+            //$scope.items.splice(index, 1);
         };
 
         function onChange() {
             var data = dataSource.view(),
                 selected = $.map(this.select(), function (item) {
-                    return data[$(item).index()].ProductName;
+                    return data[$(item).index()].BeneficiaryGroupDescription;
                 });
 
             kendoConsole.log("Selected: " + selected.length + " item(s), [" + selected.join(", ") + "]");
