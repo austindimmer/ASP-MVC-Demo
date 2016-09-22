@@ -24,7 +24,7 @@
         $scope.selectedBeneficiaryGroupSource = new kendo.data.DataSource({});
         $scope.selectedBeneficiaryGroupsTemplate = $("#selectedBeneficiaryGroupsTemplate").html();
 
-
+      
 
         $http({
             method: 'GET',
@@ -122,7 +122,49 @@
             console.log("Selected: " + selected.length + " item(s), [" + selected.join(", ") + "]");
         }
 
+        $scope.postViewModelToServer = function postJsonData() {
+
+                var updatedData = JSON.stringify($scope.impactViewModel);
+
+                $.ajax({
+                    dataType: 'json', // expected format for response
+                    contentType: 'application/json; charset=utf-8', // send as JSON
+                    beforeSend: function (xhr) {
+                        xhr.setRequestHeader('content-type', 'application/json');
+                    },
+                    type: 'POST',
+                    url: '/Impacts/CreateUpdateImpactWithPostedJson/',
+                    data: updatedData
+                })
+                    .done(function (data) {
+                        console.log("Response " + JSON.stringify(data));
+                    })
+                .success(function (result) {
+                    console.log("Response " + JSON.stringify(result));
+                    new PNotify({
+                        title: 'Impact Details Saved',
+                        text: 'The impact record was updated!',
+                        type: 'success',
+                        animate_speed: 'fast'
+                    });
+                })
+                .error(function (request, textStatus, errorThrown) {
+                    console.log('textStatus ' + textStatus);
+                    console.log('errorThrown ' + errorThrown);
+                    new PNotify({
+                        title: 'Impact Details Not Saved',
+                        text: 'There appears to have been an error. Please try again later.',
+                        type: 'error',
+                        animate_speed: 'fast'
+                    });
+                });
+
+
+
+        }
+
     }
+
     )
 }
 

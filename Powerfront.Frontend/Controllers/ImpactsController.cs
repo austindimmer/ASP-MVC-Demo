@@ -12,12 +12,17 @@ using Powerfront.Backend.Model;
 using Powerfront.Backend.MVC;
 using Powerfront.Backend.Impact.Model;
 using System.Text;
+using Powerfront.Backend.Repository;
+using Powerfront.Backend.Impact.Services;
+using static Powerfront.Backend.Model.JsonModelBinder;
 
 namespace Powerfront.Frontend.Controllers
 {
     public class ImpactsController : Controller
     {
         private ImpactDbContext db = new ImpactDbContext();
+        IUnitOfWork _uow;
+        ImpactService _impactService;
 
         // GET: Impacts
         public async Task<ActionResult> Index()
@@ -33,7 +38,7 @@ namespace Powerfront.Frontend.Controllers
             ImpactViewModel impact = new ImpactViewModel();
             var beneficiaryGroups = db.BeneficiaryGroups.ToList();
             impact.BeneficiaryGroups = beneficiaryGroups;
-            impact.ImpactName = "TESTING";
+            //impact.ImpactName = "TESTING";
             impact.StartDate = DateTime.Now;
             impact.FinishDate = DateTime.Now.AddYears(1);
             impact.SelectedBeneficiaryGroups = new List<BeneficiaryGroup>();
@@ -43,7 +48,59 @@ namespace Powerfront.Frontend.Controllers
             var jsonToReturn = Json(jsonImpactRecord, "application/json", Encoding.UTF8, JsonRequestBehavior.AllowGet);
             return jsonToReturn;
 
-        }    
+        }
+
+        [ActionName("CreateUpdateImpactWithPostedJson")]
+        public JsonResult CreateUpdateImpactWithPostedJson([JsonBinder]ImpactViewModel createdImpact)
+        {
+            bool addedNewImpact = false;
+            if (ModelState.IsValid)
+            {
+                Impact newImpact = new Impact();
+                //var aggregateCustomer = Mapper.Map<AggregateCustomerViewModel, AggregateCustomer>(createdCustomer);
+
+                //var dbCreationCutomer = Mapper.Map<AggregateCustomerViewModel, AggregateCustomer>(createdCustomer);
+
+                //foreach (var item in dbCreationCutomer.CustomerDataRecords)
+                //{
+                //    //These properties must be nulled out to preserve EF model referential integrity
+                //    item.Property = null;
+                //    item.Type = null;
+                //}
+
+                //var newAggregateCustomer = _customerService.CreateCustomer(dbCreationCutomer);
+
+                //// Now that we have created a customer object update the properties and save in Db
+                //var currentProperties = _propertyService.GetAllProperties();
+                //foreach (var property in currentProperties)
+                //{
+                //    foreach (var record in newAggregateCustomer.CustomerDataRecords)
+                //    {
+                //        if (record.PropertyId == property.PropertyId)
+                //        {
+                //            record.Value = createdCustomer.CustomerDataRecords.Where(c => c.PropertyId == property.PropertyId).Select(r => r.Value).FirstOrDefault();
+                //        }
+                //    }
+                //}
+                var insertedImpact = _impactService.CreateImpact(newImpact);
+                if (insertedImpact != null)
+                {
+                    addedNewImpact = true;
+                }
+                else {
+                    addedNewImpact = false ;
+                }
+
+            }
+            if (addedNewImpact)
+            {
+                return Json(new { success = true }, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json(new { error = true }, JsonRequestBehavior.AllowGet);
+            }
+        }
 
         // GET: Impacts/Details/5
         public async Task<ActionResult> Details(Guid? id)
