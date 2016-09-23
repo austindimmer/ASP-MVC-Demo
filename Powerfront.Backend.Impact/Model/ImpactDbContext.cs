@@ -21,7 +21,7 @@ namespace Powerfront.Backend.Model
 
             //When proxy object creation is enabled for POCO entities, changes that are made to the graph and the property values of objects are tracked automatically by the Entity Framework as they occur.For information about change tracking options with and without proxies, see Tracking Changes in POCO Entities.
 
-            //this.Configuration.ProxyCreationEnabled = false;
+            this.Configuration.ProxyCreationEnabled = false;
         }
     }
 }

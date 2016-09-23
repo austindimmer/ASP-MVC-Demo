@@ -31,12 +31,12 @@ namespace Powerfront.Backend.Impact.Model
         public string ImpactName { get; set; }
 
         [DataMember]
-        public ICollection<BeneficiaryGroup> BeneficiaryGroups { get; set; }
+        public ICollection<BeneficiaryGroupViewModel> BeneficiaryGroups { get; set; }
         [DataMember]
-        public ICollection<BeneficiaryGroup> SelectedBeneficiaryGroups { get; set; }
+        public ICollection<BeneficiaryGroupViewModel> SelectedBeneficiaryGroups { get; set; }
 
-        [IgnoreDataMember]
-        public ICollection<ImpactBeneficiary> ImpactBeneficiaries { get; set; }
+        //[IgnoreDataMember]
+        //public ICollection<ImpactBeneficiary> ImpactBeneficiaries { get; set; }
 
     }
 }

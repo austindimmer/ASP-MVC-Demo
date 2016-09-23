@@ -40,6 +40,8 @@ namespace Powerfront.Frontend
                 cfg.CreateMap<PropertyViewModel, Property>();
                 cfg.CreateMap<Impact, ImpactViewModel>();
                 cfg.CreateMap<ImpactViewModel, Impact>();
+                cfg.CreateMap<BeneficiaryGroup, BeneficiaryGroupViewModel>();
+                cfg.CreateMap<BeneficiaryGroupViewModel, BeneficiaryGroup>();
             });
 
             //ModelBinders.Binders.DefaultBinder = new DefaultDictionaryBinder();

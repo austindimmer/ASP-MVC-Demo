@@ -18,6 +18,7 @@ using static Powerfront.Backend.Model.JsonModelBinder;
 using AutoMapper;
 using Newtonsoft.Json;
 using System.IO;
+using ServiceStack.Text;
 
 namespace Powerfront.Frontend.Controllers
 {
@@ -45,13 +46,20 @@ namespace Powerfront.Frontend.Controllers
         public async Task<JsonResult> GetBlankImpactViewModel()
         {
             ImpactViewModel impactViewModel = new ImpactViewModel();
-            var beneficiaryGroups = db.BeneficiaryGroups.ToList();
-            impactViewModel.BeneficiaryGroups = beneficiaryGroups;
+            List<BeneficiaryGroup> beneficiaryGroups = db.BeneficiaryGroups.ToList();
+            List<BeneficiaryGroupViewModel> beneficiaryGroupsViewModels = new List<BeneficiaryGroupViewModel>();
+            foreach (var beneficiaryGroup in beneficiaryGroups)
+            {
+                var group = Mapper.Map<BeneficiaryGroup, BeneficiaryGroupViewModel>(beneficiaryGroup);
+                beneficiaryGroupsViewModels.Add(group);
+            }
+            
+            impactViewModel.BeneficiaryGroups = beneficiaryGroupsViewModels;
             //impact.ImpactName = "TESTING";
             impactViewModel.ImpactId = Guid.Empty;
             impactViewModel.StartDate = DateTime.Now;
             impactViewModel.FinishDate = DateTime.Now.AddYears(1);
-            impactViewModel.SelectedBeneficiaryGroups = new List<BeneficiaryGroup>();
+            impactViewModel.SelectedBeneficiaryGroups = new List<BeneficiaryGroupViewModel>();
 
             string jsonData = SerializeImpactViewModel(impactViewModel);
 
@@ -77,25 +85,27 @@ namespace Powerfront.Frontend.Controllers
             else
             {
                 ImpactViewModel impactViewModel = Mapper.Map<Impact, ImpactViewModel>(impact);
+                impactViewModel.SelectedBeneficiaryGroups = new List<BeneficiaryGroupViewModel>();
+                impactViewModel.BeneficiaryGroups = new List<BeneficiaryGroupViewModel>();
 
                 //now I need to switch around BenefitGroups and Selected Benefit Groups for the viewModel
 
                 var beneficiaryGroups = await db.BeneficiaryGroups.ToListAsync();
                 foreach (var impactBeneficiary in impact.ImpactBeneficiaries)
                 {
-                    impactViewModel.SelectedBeneficiaryGroups = new List<BeneficiaryGroup>();
-                    impactViewModel.SelectedBeneficiaryGroups.Add(impactBeneficiary.BeneficiaryGroup);
+                    var group = Mapper.Map<BeneficiaryGroup, BeneficiaryGroupViewModel>(impactBeneficiary.BeneficiaryGroup);
+                    impactViewModel.SelectedBeneficiaryGroups.Add(group);
                 }
 
-                var nonSelectedBeneficiaryGroups = beneficiaryGroups.Except(beneficiaryGroups.Join(impactViewModel.SelectedBeneficiaryGroups, g => g.BeneficiaryGroupId, s => s.BeneficiaryGroupId, (g, s) => g));
+                var nonSelectedBeneficiaryGroups = beneficiaryGroups.Except(beneficiaryGroups.Join(impactViewModel.SelectedBeneficiaryGroups, g => g.BeneficiaryGroupId, s => s.BeneficiaryGroupId, (g, s) => g)).ToList();
 
-                impactViewModel.BeneficiaryGroups = nonSelectedBeneficiaryGroups.ToList();
-                //May help aviod circular references during serialisation?
-                //impactViewModel.ImpactBeneficiaries = null;
-                //impactViewModel.SelectedBeneficiaryGroups = tempBeneficiaryGroup;
+                foreach (var impactBeneficiary in nonSelectedBeneficiaryGroups)
+                {
+                    var group = Mapper.Map<BeneficiaryGroup, BeneficiaryGroupViewModel>(impactBeneficiary);
+                    impactViewModel.BeneficiaryGroups.Add(group);
+                }
 
                 string jsonData = SerializeImpactViewModel(impactViewModel);
-                //jsonImpactRecord = ImpactViewModel.Serialize(impactViewModel);
                 var jsonToReturn = Json(jsonData, "application/json", Encoding.UTF8, JsonRequestBehavior.AllowGet);
                 return jsonToReturn;
             }
@@ -103,11 +113,21 @@ namespace Powerfront.Frontend.Controllers
 
         private static string SerializeImpactViewModel(ImpactViewModel impactViewModel)
         {
+            //Testing Json.Net and ServiceStack for comparison purposes.
+
+            //var jsonData = TypeSerializer.SerializeToString<ImpactViewModel>(impactViewModel);
+
+            //string TypeSerializer.SerializeToString<T>(T value)
+            //void TypeSerializer.SerializeToWriter<T>(T value, TextWriter writer)
+
+            //T TypeSerializer.DeserializeFromString<T>(string value)
+            //T TypeSerializer.DeserializeFromReader<T>(TextReader reader)
+
             JsonSerializerSettings settings = new JsonSerializerSettings
             {
-                PreserveReferencesHandling = PreserveReferencesHandling.Objects
+                PreserveReferencesHandling = PreserveReferencesHandling.None
             };
-            var serializer = JsonSerializer.Create(settings);
+            var serializer = Newtonsoft.Json.JsonSerializer.Create(settings);
             StringBuilder sb = new StringBuilder();
             StringWriter sw = new StringWriter(sb);
             using (JsonWriter jw = new JsonTextWriter(sw))
@@ -176,6 +196,7 @@ namespace Powerfront.Frontend.Controllers
                     foreach (var item in createdImpact.SelectedBeneficiaryGroups)
                     {
                         ImpactBeneficiary impactBeneficiary = new ImpactBeneficiary();
+                        impactBeneficiary.id = Guid.NewGuid();
                         impactBeneficiary.BeneficiaryGroupId = item.BeneficiaryGroupId;
                         impactBeneficiary.ImpactId = impactToUpdate.ImpactId;
                         impactToUpdate.ImpactBeneficiaries.Add(impactBeneficiary);

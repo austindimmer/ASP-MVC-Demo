@@ -43,6 +43,10 @@
       <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="ServiceStack.Text, Version=4.5.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ServiceStack.Text.4.5.0\lib\net45\ServiceStack.Text.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -81,6 +85,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ImpactEntities.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Model\BeneficiaryGroupViewModel.cs" />
     <Compile Include="Model\ImpactDbContext.cs" />
     <Compile Include="Model\ImpactViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
