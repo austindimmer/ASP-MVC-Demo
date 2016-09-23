@@ -56,15 +56,7 @@
                 pageSize: 21
             });
 
-            var myDateObject = new Object({
-                MyDate: $scope.impactViewModel.StartDate
-            });
-            var parsedStartDate = new Date(parseInt(myDateObject.MyDate.substr(6)));
-            myDateObject.MyDate = $scope.impactViewModel.FinishDate;
-            var parsedFinishDate = new Date(parseInt(myDateObject.MyDate.substr(6)));
-            $scope.impactViewModel.StartDate = parsedStartDate;
-            $scope.impactViewModel.FinishDate = parsedFinishDate;
-            var isStartDateDate = $scope.isDate($scope.impactViewModel.StartDate);
+
             kendo.bind($("startyearpicker"), $scope.impactViewModel);
 
             startYearPicker.kendoDatePicker({
@@ -87,7 +79,7 @@
                 depth: "decade",
                 format: "yyyy",
                 value: $scope.impactViewModel.StartDate,
-                min: $scope.impactViewModel.StartDate,
+                //min: $scope.impactViewModel.StartDate,
             });
 
             endYearPicker.kendoDatePicker({

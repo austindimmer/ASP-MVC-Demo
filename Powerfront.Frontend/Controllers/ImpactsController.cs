@@ -158,27 +158,31 @@ namespace Powerfront.Frontend.Controllers
                     }
                 }
                 else {
-                    Impact impactFromService = _impactService.GetImpactByID(impact.ImpactId);
+                    //Impact impactFromService = _impactService.GetImpactByID(impact.ImpactId);
+                    List<ImpactBeneficiary> ib = db.ImpactBeneficiaries.Where(i => i.ImpactId == impact.ImpactId).ToList();
+                    foreach (var impactBeneficiary in ib)
+                    {
+                        db.ImpactBeneficiaries.Remove(impactBeneficiary);
+                    }
+                    db.SaveChanges();
+                    Impact impactToUpdate = db.Impacts.Include(i => i.ImpactBeneficiaries).Where(i => i.ImpactId == impact.ImpactId).FirstOrDefault();
                     //Update existing impact
-                    impactFromService.FinishDate = impact.FinishDate;
-                    impactFromService.ImpactName = impact.ImpactName;
-                    impactFromService.Notes = impact.Notes;
-                    impactFromService.Other = impact.Other;
-                    impactFromService.StartDate = impact.StartDate;
-                    impactFromService.ImpactBeneficiaries.Clear();
-                    // Save the impact without any ImpactBeneficiaries. This will clear Db of any Id's tied to this Impact?
-                    addedOrUpdatedmpact = _impactService.UpdateImpactRecord(impactFromService);
-                    impactFromService = _impactService.GetImpactByID(impact.ImpactId);
+                    impactToUpdate.FinishDate = impact.FinishDate;
+                    impactToUpdate.ImpactName = impact.ImpactName;
+                    impactToUpdate.Notes = impact.Notes;
+                    impactToUpdate.Other = impact.Other;
+                    impactToUpdate.StartDate = impact.StartDate;
 
                     foreach (var item in createdImpact.SelectedBeneficiaryGroups)
                     {
-                        ImpactBeneficiary impactBenficiary = new ImpactBeneficiary();
-                        impactBenficiary.BeneficiaryGroupId = item.BeneficiaryGroupId;
-                        impactBenficiary.ImpactId = impactFromService.ImpactId;
-                        impact.ImpactBeneficiaries.Add(impactBenficiary);
+                        ImpactBeneficiary impactBeneficiary = new ImpactBeneficiary();
+                        impactBeneficiary.BeneficiaryGroupId = item.BeneficiaryGroupId;
+                        impactBeneficiary.ImpactId = impactToUpdate.ImpactId;
+                        impactToUpdate.ImpactBeneficiaries.Add(impactBeneficiary);
                     }
 
-                    addedOrUpdatedmpact = _impactService.UpdateImpactRecord(impactFromService);
+                    db.SaveChanges();
+                    addedOrUpdatedmpact = true;
 
                 }
                 
