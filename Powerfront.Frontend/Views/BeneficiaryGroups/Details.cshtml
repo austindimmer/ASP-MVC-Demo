@@ -1,0 +1,27 @@
+﻿@model Powerfront.Backend.Impact.EntityFramework.BeneficiaryGroup
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>BeneficiaryGroup</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.BeneficiaryGroupDescription)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BeneficiaryGroupDescription)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.BeneficiaryGroupId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

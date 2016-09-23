@@ -218,6 +218,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\BeneficiaryGroupsController.cs" />
     <Compile Include="Controllers\ImpactsController.cs" />
     <Compile Include="Controllers\MaintenanceController.cs" />
     <Compile Include="Controllers\CustomerRecordsController.cs" />
@@ -413,6 +414,11 @@
     <Content Include="Views\Impacts\Details.cshtml" />
     <Content Include="Views\Impacts\Edit.cshtml" />
     <Content Include="Views\Impacts\Index.cshtml" />
+    <Content Include="Views\BeneficiaryGroups\Create.cshtml" />
+    <Content Include="Views\BeneficiaryGroups\Delete.cshtml" />
+    <Content Include="Views\BeneficiaryGroups\Details.cshtml" />
+    <Content Include="Views\BeneficiaryGroups\Edit.cshtml" />
+    <Content Include="Views\BeneficiaryGroups\Index.cshtml" />
     <None Include="Web.DebugLoadTest.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

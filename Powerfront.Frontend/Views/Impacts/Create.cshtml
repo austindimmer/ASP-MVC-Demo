@@ -77,7 +77,7 @@
             <div kendo-list-view id="selectedBeneficiaryGroupsListView" k-data-source="selectedBeneficiaryGroupSource">
                 <div class="col-md-6 flex-container" k-template ng-data="{{dataItem.BeneficiaryGroupId}}">
                     <p >{{dataItem.BeneficiaryGroupDescription}}</p>
-                    <button data-ng-click="removeBeneficiaryGroup($event)" ng-data="{{dataItem.BeneficiaryGroupId}}" id="{{dataItem.BeneficiaryGroupId}}" value="{{dataItem.BeneficiaryGroupId}}" class="btn btn-default right" type="button">Remove Beneficiary Group</button>
+                    <button data-ng-click="removeBeneficiaryGroup($event)" ng-data="{{dataItem.BeneficiaryGroupId}}" id="{{dataItem.BeneficiaryGroupId}}" value="{{dataItem.BeneficiaryGroupId}}" class="btn btn-info right" type="button">Remove Beneficiary Group</button>
                 </div>
             </div>
 
@@ -87,7 +87,7 @@
 
                 <div class="form-group">
                     <div class="col-md-6 flex-container">
-                        <input type="button" ng-click="postViewModelToServer()" value="Create" class="btn btn-primary right" />
+                        <input type="button" ng-click="postViewModelToServer()" value="Create" class="btn btn-success right" />
                     </div>
                 </div>
 
@@ -108,9 +108,11 @@
 @section Scripts {
 
 @Styles.Render("~/Content/kendo")
+@Styles.Render("~/Scripts/PNotify")
 @Scripts.Render("~/bundles/jqueryval")
 @Scripts.Render("~/bundles/kendoangular")
 @Scripts.Render("~/bundles/impact")
+@Scripts.Render("~/bundles/pnotify")
 
 }
 

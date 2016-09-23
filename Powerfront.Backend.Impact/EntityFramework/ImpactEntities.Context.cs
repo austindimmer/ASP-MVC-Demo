@@ -27,5 +27,6 @@ namespace Powerfront.Backend.Impact.EntityFramework
     
         public virtual DbSet<BeneficiaryGroup> BeneficiaryGroups { get; set; }
         public virtual DbSet<Impact> Impacts { get; set; }
+        public virtual DbSet<ImpactBeneficiary> ImpactBeneficiaries { get; set; }
     }
 }

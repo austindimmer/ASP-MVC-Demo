@@ -22,7 +22,6 @@ namespace Powerfront.Frontend.Tests.Mock
                      FinishDate= new DateTime(2018, 01, 01),
                      ImpactId= Guid.Parse("8a34c4f4-fb0f-4207-ac5c-ba9ec1bb71c3"),
                      Notes= "The program will improve sport performance for all young men in the Argyll area.",
-                     BeneficiaryGroups = BeneficiaryGroup
                 },
 
                 new Impact
@@ -32,11 +31,6 @@ namespace Powerfront.Frontend.Tests.Mock
                      FinishDate= new DateTime(2018, 01, 01),
                      ImpactId= Guid.Parse("8a34c4f4-fb0f-4207-ac5c-ba9ec1bb71c4"),
                      Notes= "The program will improve sport performance for all disabled people in the Aberdeenshire area.",
-                     BeneficiaryGroup =  new BeneficiaryGroup
-                        {
-                             BeneficiaryGroupDescription= "People With Disabilities",
-                             BeneficiaryGroupId = Guid.Parse("510d4419-fdac-4cf7-a529-fa1bc2817c8d"),
-                        }
                 },
                                 new Impact
                 {

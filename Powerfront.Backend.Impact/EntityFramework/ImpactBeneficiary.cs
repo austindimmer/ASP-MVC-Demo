@@ -12,18 +12,13 @@ namespace Powerfront.Backend.Impact.EntityFramework
     using System;
     using System.Collections.Generic;
     
-    public partial class BeneficiaryGroup
+    public partial class ImpactBeneficiary
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public BeneficiaryGroup()
-        {
-            this.ImpactBeneficiaries = new HashSet<ImpactBeneficiary>();
-        }
-    
+        public System.Guid id { get; set; }
+        public System.Guid ImpactId { get; set; }
         public System.Guid BeneficiaryGroupId { get; set; }
-        public string BeneficiaryGroupDescription { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ImpactBeneficiary> ImpactBeneficiaries { get; set; }
+        public virtual BeneficiaryGroup BeneficiaryGroup { get; set; }
+        public virtual Impact Impact { get; set; }
     }
 }

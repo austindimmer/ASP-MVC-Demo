@@ -1,4 +1,4 @@
-﻿var CreateImpactController = function ($scope, $document, $http, $compile, $event) {
+﻿var CreateImpactController = function ($scope, $document, $http, $compile, $location) {
     $scope.title = $document[0].title;
     $scope.windowTitle = angular.element(window.document)[0].title;
 
@@ -24,11 +24,29 @@
         $scope.selectedBeneficiaryGroupSource = new kendo.data.DataSource({});
         $scope.selectedBeneficiaryGroupsTemplate = $("#selectedBeneficiaryGroupsTemplate").html();
 
-      
+
+        var dataAquisitionUrl;
+        var currentURL = $location.absUrl();
+        var params;
+        if (currentURL.indexOf("Create") != -1) {
+            dataAquisitionUrl = '/Impacts/GetBlankImpactViewModel/';
+        }
+
+        if (currentURL.indexOf("Edit") != -1) {
+            dataAquisitionUrl = '/Impacts/GetExistingImpactViewModel/';
+            var urlSegments = currentURL.split("/");
+            var segmentCount = urlSegments.length;
+            var guid = urlSegments[segmentCount - 1];
+            params = {
+                impactId: guid
+            }
+        }
+
 
         $http({
             method: 'GET',
-            url: '/Impacts/GetBlankImpactViewModel/',
+            url: dataAquisitionUrl,
+            params: params
         }).success(function (result) {
             var parsedData = JSON.parse(result);
             $scope.impactViewModel = parsedData;
@@ -50,6 +68,21 @@
             kendo.bind($("startyearpicker"), $scope.impactViewModel);
 
             startYearPicker.kendoDatePicker({
+                change: function() {
+                    var value = this.value();
+                    $scope.impactViewModel.StartDate = value;
+                    console.log(value); //value is the selected date in the datepicker
+                },
+                animation: {
+                    close: {
+                        effects: "fadeOut",
+                        duration: 300
+                    },
+                    open: {
+                        effects: "fadeIn zoom:in",
+                        duration: 300
+                    }
+                },
                 start: "decade",
                 depth: "decade",
                 format: "yyyy",
@@ -58,6 +91,21 @@
             });
 
             endYearPicker.kendoDatePicker({
+                change: function () {
+                    var value = this.value();
+                    $scope.impactViewModel.FinishDate = value;
+                    console.log(value); //value is the selected date in the datepicker
+                },
+                animation: {
+                    close: {
+                        effects: "fadeOut",
+                        duration: 300
+                    },
+                    open: {
+                        effects: "fadeIn zoom:in",
+                        duration: 300
+                    }
+                },
                 start: "decade",
                 depth: "decade",
                 format: "yyyy",
@@ -170,4 +218,4 @@
 
 
 
-CreateImpactController.$inject = ['$scope', '$document', '$http', '$compile'];
+CreateImpactController.$inject = ['$scope', '$document', '$http', '$compile', '$location'];

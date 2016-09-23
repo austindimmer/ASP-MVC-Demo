@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
 using Powerfront.Backend.EntityFramework;
+using Powerfront.Backend.Impact.EntityFramework;
+using Powerfront.Backend.Impact.Model;
 using Powerfront.Backend.Model;
 using System;
 using System.Collections.Generic;
@@ -36,6 +38,8 @@ namespace Powerfront.Frontend
                 cfg.CreateMap<TypeViewModel, Backend.EntityFramework.Type>();
                 cfg.CreateMap<Property, PropertyViewModel>();
                 cfg.CreateMap<PropertyViewModel, Property>();
+                cfg.CreateMap<Impact, ImpactViewModel>();
+                cfg.CreateMap<ImpactViewModel, Impact>();
             });
 
             //ModelBinders.Binders.DefaultBinder = new DefaultDictionaryBinder();

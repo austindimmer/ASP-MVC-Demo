@@ -17,7 +17,7 @@ namespace Powerfront.Backend.Impact.EntityFramework
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Impact()
         {
-            this.BeneficiaryGroups = new HashSet<BeneficiaryGroup>();
+            this.ImpactBeneficiaries = new HashSet<ImpactBeneficiary>();
         }
     
         public System.Guid ImpactId { get; set; }
@@ -26,10 +26,8 @@ namespace Powerfront.Backend.Impact.EntityFramework
         public System.DateTime StartDate { get; set; }
         public System.DateTime FinishDate { get; set; }
         public string ImpactName { get; set; }
-        public Nullable<System.Guid> BeneficiaryGroupId { get; set; }
     
-        public virtual BeneficiaryGroup BeneficiaryGroup { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<BeneficiaryGroup> BeneficiaryGroups { get; set; }
+        public virtual ICollection<ImpactBeneficiary> ImpactBeneficiaries { get; set; }
     }
 }

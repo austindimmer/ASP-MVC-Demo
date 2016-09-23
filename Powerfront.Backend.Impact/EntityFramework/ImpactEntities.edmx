@@ -11,7 +11,6 @@
           </Key>
           <Property Name="BeneficiaryGroupId" Type="uniqueidentifier" Nullable="false" />
           <Property Name="BeneficiaryGroupDescription" Type="varchar" MaxLength="255" Nullable="false" />
-          <Property Name="ImpactId" Type="uniqueidentifier" />
         </EntityType>
         <EntityType Name="Impact">
           <Key>
@@ -23,28 +22,35 @@
           <Property Name="StartDate" Type="date" Nullable="false" />
           <Property Name="FinishDate" Type="date" Nullable="false" />
           <Property Name="ImpactName" Type="varchar" MaxLength="255" Nullable="false" />
-          <Property Name="BeneficiaryGroupId" Type="uniqueidentifier" />
         </EntityType>
-        <Association Name="FK_BeneficiaryGroupId">
-          <End Role="BeneficiaryGroup" Type="Self.BeneficiaryGroup" Multiplicity="0..1" />
-          <End Role="Impact" Type="Self.Impact" Multiplicity="*" />
+        <EntityType Name="ImpactBeneficiaries">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ImpactId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="BeneficiaryGroupId" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_BeneficiaryGroup">
+          <End Role="BeneficiaryGroup" Type="Self.BeneficiaryGroup" Multiplicity="1" />
+          <End Role="ImpactBeneficiaries" Type="Self.ImpactBeneficiaries" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="BeneficiaryGroup">
               <PropertyRef Name="BeneficiaryGroupId" />
             </Principal>
-            <Dependent Role="Impact">
+            <Dependent Role="ImpactBeneficiaries">
               <PropertyRef Name="BeneficiaryGroupId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ImpactId">
-          <End Role="Impact" Type="Self.Impact" Multiplicity="0..1" />
-          <End Role="BeneficiaryGroup" Type="Self.BeneficiaryGroup" Multiplicity="*" />
+          <End Role="Impact" Type="Self.Impact" Multiplicity="1" />
+          <End Role="ImpactBeneficiaries" Type="Self.ImpactBeneficiaries" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Impact">
               <PropertyRef Name="ImpactId" />
             </Principal>
-            <Dependent Role="BeneficiaryGroup">
+            <Dependent Role="ImpactBeneficiaries">
               <PropertyRef Name="ImpactId" />
             </Dependent>
           </ReferentialConstraint>
@@ -52,13 +58,14 @@
         <EntityContainer Name="ImpactModelStoreContainer">
           <EntitySet Name="BeneficiaryGroup" EntityType="Self.BeneficiaryGroup" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Impact" EntityType="Self.Impact" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_BeneficiaryGroupId" Association="Self.FK_BeneficiaryGroupId">
+          <EntitySet Name="ImpactBeneficiaries" EntityType="Self.ImpactBeneficiaries" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_BeneficiaryGroup" Association="Self.FK_BeneficiaryGroup">
             <End Role="BeneficiaryGroup" EntitySet="BeneficiaryGroup" />
-            <End Role="Impact" EntitySet="Impact" />
+            <End Role="ImpactBeneficiaries" EntitySet="ImpactBeneficiaries" />
           </AssociationSet>
           <AssociationSet Name="FK_ImpactId" Association="Self.FK_ImpactId">
             <End Role="Impact" EntitySet="Impact" />
-            <End Role="BeneficiaryGroup" EntitySet="BeneficiaryGroup" />
+            <End Role="ImpactBeneficiaries" EntitySet="ImpactBeneficiaries" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -72,9 +79,7 @@
           </Key>
           <Property Name="BeneficiaryGroupId" Type="Guid" Nullable="false" />
           <Property Name="BeneficiaryGroupDescription" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="ImpactId" Type="Guid" />
-          <NavigationProperty Name="Impacts" Relationship="Self.FK_BeneficiaryGroupId" FromRole="BeneficiaryGroup" ToRole="Impact" />
-          <NavigationProperty Name="Impact" Relationship="Self.FK_ImpactId" FromRole="BeneficiaryGroup" ToRole="Impact" />
+          <NavigationProperty Name="ImpactBeneficiaries" Relationship="Self.FK_BeneficiaryGroup" FromRole="BeneficiaryGroup" ToRole="ImpactBeneficiaries" />
         </EntityType>
         <EntityType Name="Impact">
           <Key>
@@ -86,30 +91,38 @@
           <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="FinishDate" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="ImpactName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="BeneficiaryGroupId" Type="Guid" />
-          <NavigationProperty Name="BeneficiaryGroup" Relationship="Self.FK_BeneficiaryGroupId" FromRole="Impact" ToRole="BeneficiaryGroup" />
-          <NavigationProperty Name="BeneficiaryGroups" Relationship="Self.FK_ImpactId" FromRole="Impact" ToRole="BeneficiaryGroup" />
+          <NavigationProperty Name="ImpactBeneficiaries" Relationship="Self.FK_ImpactId" FromRole="Impact" ToRole="ImpactBeneficiaries" />
         </EntityType>
-        <Association Name="FK_BeneficiaryGroupId">
-          <End Role="BeneficiaryGroup" Type="Self.BeneficiaryGroup" Multiplicity="0..1" />
-          <End Role="Impact" Type="Self.Impact" Multiplicity="*" />
+        <EntityType Name="ImpactBeneficiary">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Guid" Nullable="false" />
+          <Property Name="ImpactId" Type="Guid" Nullable="false" />
+          <Property Name="BeneficiaryGroupId" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="BeneficiaryGroup" Relationship="Self.FK_BeneficiaryGroup" FromRole="ImpactBeneficiaries" ToRole="BeneficiaryGroup" />
+          <NavigationProperty Name="Impact" Relationship="Self.FK_ImpactId" FromRole="ImpactBeneficiaries" ToRole="Impact" />
+        </EntityType>
+        <Association Name="FK_BeneficiaryGroup">
+          <End Role="BeneficiaryGroup" Type="Self.BeneficiaryGroup" Multiplicity="1" />
+          <End Role="ImpactBeneficiaries" Type="Self.ImpactBeneficiary" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="BeneficiaryGroup">
               <PropertyRef Name="BeneficiaryGroupId" />
             </Principal>
-            <Dependent Role="Impact">
+            <Dependent Role="ImpactBeneficiaries">
               <PropertyRef Name="BeneficiaryGroupId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ImpactId">
-          <End Role="Impact" Type="Self.Impact" Multiplicity="0..1" />
-          <End Role="BeneficiaryGroup" Type="Self.BeneficiaryGroup" Multiplicity="*" />
+          <End Role="Impact" Type="Self.Impact" Multiplicity="1" />
+          <End Role="ImpactBeneficiaries" Type="Self.ImpactBeneficiary" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Impact">
               <PropertyRef Name="ImpactId" />
             </Principal>
-            <Dependent Role="BeneficiaryGroup">
+            <Dependent Role="ImpactBeneficiaries">
               <PropertyRef Name="ImpactId" />
             </Dependent>
           </ReferentialConstraint>
@@ -117,13 +130,14 @@
         <EntityContainer Name="ImpactEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="BeneficiaryGroups" EntityType="Self.BeneficiaryGroup" />
           <EntitySet Name="Impacts" EntityType="Self.Impact" />
-          <AssociationSet Name="FK_BeneficiaryGroupId" Association="Self.FK_BeneficiaryGroupId">
+          <EntitySet Name="ImpactBeneficiaries" EntityType="Self.ImpactBeneficiary" />
+          <AssociationSet Name="FK_BeneficiaryGroup" Association="Self.FK_BeneficiaryGroup">
             <End Role="BeneficiaryGroup" EntitySet="BeneficiaryGroups" />
-            <End Role="Impact" EntitySet="Impacts" />
+            <End Role="ImpactBeneficiaries" EntitySet="ImpactBeneficiaries" />
           </AssociationSet>
           <AssociationSet Name="FK_ImpactId" Association="Self.FK_ImpactId">
             <End Role="Impact" EntitySet="Impacts" />
-            <End Role="BeneficiaryGroup" EntitySet="BeneficiaryGroups" />
+            <End Role="ImpactBeneficiaries" EntitySet="ImpactBeneficiaries" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -137,7 +151,6 @@
               <MappingFragment StoreEntitySet="BeneficiaryGroup">
                 <ScalarProperty Name="BeneficiaryGroupId" ColumnName="BeneficiaryGroupId" />
                 <ScalarProperty Name="BeneficiaryGroupDescription" ColumnName="BeneficiaryGroupDescription" />
-                <ScalarProperty Name="ImpactId" ColumnName="ImpactId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -150,6 +163,14 @@
                 <ScalarProperty Name="StartDate" ColumnName="StartDate" />
                 <ScalarProperty Name="FinishDate" ColumnName="FinishDate" />
                 <ScalarProperty Name="ImpactName" ColumnName="ImpactName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ImpactBeneficiaries">
+            <EntityTypeMapping TypeName="ImpactModel.ImpactBeneficiary">
+              <MappingFragment StoreEntitySet="ImpactBeneficiaries">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="ImpactId" ColumnName="ImpactId" />
                 <ScalarProperty Name="BeneficiaryGroupId" ColumnName="BeneficiaryGroupId" />
               </MappingFragment>
             </EntityTypeMapping>

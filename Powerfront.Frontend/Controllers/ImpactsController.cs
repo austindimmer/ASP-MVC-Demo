@@ -15,6 +15,9 @@ using System.Text;
 using Powerfront.Backend.Repository;
 using Powerfront.Backend.Impact.Services;
 using static Powerfront.Backend.Model.JsonModelBinder;
+using AutoMapper;
+using Newtonsoft.Json;
+using System.IO;
 
 namespace Powerfront.Frontend.Controllers
 {
@@ -24,10 +27,16 @@ namespace Powerfront.Frontend.Controllers
         IUnitOfWork _uow;
         ImpactService _impactService;
 
+        public ImpactsController()
+        {
+            _uow = new UnitOfWork<ImpactDbContext>();
+            _impactService = new ImpactService(_uow);
+        }
+
         // GET: Impacts
         public async Task<ActionResult> Index()
         {
-            var impacts = db.Impacts.Include(i => i.BeneficiaryGroup);
+            var impacts = db.Impacts.Include(i => i.ImpactBeneficiaries);
             return View(await impacts.ToListAsync());
         }
 
@@ -35,64 +44,147 @@ namespace Powerfront.Frontend.Controllers
         [HandleUIException]
         public async Task<JsonResult> GetBlankImpactViewModel()
         {
-            ImpactViewModel impact = new ImpactViewModel();
+            ImpactViewModel impactViewModel = new ImpactViewModel();
             var beneficiaryGroups = db.BeneficiaryGroups.ToList();
-            impact.BeneficiaryGroups = beneficiaryGroups;
+            impactViewModel.BeneficiaryGroups = beneficiaryGroups;
             //impact.ImpactName = "TESTING";
-            impact.StartDate = DateTime.Now;
-            impact.FinishDate = DateTime.Now.AddYears(1);
-            impact.SelectedBeneficiaryGroups = new List<BeneficiaryGroup>();
+            impactViewModel.ImpactId = Guid.Empty;
+            impactViewModel.StartDate = DateTime.Now;
+            impactViewModel.FinishDate = DateTime.Now.AddYears(1);
+            impactViewModel.SelectedBeneficiaryGroups = new List<BeneficiaryGroup>();
 
-            var jsonImpactRecord = ImpactViewModel.Serialize(impact);
+            string jsonData = SerializeImpactViewModel(impactViewModel);
 
-            var jsonToReturn = Json(jsonImpactRecord, "application/json", Encoding.UTF8, JsonRequestBehavior.AllowGet);
+            var jsonToReturn = Json(jsonData, "application/json", Encoding.UTF8, JsonRequestBehavior.AllowGet);
             return jsonToReturn;
 
+        }
+
+
+        [HttpGet]
+        public async Task<JsonResult> GetExistingImpactViewModel(string impactId)
+        {
+            Guid parsedGuid;
+            Guid.TryParse(impactId, out parsedGuid);
+            Impact impact = db.Impacts.Include(i => i.ImpactBeneficiaries).Where(i => i.ImpactId== parsedGuid).FirstOrDefault();
+
+
+            string jsonImpactRecord;
+            if (impact == null)
+            {
+                return Json(new { error = true }, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                ImpactViewModel impactViewModel = Mapper.Map<Impact, ImpactViewModel>(impact);
+
+                //now I need to switch around BenefitGroups and Selected Benefit Groups for the viewModel
+
+                var beneficiaryGroups = await db.BeneficiaryGroups.ToListAsync();
+                foreach (var impactBeneficiary in impact.ImpactBeneficiaries)
+                {
+                    impactViewModel.SelectedBeneficiaryGroups = new List<BeneficiaryGroup>();
+                    impactViewModel.SelectedBeneficiaryGroups.Add(impactBeneficiary.BeneficiaryGroup);
+                }
+
+                var nonSelectedBeneficiaryGroups = beneficiaryGroups.Except(beneficiaryGroups.Join(impactViewModel.SelectedBeneficiaryGroups, g => g.BeneficiaryGroupId, s => s.BeneficiaryGroupId, (g, s) => g));
+
+                impactViewModel.BeneficiaryGroups = nonSelectedBeneficiaryGroups.ToList();
+                //May help aviod circular references during serialisation?
+                //impactViewModel.ImpactBeneficiaries = null;
+                //impactViewModel.SelectedBeneficiaryGroups = tempBeneficiaryGroup;
+
+                string jsonData = SerializeImpactViewModel(impactViewModel);
+                //jsonImpactRecord = ImpactViewModel.Serialize(impactViewModel);
+                var jsonToReturn = Json(jsonData, "application/json", Encoding.UTF8, JsonRequestBehavior.AllowGet);
+                return jsonToReturn;
+            }
+        }
+
+        private static string SerializeImpactViewModel(ImpactViewModel impactViewModel)
+        {
+            JsonSerializerSettings settings = new JsonSerializerSettings
+            {
+                PreserveReferencesHandling = PreserveReferencesHandling.Objects
+            };
+            var serializer = JsonSerializer.Create(settings);
+            StringBuilder sb = new StringBuilder();
+            StringWriter sw = new StringWriter(sb);
+            using (JsonWriter jw = new JsonTextWriter(sw))
+            {
+                serializer.Serialize(jw, impactViewModel);
+                var data = sb.ToString();
+            };
+
+            string jsonData = sb.ToString();
+            return jsonData;
         }
 
         [ActionName("CreateUpdateImpactWithPostedJson")]
         public JsonResult CreateUpdateImpactWithPostedJson([JsonBinder]ImpactViewModel createdImpact)
         {
-            bool addedNewImpact = false;
+            bool addedOrUpdatedmpact = false;
             if (ModelState.IsValid)
             {
-                Impact newImpact = new Impact();
-                //var aggregateCustomer = Mapper.Map<AggregateCustomerViewModel, AggregateCustomer>(createdCustomer);
+                // May need to wrap this lot in a transaction to allow for rollback in case of errors
 
-                //var dbCreationCutomer = Mapper.Map<AggregateCustomerViewModel, AggregateCustomer>(createdCustomer);
+                Impact impact = Mapper.Map<ImpactViewModel, Impact>(createdImpact);
 
-                //foreach (var item in dbCreationCutomer.CustomerDataRecords)
-                //{
-                //    //These properties must be nulled out to preserve EF model referential integrity
-                //    item.Property = null;
-                //    item.Type = null;
-                //}
+                // Update impact object to reflect changes.
 
-                //var newAggregateCustomer = _customerService.CreateCustomer(dbCreationCutomer);
-
-                //// Now that we have created a customer object update the properties and save in Db
-                //var currentProperties = _propertyService.GetAllProperties();
-                //foreach (var property in currentProperties)
-                //{
-                //    foreach (var record in newAggregateCustomer.CustomerDataRecords)
-                //    {
-                //        if (record.PropertyId == property.PropertyId)
-                //        {
-                //            record.Value = createdCustomer.CustomerDataRecords.Where(c => c.PropertyId == property.PropertyId).Select(r => r.Value).FirstOrDefault();
-                //        }
-                //    }
-                //}
-                var insertedImpact = _impactService.CreateImpact(newImpact);
-                if (insertedImpact != null)
+                if (impact.ImpactId == Guid.Empty)
                 {
-                    addedNewImpact = true;
+                    //Create new impact
+                    Impact insertedOrUpdatedImpact = null;
+                    impact.ImpactId = Guid.NewGuid();
+                    foreach (var item in createdImpact.SelectedBeneficiaryGroups)
+                    {
+                        ImpactBeneficiary impactBeneficiary = new ImpactBeneficiary();
+                        impactBeneficiary.BeneficiaryGroupId = item.BeneficiaryGroupId;
+                        impactBeneficiary.ImpactId = impact.ImpactId;
+                        impactBeneficiary.id = Guid.NewGuid();
+                        impact.ImpactBeneficiaries.Add(impactBeneficiary);
+                    }
+
+                    db.Impacts.Add(impact);
+                    try
+                    {
+                        db.SaveChanges();
+                        addedOrUpdatedmpact = true;
+                    }
+                    catch (Exception ex)
+                    {
+                        addedOrUpdatedmpact = false;
+                    }
                 }
                 else {
-                    addedNewImpact = false ;
+                    Impact impactFromService = _impactService.GetImpactByID(impact.ImpactId);
+                    //Update existing impact
+                    impactFromService.FinishDate = impact.FinishDate;
+                    impactFromService.ImpactName = impact.ImpactName;
+                    impactFromService.Notes = impact.Notes;
+                    impactFromService.Other = impact.Other;
+                    impactFromService.StartDate = impact.StartDate;
+                    impactFromService.ImpactBeneficiaries.Clear();
+                    // Save the impact without any ImpactBeneficiaries. This will clear Db of any Id's tied to this Impact?
+                    addedOrUpdatedmpact = _impactService.UpdateImpactRecord(impactFromService);
+                    impactFromService = _impactService.GetImpactByID(impact.ImpactId);
+
+                    foreach (var item in createdImpact.SelectedBeneficiaryGroups)
+                    {
+                        ImpactBeneficiary impactBenficiary = new ImpactBeneficiary();
+                        impactBenficiary.BeneficiaryGroupId = item.BeneficiaryGroupId;
+                        impactBenficiary.ImpactId = impactFromService.ImpactId;
+                        impact.ImpactBeneficiaries.Add(impactBenficiary);
+                    }
+
+                    addedOrUpdatedmpact = _impactService.UpdateImpactRecord(impactFromService);
+
                 }
+                
 
             }
-            if (addedNewImpact)
+            if (addedOrUpdatedmpact)
             {
                 return Json(new { success = true }, JsonRequestBehavior.AllowGet);
             }
@@ -139,7 +231,6 @@ namespace Powerfront.Frontend.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.BeneficiaryGroupId = new SelectList(db.BeneficiaryGroups, "BeneficiaryGroupId", "BeneficiaryGroupDescription", impact.BeneficiaryGroupId);
             return View(impact);
         }
 
@@ -155,7 +246,6 @@ namespace Powerfront.Frontend.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.BeneficiaryGroupId = new SelectList(db.BeneficiaryGroups, "BeneficiaryGroupId", "BeneficiaryGroupDescription", impact.BeneficiaryGroupId);
             return View(impact);
         }
 
@@ -172,7 +262,6 @@ namespace Powerfront.Frontend.Controllers
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            ViewBag.BeneficiaryGroupId = new SelectList(db.BeneficiaryGroups, "BeneficiaryGroupId", "BeneficiaryGroupDescription", impact.BeneficiaryGroupId);
             return View(impact);
         }
 
@@ -183,6 +272,7 @@ namespace Powerfront.Frontend.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
             Impact impact = await db.Impacts.FindAsync(id);
             if (impact == null)
             {
