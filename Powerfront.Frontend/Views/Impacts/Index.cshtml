@@ -7,58 +7,34 @@
 
 <h2>Index</h2>
 
-<p>
+@*<p>
     @Html.ActionLink("Create New", "Create")
-</p>
+</p>*@
 <table class="table">
     <tr>
-        @*<th>
-            @Html.DisplayNameFor(model => model.Other)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Notes)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.StartDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FinishDate)
-        </th>*@
         <th>
             @Html.DisplayNameFor(model => model.ImpactName)
         </th>
-        @*<th>
-            @Html.DisplayNameFor(model => model.BeneficiaryGroup.BeneficiaryGroupDescription)
-        </th>*@
+
         <th></th>
     </tr>
 
 @foreach (var item in Model) {
     <tr>
-        @*<td>
-            @Html.DisplayFor(modelItem => item.Other)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Notes)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.StartDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FinishDate)
-        </td>*@
+ 
         <td>
             @Html.DisplayFor(modelItem => item.ImpactName)
         </td>
-        @*<td>
-            @Html.DisplayFor(modelItem => item.BeneficiaryGroup.BeneficiaryGroupDescription)
-        </td>*@
+
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ImpactId }) |
+            @Html.ActionLink("Edit", "Edit", "Impacts", null, new { @class = "btn btn-info btn-md", @id = "EditButton" })
+            @*@Html.ActionLink("Edit", "Edit", new { id=item.ImpactId })*@ @*|
             @Html.ActionLink("Details", "Details", new { id=item.ImpactId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ImpactId })
+            @Html.ActionLink("Delete", "Delete", new { id=item.ImpactId })*@
         </td>
     </tr>
 }
 
 </table>
+
+<p>@Html.ActionLink("Create New", "Create", "Impacts", null, new { @class = "btn btn-primary btn-md", @id = "ImpactsButton" })</p>

@@ -27,13 +27,14 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("PowerFront", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("EffectiveComputing", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Maintenance", "Index", "Maintenance")</li>
-                    <li>@Html.ActionLink("Properties", "Index", "Property")</li>
+                    @*<li>@Html.ActionLink("Maintenance", "Index", "Maintenance")</li>
+                    <li>@Html.ActionLink("Properties", "Index", "Property")</li>*@
+                    <li>@Html.ActionLink("Impacts", "Index", "Impacts")</li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
