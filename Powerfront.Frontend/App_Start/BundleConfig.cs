@@ -60,8 +60,7 @@ namespace Powerfront.Frontend
             bundles.Add(new StyleBundle("~/Content/kendo").Include(
                       "~/Content/Kendo/kendo.common.css",
                       "~/Content/Kendo/kendo.common.bootstrap.min.css",
-                      "~/Content/Kendo/kendo.metroblack.min.css",
-                      "~/Content/Kendo/kendo.metroblack.mobile.min.css"
+                      "~/Content/Kendo/kendo.black.min.css"
 ));
         }
     }
